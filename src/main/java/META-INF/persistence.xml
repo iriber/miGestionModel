@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="migestion">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
+	<class>com.migestion.model.Producto</class>
+	<class>com.migestion.model.CategoriaProducto</class>
+	<class>com.migestion.model.Cliente</class>
+	<class>com.migestion.model.Vendedor</class>
+	<class>com.migestion.model.DetalleVenta</class>
+	<class>com.migestion.model.Venta</class>
+	<class>com.migestion.model.CuentaBancaria</class>
+	<class>com.migestion.model.Sucursal</class>
+	<class>com.migestion.model.Pago</class>
+	<class>com.migestion.model.DetallePago</class>
+	<class>com.migestion.model.DetallePagoVenta</class>
+	<class>com.migestion.model.Cheque</class>
+	<class>com.migestion.model.DetalleFormaPago</class>
+	<class>com.migestion.model.DetalleFormaPagoCheque</class>
+	<class>com.migestion.model.DetalleFormaPagoTarjeta</class>
+	<class>com.migestion.model.DetalleFormaPagoEfectivo</class>
+	<class>com.migestion.model.DetalleFormaPagoTransferencia</class>
+	<class>com.migestion.model.DetalleFormaPagoDeposito</class>
+	<class>com.migestion.model.Caja</class>
+	<class>com.migestion.model.EstadoCaja</class>
+	<class>com.migestion.model.MovimientoCaja</class>
+	<class>com.migestion.model.ConceptoMovimiento</class>		
+	<class>com.migestion.model.MovimientoCuentaBancaria</class>
+	<class>com.migestion.model.MovimientoCheque</class>
+		
+	<properties>
+		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+		
+		<property name="hibernate.connection.username" value="root" />
+		<property name="hibernate.connection.password" value="root01"/>
+		<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/migestion"/>
+		<property name="hibernate.default_schema" value="migestion" />
+		
+		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+	    <property name="hibernate.hbm2ddl.auto" value="update"/>
+	    <property name="hibernate.show_sql" value="true"/>
+    	<property name="hibernate.format_sql" value="true"/>
+    	<property name="hibernate.connection.autocommit" value="true"/> 
+	</properties>
+    
+  </persistence-unit>
+</persistence>
+
