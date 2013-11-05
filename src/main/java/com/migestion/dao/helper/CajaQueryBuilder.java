@@ -45,6 +45,8 @@ public class CajaQueryBuilder extends QueryBuilder<Caja>{
 	    
 	    query.where(getPredicates(root, builder, criteria));		
 		
+	    query.orderBy( criteria.buildOrderBy( root, builder ));
+	    
 		return query;
 
 	}

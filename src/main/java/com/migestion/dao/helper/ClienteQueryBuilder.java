@@ -39,9 +39,8 @@ public class ClienteQueryBuilder extends QueryBuilder<Cliente>{
 	    Root<Cliente> root = query.from(Cliente.class);
 	    query.select(root);
 	 
-	    
 	    query.where(getPredicates(root, builder, criteria));		
-		
+	    query.orderBy( criteria.buildOrderBy( root, builder ));		
 		return query;
 
 	}

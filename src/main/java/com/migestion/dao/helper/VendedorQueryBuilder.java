@@ -39,9 +39,10 @@ public class VendedorQueryBuilder extends QueryBuilder<Vendedor>{
 	    Root<Vendedor> root = query.from(Vendedor.class);
 	    query.select(root);
 	 
-	    
 	    query.where(getPredicates(root, builder, criteria));		
-		
+
+	    query.orderBy( criteria.buildOrderBy( root, builder ));
+	    
 		return query;
 
 	}

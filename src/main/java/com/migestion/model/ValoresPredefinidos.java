@@ -17,7 +17,9 @@ public class ValoresPredefinidos {
 	public static final Long SUCURSAL_CASA_MATRIZ = Long.valueOf( prop.getProperty("sucursal.casa.matriz") );;
 	
 	public static final Long CATEGORIA_PRODUCTO_GENERAL = Long.valueOf( prop.getProperty("categoriaProducto.general") );;
-	
+
+	public static final Float CAJA_SALDO_INICIAL = Float.valueOf( prop.getProperty("caja.saldoInicial") );;
+
 	//private static ResourceBundle prop = ResourceBundle.getBundle("i18n");  
     
     public static Properties getProperties(){

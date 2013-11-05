@@ -43,7 +43,7 @@ public class TestAnularVenta{
 		try {
 		
 			//agregamos la entity
-			service.anularVenta( 32768L );
+			//service.anularVenta( 32768L );
 			
 			//TODO chequear
 			
