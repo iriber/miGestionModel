@@ -41,7 +41,7 @@ public class CuentaBancariaQueryBuilder extends QueryBuilder<CuentaBancaria>{
 	 
 	    
 	    query.where(getPredicates(root, builder, criteria));		
-		
+	    query.orderBy( criteria.buildOrderBy( root, builder ));
 		return query;
 
 	}

@@ -13,9 +13,9 @@ import java.awt.Color;
  */
 public enum EstadoVenta{
 
-	IMPAGA("estado.venta.impaga", new Color(0xFF0000), new Color(0xFFFFFF)),
-	PAGADA("estado.venta.pagada", new Color(0x00FF00), new Color(0xFFFFFF)),
-	PAGADA_PARCIALMENTE("estado.venta.pagada_parcialmente", new Color(0xFF0000), new Color(0xFFFFFF)),
+	IMPAGA("estado.venta.impaga", new Color(0xFA5858), new Color(0xFFFFFF)),
+	PAGADA("estado.venta.pagada", new Color(0xD0F5A9), new Color(0x000000)),
+	PAGADA_PARCIALMENTE("estado.venta.pagada_parcialmente", new Color(0xF7FE2E), new Color(0x000000)),
 	ANULADA("estado.venta.anulada", new Color(0xFF0000), new Color(0xFFFFFF));
 	
 	

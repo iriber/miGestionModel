@@ -29,4 +29,8 @@ public class CuentaBancariaCriteria extends Criteria{
 		this.nombre = nombre;
 	}
 
+	public void orderByNombre(String type){
+		
+		this.addOrder("nombre", type);
+	}
 }
