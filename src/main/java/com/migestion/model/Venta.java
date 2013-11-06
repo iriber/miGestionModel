@@ -1,6 +1,8 @@
 package com.migestion.model;
 
 
+import java.text.SimpleDateFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -175,6 +177,11 @@ public class Venta extends Operacion{
 	     this.setMontoPagado( getMontoPagado() - detalle.getMonto() );
 	     this.setMontoDebe( getMontoDebe() + detalle.getMonto() );
 	     
+	}
+	
+	public String toString(){
+		
+		return this.getOid() + " - " + new SimpleDateFormat("dd/MM/yyyy").format( getFecha() ) ;
 	}
 
 }
