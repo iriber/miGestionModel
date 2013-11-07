@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.migestion.dao.PersistenceContext;
+import com.migestion.dao.exception.PersistenceContextException;
 import com.migestion.model.GenericEntity;
 import com.migestion.services.IGenericService;
 import com.migestion.services.criteria.Criteria;
@@ -69,7 +70,12 @@ public abstract class TestAddEntity<T extends GenericEntity, TCriteria extends C
 			
 			
 		} catch (Exception e) {
-			PersistenceContext.getInstance().rollback();
+			try {
+				PersistenceContext.getInstance().rollback();
+			} catch (PersistenceContextException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			e.printStackTrace();
 			fail( e.getMessage() );
