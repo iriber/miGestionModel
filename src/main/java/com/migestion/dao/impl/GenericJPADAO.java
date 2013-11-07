@@ -35,6 +35,9 @@ public abstract class GenericJPADAO<T extends GenericEntity, TCriteria extends C
 	}
 
 	public EntityManager getEntityManager() {
+		
+		if( !this.entityManager.isOpen() )
+			this.entityManager = PersistenceContext.getInstance().getEntityManager();
 		return this.entityManager;
 	}
 
@@ -123,6 +126,7 @@ public abstract class GenericJPADAO<T extends GenericEntity, TCriteria extends C
 		
 		entityManager.persist(entity);
 
+		//entityManager.flush();
 	}
 
 	/*

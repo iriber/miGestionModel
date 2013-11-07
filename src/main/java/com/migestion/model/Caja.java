@@ -97,11 +97,11 @@ public class Caja extends GenericEntity{
 	@NotFound(action=NotFoundAction.IGNORE)	
 	private Sucursal sucursal;
 
-	/**
-	 * movimientos de caja.
-	 */
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="caja",fetch = FetchType.EAGER)
-	private Set<MovimientoCaja> movimientos;
+//	/**
+//	 * movimientos de caja.
+//	 */
+//	@OneToMany(cascade=CascadeType.ALL, mappedBy="caja",fetch = FetchType.EAGER)
+//	private Set<MovimientoCaja> movimientos;
 	
 	
 	/**
@@ -128,7 +128,7 @@ public class Caja extends GenericEntity{
 	}
 
 	public Caja(){
-		movimientos = new HashSet<MovimientoCaja>();
+//		movimientos = new HashSet<MovimientoCaja>();
 	}
 
 
@@ -236,38 +236,38 @@ public class Caja extends GenericEntity{
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-
-	/**
-	 * @return the movimientos
-	 */
-	public List<MovimientoCaja> getMovimientosCaja() {
-		List<MovimientoCaja> movimientos = new ArrayList<MovimientoCaja>();
-		movimientos.addAll(this.movimientos);
-		return movimientos;
-	}
-
-
-	/**
-	 * @param movimientos the movimientos to set
-	 */
-	public void setMovimientosCaja(Set<MovimientoCaja> movimientos) {
-		
-		this.movimientos = new HashSet<MovimientoCaja>();
-		
-		for (MovimientoCaja movimiento : movimientos) {
-			this.movimientos.add( movimiento );
-		}
-		
-	}
-	
-	/**
-	 * se agrega un movimiento de caja.
-	 * @param movimiento
-	 */
-	public void addMovimientoCaja( MovimientoCaja movimiento){
-		movimiento.setCaja(this);
-		this.movimientos.add(movimiento);
-	}
+//
+//	/**
+//	 * @return the movimientos
+//	 */
+//	public List<MovimientoCaja> getMovimientosCaja() {
+//		List<MovimientoCaja> movimientos = new ArrayList<MovimientoCaja>();
+//		movimientos.addAll(this.movimientos);
+//		return movimientos;
+//	}
+//
+//
+//	/**
+//	 * @param movimientos the movimientos to set
+//	 */
+//	public void setMovimientosCaja(Set<MovimientoCaja> movimientos) {
+//		
+//		this.movimientos = new HashSet<MovimientoCaja>();
+//		
+//		for (MovimientoCaja movimiento : movimientos) {
+//			this.movimientos.add( movimiento );
+//		}
+//		
+//	}
+//	
+//	/**
+//	 * se agrega un movimiento de caja.
+//	 * @param movimiento
+//	 */
+//	public void addMovimientoCaja( MovimientoCaja movimiento){
+//		movimiento.setCaja(this);
+//		this.movimientos.add(movimiento);
+//	}
 
 
 	/**

@@ -3,6 +3,7 @@ package com.migestion.services.criteria;
 import java.util.Date;
 
 import com.migestion.model.Caja;
+import com.migestion.model.Sucursal;
 
 /**
  * Criterio de búsqueda para movimientos de caja.
@@ -17,6 +18,28 @@ public class MovimientoCajaCriteria extends Criteria{
 	 * caja
 	 */
 	private Caja caja;
+
+	
+	private Date fecha;
+	
+	private Sucursal sucursal;
+	
+	
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
 	/**
 	 * @return the caja

@@ -1,5 +1,7 @@
 package com.migestion.services.impl;
 
+import java.util.Date;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.ICajaDAO;
 import com.migestion.dao.IGenericDAO;
@@ -7,7 +9,9 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.model.Caja;
 import com.migestion.model.EstadisticaCaja;
 import com.migestion.model.EstadoCaja;
+import com.migestion.model.MovimientoCaja;
 import com.migestion.services.ICajaService;
+import com.migestion.services.ServiceFactory;
 import com.migestion.services.criteria.CajaCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -85,10 +89,23 @@ public class CajaServiceImpl extends GenericService<Caja, CajaCriteria>
 		entity.setEstadoCaja(EstadoCaja.ABIERTA);
 
 		//seteamos el saldo como el saldo inicial
-		entity.setSaldo( entity.getSaldoInicial() );
+		//entity.setSaldo( entity.getSaldoInicial() );
+		
+		entity.setSaldo(0F);
 		
 		// agregamos la caja.
 		super.add(entity);
+		
+		//agregamos un movimiento por el saldo inicial
+		MovimientoCaja movimiento = new MovimientoCaja();
+		movimiento.setCaja(entity);
+		movimiento.setConcepto( ServiceFactory.getConceptoCajaService().getConceptoSaldoInicial() );
+		movimiento.setHaber( entity.getSaldoInicial() );
+		movimiento.setFechaHora( entity.getFecha() );
+
+		ServiceFactory.getMovimientoCajaService().add(movimiento);
+		
+		
 	}
 
 	/*

@@ -27,7 +27,7 @@ public class EstadisticaCaja implements Serializable{
 		Float saldo = haber - debe;
 
 		
-		return saldo + saldoInicial;
+		return saldo; // + saldoInicial;
 	}
 
 

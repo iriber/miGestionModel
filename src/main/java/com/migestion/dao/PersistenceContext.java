@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.migestion.dao.exception.PersistenceContextException;
+
 public class PersistenceContext {
 
 	private static String defaultUnit = "migestion";
@@ -48,8 +50,9 @@ public class PersistenceContext {
 	 * @param string $unitName nombre de la unidad de persistencia.
 
 	 */
-	public EntityManager getEntityManager(String unitName) {
+	public EntityManager getEntityManager(String unitName){
 		
+
 		if(StringUtils.isEmpty(unitName))
 			unitName = defaultUnit;
 		
@@ -59,27 +62,45 @@ public class PersistenceContext {
 			em = emf.createEntityManager();
 			emMap.put(unitName, em); 
 		}else{
-//			if(emMap.get(unitName)->getConnection()->isConnected()){
-//				$this->em->get($unitName)->getConnection()->connect();
-//			}
+//				if(emMap.get(unitName)->getConnection()->isConnected()){
+//					$this->em->get($unitName)->getConnection()->connect();
+//				}
+			em = emMap.get(unitName);
+			if(! em.isOpen() ){
+				emf = Persistence.createEntityManagerFactory(unitName);
+				em = emf.createEntityManager();
+				emMap.put(unitName, em);
+			}
 		}
 		
+		
 		return emMap.get(unitName);	
+
+		
 	}
 
 	/**
 	 * se inicia una transaccion en la unidad de persistencia indicada.
 	 * si no se indica ninguna se toma la default.
 	 * @param string $unitName nombre de la unidad de persistencia.
+	 * @throws PersistenceContextException 
 	 */
-	public void beginTransaction(String unitName){
+	public void beginTransaction(String unitName) throws PersistenceContextException{
 
-		if(StringUtils.isEmpty(unitName))
-			unitName = defaultUnit;
+		try {
 			
-		EntityManager entityManager = getEntityManager( unitName );
+			if(StringUtils.isEmpty(unitName))
+				unitName = defaultUnit;
+				
+			EntityManager entityManager = getEntityManager( unitName );
+			
+			entityManager.getTransaction().begin();
+			
+		} catch (RuntimeException e) {
+			
+			throw new PersistenceContextException(e);
+		}
 		
-		entityManager.getTransaction().begin();
 	}
 	
 	/**
@@ -87,14 +108,22 @@ public class PersistenceContext {
 	 * si no se indica ninguna se toma la default.
 	 * @param string $unitName nombre de la unidad de persistencia.
 	 */
-	public void commit(String unitName){
+	public void commit(String unitName) throws PersistenceContextException{
 
-		if(StringUtils.isEmpty(unitName))
-			unitName = defaultUnit;
+		try {
 			
-		EntityManager entityManager = getEntityManager( unitName );
-		
-		entityManager.getTransaction().commit();
+			if(StringUtils.isEmpty(unitName))
+				unitName = defaultUnit;
+				
+			EntityManager entityManager = getEntityManager( unitName );
+			
+			entityManager.getTransaction().commit();
+			
+		} catch (RuntimeException e) {
+			
+			throw new PersistenceContextException(e);
+		}
+
 	}
 
 	/**
@@ -102,14 +131,24 @@ public class PersistenceContext {
 	 * si no se indica ninguna se toma la default.
 	 * @param string unitName nombre de la unidad de persistencia.
 	 */
-	public void rollback(String unitName){
+	public void rollback(String unitName) throws PersistenceContextException{
 
-		if(StringUtils.isEmpty(unitName))
-			unitName = defaultUnit;
+		try {
 			
-		EntityManager entityManager = getEntityManager( unitName );
-		
-		entityManager.getTransaction().rollback();
+			if(StringUtils.isEmpty(unitName))
+				unitName = defaultUnit;
+				
+			EntityManager entityManager = getEntityManager( unitName );
+			
+			if( entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
+			
+			entityManager.clear();
+		} catch (RuntimeException e) {
+			
+			throw new PersistenceContextException(e);
+		}
+
 	}	
 	
 	/**
@@ -117,32 +156,42 @@ public class PersistenceContext {
 	 * si no se indica ninguna se toma la default.
 	 * @param string $unitName nombre de la unidad de persistencia.
 	 */
-	public void close(String unitName){
+	public void close(String unitName) throws PersistenceContextException{
 
-		if(StringUtils.isEmpty(unitName))
-			unitName = defaultUnit;
+		try {
 			
-		EntityManager entityManager = getEntityManager( unitName );
-		
-		entityManager.close();
+			if(StringUtils.isEmpty(unitName))
+				unitName = defaultUnit;
+				
+			EntityManager entityManager = getEntityManager( unitName );
+			
+			entityManager.close();
+			
+			emMap.remove(unitName);
+			
+		} catch (RuntimeException e) {
+			
+			throw new PersistenceContextException(e);
+		}
+
 	}
 	
-	public EntityManager getEntityManager() {
+	public EntityManager getEntityManager(){
 		return this.getEntityManager("");
 	}
 	
-	public void beginTransaction(){
-		this.beginTransaction("");
+	public void beginTransaction() throws PersistenceContextException{
+		this.beginTransaction("") ;
 	}
 	
-	public void commit(){
+	public void commit() throws PersistenceContextException{
 		this.commit("");
 	}
 	
-	public void rollback(){
+	public void rollback() throws PersistenceContextException{
 		this.rollback("");
 	}
-	public void close(){
+	public void close() throws PersistenceContextException{
 		this.close("");
 	}
 }

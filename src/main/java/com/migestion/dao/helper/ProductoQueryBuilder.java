@@ -58,7 +58,27 @@ public class ProductoQueryBuilder extends QueryBuilder<Producto>{
 	        predicateList.add(nombrePredicate);
 	    }
 	 
-	 
+	    String nombreEqual  = ((ProductoCriteria)criteria).getNombreEqual();
+	    if( !StringUtils.isEmpty(nombreEqual) ){
+	    	Predicate nombreEqualPredicate = builder.equal(
+	        builder.upper(root.<String>get("nombre")), nombreEqual.toUpperCase());
+	        predicateList.add(nombreEqualPredicate);
+	    }
+
+	    Long oid = ((ProductoCriteria)criteria).getOid();
+	    if( oid!=null ){
+	    	Predicate oidPredicate = builder.equal(
+	        root.<Long>get("oid"), oid);
+	        predicateList.add(oidPredicate);
+	    }
+
+	    Long oidNotEqual = ((ProductoCriteria)criteria).getOidNotEqual();
+	    if( oidNotEqual!=null ){
+	    	Predicate oidNotEqualPredicate = builder.equal(
+	        root.<Long>get("oid"), oidNotEqual).not();
+	        predicateList.add(oidNotEqualPredicate);
+	    }
+	    
 	    Predicate[] predicates = new Predicate[predicateList.size()];
 	    predicateList.toArray(predicates);
 		return predicates;

@@ -21,7 +21,7 @@ public class CategoriaProductoServiceImpl extends GenericService<CategoriaProduc
 	/**
 	 * dao para maejar la persistencia de los productos.
 	 */
-	private IGenericDAO<CategoriaProducto, CategoriaProductoCriteria> productoDAO;
+	private IGenericDAO<CategoriaProducto, CategoriaProductoCriteria> categoriaDAO;
 
 	/**
 	 * instancia para singleton.
@@ -38,25 +38,25 @@ public class CategoriaProductoServiceImpl extends GenericService<CategoriaProduc
 	}
 	
 	/**
-	 * @param productoDAO the productoDAO to set
+	 * @param categoriaDAO the productoDAO to set
 	 */
 	private CategoriaProductoServiceImpl() {
 		
-		productoDAO = DAOFactory.getCategoriaProductoDAO();
+		categoriaDAO = DAOFactory.getCategoriaProductoDAO();
 		
 	}
 
 
 	@Override
 	protected IGenericDAO<CategoriaProducto, CategoriaProductoCriteria> getDAO() {
-		return productoDAO;
+		return categoriaDAO;
 	}
 
 
 	@Override
 	protected void validateOnAdd(CategoriaProducto entity) throws ServiceException {
 		// TODO Auto-generated method stub
-		
+		System.out.println(entity.getNombre());
 	}
 
 	@Override

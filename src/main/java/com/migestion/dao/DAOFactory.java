@@ -1,5 +1,6 @@
 package com.migestion.dao;
 
+import com.migestion.dao.impl.BalanceJPADAO;
 import com.migestion.dao.impl.CajaJPADAO;
 import com.migestion.dao.impl.CategoriaProductoJPADAO;
 import com.migestion.dao.impl.ClienteJPADAO;
@@ -130,6 +131,14 @@ public class DAOFactory {
 	 */
 	public static IGenericDAO<ConceptoMovimiento, ConceptoMovimientoCriteria> getConceptoMovimientoDAO(){
 		return new ConceptoMovimientoJPADAO();
+	}
+
+	/**
+	 * dao para balances
+	 * @return
+	 */
+	public static IBalanceDAO getBalanceDAO(){
+		return new BalanceJPADAO();
 	}
 
 }

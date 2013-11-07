@@ -1,5 +1,6 @@
 package com.migestion.services;
 
+import com.migestion.services.impl.BalanceServiceImpl;
 import com.migestion.services.impl.CajaServiceImpl;
 import com.migestion.services.impl.CategoriaProductoServiceImpl;
 import com.migestion.services.impl.ClienteServiceImpl;
@@ -110,4 +111,12 @@ public class ServiceFactory {
 	public static IConceptoMovimientoService getConceptoCajaService(){
 		return ConceptoMovimientoServiceImpl.getInstance();
 	}
+	
+	/**
+	 * servicios para balances.
+	 * @return
+	 */
+	public static IBalanceService getBalanceService(){
+		return BalanceServiceImpl.getInstance();
+	}	
 }

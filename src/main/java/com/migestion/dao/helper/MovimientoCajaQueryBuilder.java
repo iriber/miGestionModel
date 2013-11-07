@@ -1,7 +1,9 @@
 
 package com.migestion.dao.helper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +61,30 @@ public class MovimientoCajaQueryBuilder extends QueryBuilder<MovimientoCaja>{
 	    	Predicate fechaPredicate = builder.equal( (root.<Date>get("caja")), caja );
 	        predicateList.add(fechaPredicate);
 	    }
-	 
+
+		Date fecha = ((MovimientoCajaCriteria)criteria).getFecha();
+		if( fecha!=null ){
+			Calendar c = Calendar.getInstance();
+			c.setTime( fecha );
+			c.set(Calendar.MINUTE, 0);
+			c.set(Calendar.HOUR, 0);
+			c.set(Calendar.SECOND, 0);
+			c.set(Calendar.AM_PM, Calendar.AM);
+
+			Date fecha1 = c.getTime();
+			
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			Date fecha2 = c.getTime();
+			
+	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fechaHora")), fecha1, fecha2 );
+	        predicateList.add(fechaPredicate);
+	        
+	        System.out.println( " F:" + new SimpleDateFormat("yyyy/MM/dd HH:mm").format(fecha) );
+	        System.out.println( " F1:" + new SimpleDateFormat("yyyy/MM/dd HH:mm").format(fecha1) );
+	        System.out.println( " F2:" + new SimpleDateFormat("yyyy/MM/dd HH:mm").format(fecha2) );
+	        
+	    }
+		
 	    Predicate[] predicates = new Predicate[predicateList.size()];
 	    predicateList.toArray(predicates);
 		return predicates;

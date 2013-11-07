@@ -1,8 +1,11 @@
 package com.migestion.services.impl;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
+import com.migestion.i18n.Messages;
 import com.migestion.model.EstadoProducto;
 import com.migestion.model.Producto;
 import com.migestion.services.IProductoService;
@@ -56,20 +59,70 @@ public class ProductoServiceImpl extends GenericService<Producto, ProductoCriter
 
 	@Override
 	protected void validateOnAdd(Producto entity) throws ServiceException {
-		// TODO Auto-generated method stub
+	
+		//requeridos: nombre, precio, iva
+		if( StringUtils.isEmpty(entity.getNombre()) ){
+			throw new ServiceException( Messages.PRODUCTO_NOMBRE_REQUERIDO );
+		}
 		
+		if( entity.getPrecio() == null ){
+			throw new ServiceException( Messages.PRODUCTO_PRECIO_REQUERIDO );
+		}
+
+		if( entity.getIva() == null ){
+			throw new ServiceException( Messages.PRODUCTO_IVA_REQUERIDO );
+		}
+		
+		if( entity.getCategoria() == null ){
+			throw new ServiceException( Messages.PRODUCTO_CATEGORIA_REQUERIDA );
+		}
+		
+		//nombre único
+		ProductoCriteria criteria = new ProductoCriteria();
+		criteria.setNombreEqual( entity.getNombre() );
+		if( getListSize(criteria) > 0 ){
+			throw new ServiceException( Messages.PRODUCTO_NOMBRE_REPETIDO );
+		}
 		
 	}
 
 	@Override
 	protected void validateOnUpdate(Producto entity) throws ServiceException {
-		// TODO Auto-generated method stub
 		
+		//requeridos: nombre, precio, iva
+		if( StringUtils.isEmpty(entity.getNombre()) ){
+			throw new ServiceException( Messages.PRODUCTO_NOMBRE_REQUERIDO );
+		}
+		
+		if( entity.getPrecio() == null ){
+			throw new ServiceException( Messages.PRODUCTO_PRECIO_REQUERIDO );
+		}
+
+		if( entity.getIva() == null ){
+			throw new ServiceException( Messages.PRODUCTO_IVA_REQUERIDO );
+		}
+		
+		if( entity.getCategoria() == null ){
+			throw new ServiceException( Messages.PRODUCTO_CATEGORIA_REQUERIDA );
+		}
+		
+		//nombre único
+		ProductoCriteria criteria = new ProductoCriteria();
+		criteria.setNombreEqual( entity.getNombre() );
+		criteria.setOidNotEqual( entity.getOid() );
+		if( getListSize(criteria) > 0 ){
+			throw new ServiceException( Messages.PRODUCTO_NOMBRE_REPETIDO );
+		}
 	}
 
 	@Override
 	protected void validateOnDelete(Producto entity) throws ServiceException {
-		// TODO Auto-generated method stub
+
+		//que no esté afectado en ninguna operación.
+		
+		//TODO buscarlo en ventas.
+		
+		
 		
 	}
 
@@ -104,8 +157,13 @@ public class ProductoServiceImpl extends GenericService<Producto, ProductoCriter
 		if( entity.getStockActual()!=null && entity.getStockActual() > 0 && entity.getEstadoProducto().equals(EstadoProducto.AGOTADO))
 		
 			entity.setEstadoProducto(EstadoProducto.ACTIVO);
+
+		//si viene con stock  nulo y estaba agotado le seteo estado activo
+		if( entity.getStockActual()==null  && entity.getEstadoProducto().equals(EstadoProducto.AGOTADO))
 		
-		super.add(entity);
+			entity.setEstadoProducto(EstadoProducto.ACTIVO);
+		
+		super.update(entity);
 	}
 
 	/*
