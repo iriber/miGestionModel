@@ -3,10 +3,12 @@ package com.migestion.dao;
 import com.migestion.dao.impl.BalanceJPADAO;
 import com.migestion.dao.impl.CajaJPADAO;
 import com.migestion.dao.impl.CategoriaProductoJPADAO;
+import com.migestion.dao.impl.ChequeJPADAO;
 import com.migestion.dao.impl.ClienteJPADAO;
 import com.migestion.dao.impl.ConceptoMovimientoJPADAO;
 import com.migestion.dao.impl.CuentaBancariaJPADAO;
 import com.migestion.dao.impl.MovimientoCajaJPADAO;
+import com.migestion.dao.impl.NotaCreditoJPADAO;
 import com.migestion.dao.impl.PagoJPADAO;
 import com.migestion.dao.impl.ProductoJPADAO;
 import com.migestion.dao.impl.SucursalJPADAO;
@@ -14,10 +16,12 @@ import com.migestion.dao.impl.VendedorJPADAO;
 import com.migestion.dao.impl.VentaJPADAO;
 import com.migestion.model.Caja;
 import com.migestion.model.CategoriaProducto;
+import com.migestion.model.Cheque;
 import com.migestion.model.Cliente;
 import com.migestion.model.ConceptoMovimiento;
 import com.migestion.model.CuentaBancaria;
 import com.migestion.model.MovimientoCaja;
+import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
 import com.migestion.model.Producto;
 import com.migestion.model.Sucursal;
@@ -25,10 +29,12 @@ import com.migestion.model.Vendedor;
 import com.migestion.model.Venta;
 import com.migestion.services.criteria.CajaCriteria;
 import com.migestion.services.criteria.CategoriaProductoCriteria;
+import com.migestion.services.criteria.ChequeCriteria;
 import com.migestion.services.criteria.ClienteCriteria;
 import com.migestion.services.criteria.ConceptoMovimientoCriteria;
 import com.migestion.services.criteria.CuentaBancariaCriteria;
 import com.migestion.services.criteria.MovimientoCajaCriteria;
+import com.migestion.services.criteria.NotaCreditoCriteria;
 import com.migestion.services.criteria.PagoCriteria;
 import com.migestion.services.criteria.ProductoCriteria;
 import com.migestion.services.criteria.SucursalCriteria;
@@ -139,6 +145,22 @@ public class DAOFactory {
 	 */
 	public static IBalanceDAO getBalanceDAO(){
 		return new BalanceJPADAO();
+	}
+
+	/**
+	 * dao para notas de crédito
+	 * @return
+	 */
+	public static IGenericDAO<NotaCredito, NotaCreditoCriteria> getNotaCreditoDAO(){
+		return new NotaCreditoJPADAO();
+	}
+
+	/**
+	 * dao para cheques
+	 * @return
+	 */
+	public static IGenericDAO<Cheque, ChequeCriteria> getChequeDAO(){
+		return new ChequeJPADAO();
 	}
 
 }
