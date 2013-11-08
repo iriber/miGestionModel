@@ -1,5 +1,7 @@
 package com.migestion.services.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.migestion.dao.DAOFactory;
@@ -10,8 +12,10 @@ import com.migestion.model.DetalleOperacion;
 import com.migestion.model.EstadisticaVenta;
 import com.migestion.model.EstadoPago;
 import com.migestion.model.EstadoVenta;
+import com.migestion.model.NotaCredito;
 import com.migestion.model.Operacion;
 import com.migestion.model.Pago;
+import com.migestion.model.ValoresPredefinidos;
 import com.migestion.model.Venta;
 import com.migestion.services.IVentaService;
 import com.migestion.services.ServiceFactory;
@@ -148,48 +152,71 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 		// restablecemos el stock de los productos.
 		this.updatStock( venta.getDetalles() , 1);
 
-		//tengo que salir a buscar los pagos que afectan a la venta
-		//si el pago afecta a otras ventas hay que reconstruirlo
-		//quitando el detalle de pago sobre esta venta
-		//y generar una nota de crédito sobre el monto de esta venta
-		
-		//buscamos todos los pagos vigentes sobre la operacion
-		PagoCriteria criteria = new PagoCriteria();
-		criteria.setOperacion( venta );
-		criteria.addEstadoExcluir(EstadoPago.ANULADO);
-		List<Pago> pagos = ServiceFactory.getPagoService().list(criteria);
-		
-		//anulamos estos pagos
-		for (Pago pago : pagos) {
-			
-			ServiceFactory.getPagoService().anularPago( pago.getOid() );
-			
-		}
-		
-		//reconstruimos los pagos pero sin la venta a anular.
-		for (Pago pago : pagos) {
-			
-			//pagamos las operaciones quitando las venta anulada.
-			List<Operacion> operaciones = pago.getOperaciones();
-			operaciones.remove( venta );
-			
-			if( !operaciones.isEmpty() ){
-				Pago pagoReconstruido = new Pago();
-				pagoReconstruido.setCliente( pago.getCliente() );
-				pagoReconstruido.setSucursal( pago.getSucursal() );
-				pagoReconstruido.setObservaciones( pago.getObservaciones() );
-				pagoReconstruido.setFecha( pago.getFecha() );
-				
-				//el monto total del pago será lo del pago anterior menos el de esta venta anulada.
-				Float montoPago = pago.getMonto() - pago.getMontoPagado( venta );
-				
-				pagoReconstruido.pagar(montoPago, operaciones );
-				
-				//agregamos el pago.
-				ServiceFactory.getPagoService().add( pagoReconstruido );
-			}
-		}
+//		//tengo que salir a buscar los pagos que afectan a la venta
+//		//si el pago afecta a otras ventas hay que reconstruirlo
+//		//quitando el detalle de pago sobre esta venta
+//		//y generar una nota de crédito sobre el monto de esta venta
+//		
+//		//buscamos todos los pagos vigentes sobre la operacion
+//		PagoCriteria criteria = new PagoCriteria();
+//		criteria.setOperacion( venta );
+//		criteria.addEstadoExcluir(EstadoPago.ANULADO);
+//		List<Pago> pagos = ServiceFactory.getPagoService().list(criteria);
+//		
+//		//anulamos estos pagos
+//		for (Pago pago : pagos) {
+//			
+//			ServiceFactory.getPagoService().anularPago( pago.getOid() );
+//			
+//		}
+//		
+//		//reconstruimos los pagos pero sin la venta a anular.
+//		for (Pago pago : pagos) {
+//			
+//			//pagamos las operaciones quitando las venta anulada.
+//			List<Operacion> operaciones = pago.getOperaciones();
+//			operaciones.remove( venta );
+//			
+//			if( !operaciones.isEmpty() ){
+//				Pago pagoReconstruido = new Pago();
+//				pagoReconstruido.setCliente( pago.getCliente() );
+//				pagoReconstruido.setSucursal( pago.getSucursal() );
+//				pagoReconstruido.setObservaciones( pago.getObservaciones() );
+//				pagoReconstruido.setFecha( pago.getFecha() );
+//				
+//				//el monto total del pago será lo del pago anterior menos el de esta venta anulada.
+//				Float montoPago = pago.getMonto() - pago.getMontoPagado( venta );
+//				
+//				pagoReconstruido.pagar(montoPago, operaciones );
+//				
+//				//agregamos el pago.
+//				ServiceFactory.getPagoService().add( pagoReconstruido );
+//			}
+//		}
 
+		
+		//no anulo los pagos. genero una nota de crédito porque el dinero no se devuelve.
+		//en caso de devolver el dinero podemos hacer que se cobre la nota de crédito.
+		
+		//TODO deberíamos recibir por parámetro para que se pueda editar el 
+		//número, sucursal, vendedor y fecha de vencimiento.
+		NotaCredito notaCredito = new NotaCredito();
+		//c.setNumero("021545454");
+		notaCredito.setCliente( venta.getCliente() );
+		notaCredito.setVendedor( venta.getVendedor() );
+		notaCredito.setSucursal( venta.getSucursal() );
+		notaCredito.setFecha(new Date());
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime( notaCredito.getFecha() );
+		calendar.add(Calendar.DAY_OF_MONTH, 30);
+		Date fechaVenc = calendar.getTime();
+		notaCredito.setFechaVencimiento(fechaVenc);
+		notaCredito.setMonto( venta.getMontoPagado() );
+		
+		
+		ServiceFactory.getNotaCreditoService().add(notaCredito);
+		
 		venta.setEstadoVenta(EstadoVenta.ANULADA);
 
 		try {

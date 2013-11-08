@@ -26,12 +26,6 @@ import com.migestion.i18n.I18nLocale;
 public class Cheque extends GenericEntity{
 
 	/**
-	 * fecha de vencimiento
-	 */
-	@Column
-	private Date fechaVencimiento;
-	
-	/**
 	 * número de cheque 
 	 */
 	@Column
@@ -49,6 +43,12 @@ public class Cheque extends GenericEntity{
 	@Column
 	@NotNull(message="{detallePago.monto.required}")
 	private Float monto;
+
+	/**
+	 * fecha de vencimiento
+	 */
+	@Column
+	private Date fechaVencimiento;
 
 	/**
 	 * observaciones

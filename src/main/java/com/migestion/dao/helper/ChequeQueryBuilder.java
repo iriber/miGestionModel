@@ -1,6 +1,5 @@
 package com.migestion.dao.helper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,35 +13,36 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.migestion.model.Caja;
-import com.migestion.services.criteria.CajaCriteria;
+import com.migestion.model.Cliente;
+import com.migestion.model.Cheque;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.services.criteria.ChequeCriteria;
+import com.migestion.services.criteria.CuentaBancariaCriteria;
 
 
 /**
  * Helper que colabora en la creación de queries para
- * las cajas.
+ * los cheques.
  * 
  * @author Bernardo Iribarne (ber.iribarne@gmail.com)
- * @since 30/10/2013
+ * @since 08/11/2013
  *
  */
-public class CajaQueryBuilder extends QueryBuilder<Caja>{
+public class ChequeQueryBuilder extends QueryBuilder<Cheque>{
 
 	
-	public CajaQueryBuilder(Criteria criteria){
+	public ChequeQueryBuilder(Criteria criteria){
 		super( criteria );
 	}
 	
 	@Override
-	public CriteriaQuery<Caja> build( EntityManager em) {
+	public CriteriaQuery<Cheque> build( EntityManager em) {
 		
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-	    CriteriaQuery<Caja> query = builder.createQuery(Caja.class);
-	    Root<Caja> root = query.from(Caja.class);
+	    CriteriaQuery<Cheque> query = builder.createQuery(Cheque.class);
+	    Root<Cheque> root = query.from(Cheque.class);
 	    query.select(root);
-	 
-	    
+	 	    
 	    query.where(getPredicates(root, builder, criteria));		
 		
 	    query.orderBy( criteria.buildOrderBy( root, builder ));
@@ -51,28 +51,23 @@ public class CajaQueryBuilder extends QueryBuilder<Caja>{
 
 	}
 
-	public Predicate[] getPredicates(Root<Caja> root,
+	public Predicate[] getPredicates(Root<Cheque> root,
 			CriteriaBuilder builder, Criteria criteria) {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 		 
 		 
-	    String numero = ((CajaCriteria)criteria).getNumero();
-	    if( !StringUtils.isEmpty(numero) ){
-	    	Predicate numeroPredicate = builder.equal(
-	        builder.upper(root.<String>get("numero")), numero.toUpperCase());
-	        predicateList.add(numeroPredicate);
-	    }
+		Date fechaVencimiento = ((ChequeCriteria)criteria).getFechaVencimiento();
+		String numero = ((ChequeCriteria)criteria).getNumero();
+		String banco = ((ChequeCriteria)criteria).getBanco();
 	 
-		Date fecha = ((CajaCriteria)criteria).getFecha();
-		
-		if( fecha!=null ){
+		if( fechaVencimiento!=null ){
 			Calendar c = Calendar.getInstance();
-			c.setTime( fecha );
+			c.setTime( fechaVencimiento );
 			c.set(Calendar.MINUTE, 0);
 			c.set(Calendar.HOUR, 0);
 			c.set(Calendar.SECOND, 0);
 			c.set(Calendar.AM_PM, Calendar.AM);
-			
+
 			Date fecha1 = c.getTime();
 			
 			c.add(Calendar.DAY_OF_MONTH, 1);
@@ -81,9 +76,18 @@ public class CajaQueryBuilder extends QueryBuilder<Caja>{
 	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fecha")), fecha1, fecha2 );
 	        predicateList.add(fechaPredicate);
 	        
-	        System.out.println( " F1:" + new SimpleDateFormat("yyyy/MM/dd H:m").format(fecha) );
-	        System.out.println( " F2:" + new SimpleDateFormat("yyyy/MM/dd H:m").format(fecha2) );
-	        
+	    }
+
+	    if( !StringUtils.isEmpty(numero) ){
+	    	Predicate numeroPredicate = builder.like(
+	        builder.upper(root.<String>get("numero")), "%"+numero.toUpperCase()+"%");
+	        predicateList.add(numeroPredicate);
+	    }
+	 	
+	    if( !StringUtils.isEmpty(banco) ){
+	    	Predicate bancoPredicate = builder.like(
+	        builder.upper(root.<String>get("banco")), "%"+banco.toUpperCase()+"%");
+	        predicateList.add(bancoPredicate);
 	    }
 	 
 	    Predicate[] predicates = new Predicate[predicateList.size()];
@@ -95,7 +99,7 @@ public class CajaQueryBuilder extends QueryBuilder<Caja>{
 	public CriteriaQuery<Long> buildToCount(EntityManager em) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<Caja> root = query.from(Caja.class);
+		Root<Cheque> root = query.from(Cheque.class);
 		
 		query.select( builder.count( root.<Long>get( "oid" ) ) );
 

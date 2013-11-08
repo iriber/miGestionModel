@@ -3,10 +3,12 @@ package com.migestion.services;
 import com.migestion.services.impl.BalanceServiceImpl;
 import com.migestion.services.impl.CajaServiceImpl;
 import com.migestion.services.impl.CategoriaProductoServiceImpl;
+import com.migestion.services.impl.ChequeServiceImpl;
 import com.migestion.services.impl.ClienteServiceImpl;
 import com.migestion.services.impl.ConceptoMovimientoServiceImpl;
 import com.migestion.services.impl.CuentaBancariaServiceImpl;
 import com.migestion.services.impl.MovimientoCajaServiceImpl;
+import com.migestion.services.impl.NotaCreditoServiceImpl;
 import com.migestion.services.impl.PagoServiceImpl;
 import com.migestion.services.impl.ProductoServiceImpl;
 import com.migestion.services.impl.SucursalServiceImpl;
@@ -14,7 +16,7 @@ import com.migestion.services.impl.VendedorServiceImpl;
 import com.migestion.services.impl.VentaServiceImpl;
 
 /**
- * Factory de servicios
+ * Factory de servicio
  * 
  * @author Bernardo Iribarne (ber.iribarne@gmail.com)
  * @since 10/10/2013
@@ -31,7 +33,7 @@ public class ServiceFactory {
 	}
 
 	/**
-	 * servicios para productos.
+	 * servicio para productos.
 	 * @return
 	 */
 	public static IProductoService getProductoService(){
@@ -39,7 +41,7 @@ public class ServiceFactory {
 	}
 	
 	/**
-	 * servicios para clientes.
+	 * servicio para clientes.
 	 * @return
 	 */
 	public static IClienteService getClienteService(){
@@ -47,7 +49,7 @@ public class ServiceFactory {
 	}
 	
 	/**
-	 * servicios para vendedores.
+	 * servicio para vendedores.
 	 * @return
 	 */
 	public static IVendedorService getVendedorService(){
@@ -56,7 +58,7 @@ public class ServiceFactory {
 	
 
 	/**
-	 * servicios para ventas.
+	 * servicio para ventas.
 	 * @return
 	 */
 	public static IVentaService getVentaService(){
@@ -65,7 +67,7 @@ public class ServiceFactory {
 	
 
 	/**
-	 * servicios para sucursales.
+	 * servicio para sucursales.
 	 * @return
 	 */
 	public static ISucursalService getSucursalService(){
@@ -73,7 +75,7 @@ public class ServiceFactory {
 	}
 	
 	/**
-	 * servicios para cuentas bancarias.
+	 * servicio para cuentas bancarias.
 	 * @return
 	 */
 	public static ICuentaBancariaService getCuentaBancariaService(){
@@ -81,7 +83,7 @@ public class ServiceFactory {
 	}
 	
 	/**
-	 * servicios para pagos.
+	 * servicio para pagos.
 	 * @return
 	 */
 	public static IPagoService getPagoService(){
@@ -89,7 +91,7 @@ public class ServiceFactory {
 	}
 
 	/**
-	 * servicios para cajas.
+	 * servicio para cajas.
 	 * @return
 	 */
 	public static ICajaService getCajaService(){
@@ -97,7 +99,7 @@ public class ServiceFactory {
 	}
 	
 	/**
-	 * servicios para movimientos de cajas.
+	 * servicio para movimientos de cajas.
 	 * @return
 	 */
 	public static IMovimientoCajaService getMovimientoCajaService(){
@@ -105,7 +107,7 @@ public class ServiceFactory {
 	}
 
 	/**
-	 * servicios para conceptos de cajas.
+	 * servicio para conceptos de cajas.
 	 * @return
 	 */
 	public static IConceptoMovimientoService getConceptoCajaService(){
@@ -113,10 +115,26 @@ public class ServiceFactory {
 	}
 	
 	/**
-	 * servicios para balances.
+	 * servicio para balances.
 	 * @return
 	 */
 	public static IBalanceService getBalanceService(){
 		return BalanceServiceImpl.getInstance();
-	}	
+	}
+	
+	/**
+	 * servicio para notas de crédito.
+	 * @return
+	 */
+	public static INotaCreditoService getNotaCreditoService(){
+		return NotaCreditoServiceImpl.getInstance();
+	}
+	
+	/**
+	 * servicio para cheques.
+	 * @return
+	 */
+	public static IChequeService getChequeService(){
+		return ChequeServiceImpl.getInstance();
+	}
 }

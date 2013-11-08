@@ -79,10 +79,6 @@ public class MovimientoCajaQueryBuilder extends QueryBuilder<MovimientoCaja>{
 	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fechaHora")), fecha1, fecha2 );
 	        predicateList.add(fechaPredicate);
 	        
-	        System.out.println( " F:" + new SimpleDateFormat("yyyy/MM/dd HH:mm").format(fecha) );
-	        System.out.println( " F1:" + new SimpleDateFormat("yyyy/MM/dd HH:mm").format(fecha1) );
-	        System.out.println( " F2:" + new SimpleDateFormat("yyyy/MM/dd HH:mm").format(fecha2) );
-	        
 	    }
 		
 	    Predicate[] predicates = new Predicate[predicateList.size()];
