@@ -208,7 +208,7 @@ public class NotaCredito extends GenericEntity{
 	}
 	
 	public String toString(I18nLocale i18n){
-		return i18n.message("cheque.numero") + ": " + getNumero() + " " + i18n.message("cheque.fechaVencimiento") + ": " +  new SimpleDateFormat("dd/MM/yyyy").format( getFechaVencimiento() );
+		return i18n.message("notaCredito.numero") + ": " + getNumero() + " " + i18n.message("notaCredito.fechaVencimiento") + ": " +  new SimpleDateFormat("dd/MM/yyyy").format( getFechaVencimiento() );
 	}
 
 

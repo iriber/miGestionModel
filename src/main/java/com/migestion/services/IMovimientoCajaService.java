@@ -1,8 +1,7 @@
 package com.migestion.services;
 
-import com.migestion.model.EstadisticaCaja;
+import com.migestion.model.Balance;
 import com.migestion.model.MovimientoCaja;
-import com.migestion.services.criteria.CajaCriteria;
 import com.migestion.services.criteria.MovimientoCajaCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -20,7 +19,7 @@ public interface IMovimientoCajaService extends IGenericService<MovimientoCaja, 
 	 * @param criteria
 	 * @return
 	 */
-	public EstadisticaCaja getEstadisticaCaja(MovimientoCajaCriteria criteria) throws ServiceException;;
+	public Balance getBalance(MovimientoCajaCriteria criteria) throws ServiceException;;
 
 
 }

@@ -8,6 +8,9 @@ import com.migestion.dao.impl.ClienteJPADAO;
 import com.migestion.dao.impl.ConceptoMovimientoJPADAO;
 import com.migestion.dao.impl.CuentaBancariaJPADAO;
 import com.migestion.dao.impl.MovimientoCajaJPADAO;
+import com.migestion.dao.impl.MovimientoChequeJPADAO;
+import com.migestion.dao.impl.MovimientoCuentaBancariaJPADAO;
+import com.migestion.dao.impl.MovimientoNotaCreditoJPADAO;
 import com.migestion.dao.impl.NotaCreditoJPADAO;
 import com.migestion.dao.impl.PagoJPADAO;
 import com.migestion.dao.impl.ProductoJPADAO;
@@ -21,6 +24,9 @@ import com.migestion.model.Cliente;
 import com.migestion.model.ConceptoMovimiento;
 import com.migestion.model.CuentaBancaria;
 import com.migestion.model.MovimientoCaja;
+import com.migestion.model.MovimientoCheque;
+import com.migestion.model.MovimientoCuentaBancaria;
+import com.migestion.model.MovimientoNotaCredito;
 import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
 import com.migestion.model.Producto;
@@ -34,6 +40,9 @@ import com.migestion.services.criteria.ClienteCriteria;
 import com.migestion.services.criteria.ConceptoMovimientoCriteria;
 import com.migestion.services.criteria.CuentaBancariaCriteria;
 import com.migestion.services.criteria.MovimientoCajaCriteria;
+import com.migestion.services.criteria.MovimientoChequeCriteria;
+import com.migestion.services.criteria.MovimientoCuentaBancariaCriteria;
+import com.migestion.services.criteria.MovimientoNotaCreditoCriteria;
 import com.migestion.services.criteria.NotaCreditoCriteria;
 import com.migestion.services.criteria.PagoCriteria;
 import com.migestion.services.criteria.ProductoCriteria;
@@ -130,6 +139,31 @@ public class DAOFactory {
 	public static IGenericDAO<MovimientoCaja, MovimientoCajaCriteria> getMovimientoCajaDAO(){
 		return new MovimientoCajaJPADAO();
 	}
+
+	/**
+	 * dao para movimientos de cuentas bancarias
+	 * @return
+	 */
+	public static IGenericDAO<MovimientoCuentaBancaria, MovimientoCuentaBancariaCriteria> getMovimientoCuentaBancariaDAO(){
+		return new MovimientoCuentaBancariaJPADAO();
+	}
+
+	/**
+	 * dao para movimientos de cheques
+	 * @return
+	 */
+	public static IGenericDAO<MovimientoCheque, MovimientoChequeCriteria> getMovimientoChequeDAO(){
+		return new MovimientoChequeJPADAO();
+	}
+	
+	/**
+	 * dao para movimientos de notas de crédito
+	 * @return
+	 */
+	public static IGenericDAO<MovimientoNotaCredito, MovimientoNotaCreditoCriteria> getMovimientoNotaCreditoDAO(){
+		return new MovimientoNotaCreditoJPADAO();
+	}	
+	
 	
 	/**
 	 * dao para conceptos de caja

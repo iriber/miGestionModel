@@ -4,14 +4,14 @@ import java.util.Date;
 
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IBalanceDAO;
-import com.migestion.dao.IGenericDAO;
-import com.migestion.dao.IMovimientoCajaDAO;
-import com.migestion.dao.impl.BalanceJPADAO;
+import com.migestion.dao.IMovimientoCuentaDAO;
 import com.migestion.model.Balance;
-import com.migestion.model.EstadisticaCaja;
 import com.migestion.model.Sucursal;
 import com.migestion.services.IBalanceService;
 import com.migestion.services.criteria.MovimientoCajaCriteria;
+import com.migestion.services.criteria.MovimientoChequeCriteria;
+import com.migestion.services.criteria.MovimientoCuentaBancariaCriteria;
+import com.migestion.services.criteria.MovimientoNotaCreditoCriteria;
 import com.migestion.services.exception.ServiceException;
 
 /**
@@ -60,17 +60,11 @@ public class BalanceServiceImpl implements IBalanceService{
 	
 	public Balance getBalanceCajas(Date fecha) throws ServiceException {
 		
-		IMovimientoCajaDAO dao = (IMovimientoCajaDAO) DAOFactory.getMovimientoCajaDAO();
+		IMovimientoCuentaDAO dao = (IMovimientoCuentaDAO) DAOFactory.getMovimientoCajaDAO();
 		MovimientoCajaCriteria criteria = new MovimientoCajaCriteria();
 		criteria.setFecha(fecha);
 		
-		EstadisticaCaja estadistica = dao.getEstadisticaCaja(criteria );
-		
-		Balance balance = new Balance();
-		balance.setCantidadMovimientos( estadistica.getCantidad() );
-		balance.setDebe( estadistica.getImporteTotalDebe() );
-		balance.setHaber(estadistica.getImporteTotalHaber() );
-
+		Balance balance = dao.getBalance(criteria );
 		return balance;
 		
 	}
@@ -82,14 +76,33 @@ public class BalanceServiceImpl implements IBalanceService{
 	}
 
 	public Balance getBalanceBancos(Date fecha) throws ServiceException {
+
+		IMovimientoCuentaDAO dao = (IMovimientoCuentaDAO) DAOFactory.getMovimientoCuentaBancariaDAO();
+		MovimientoCuentaBancariaCriteria criteria = new MovimientoCuentaBancariaCriteria();
+		criteria.setFecha(fecha);
 		
-		return getDAO().getBalanceBancos(fecha);
+		Balance balance = dao.getBalance(criteria );
+		return balance;
 	}
 
 	public Balance getBalanceCheques(Date fecha) throws ServiceException {
 		
-		return getBalanceCheques(fecha);
+		IMovimientoCuentaDAO dao = (IMovimientoCuentaDAO) DAOFactory.getMovimientoChequeDAO();
+		MovimientoChequeCriteria criteria = new MovimientoChequeCriteria();
+		criteria.setFecha(fecha);
+		
+		Balance balance = dao.getBalance(criteria );
+		return balance;
 	}
 
+	public Balance getBalanceNotasCredito(Date fecha) throws ServiceException {
+		
+		IMovimientoCuentaDAO dao = (IMovimientoCuentaDAO) DAOFactory.getMovimientoNotaCreditoDAO();
+		MovimientoNotaCreditoCriteria criteria = new MovimientoNotaCreditoCriteria();
+		criteria.setFecha(fecha);
+		
+		Balance balance = dao.getBalance(criteria );
+		return balance;
+	}
 
 }

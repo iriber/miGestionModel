@@ -2,15 +2,11 @@ package com.migestion.services.impl;
 
 
 import com.migestion.dao.DAOFactory;
-import com.migestion.dao.ICajaDAO;
 import com.migestion.dao.IGenericDAO;
-import com.migestion.dao.IMovimientoCajaDAO;
-import com.migestion.model.Caja;
-import com.migestion.model.EstadisticaCaja;
-import com.migestion.model.EstadoCaja;
+import com.migestion.dao.IMovimientoCuentaDAO;
+import com.migestion.model.Balance;
 import com.migestion.model.MovimientoCaja;
 import com.migestion.services.IMovimientoCajaService;
-import com.migestion.services.criteria.CajaCriteria;
 import com.migestion.services.criteria.MovimientoCajaCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -98,19 +94,19 @@ public class MovimientoCajaServiceImpl extends GenericService<MovimientoCaja, Mo
 	 * (non-Javadoc)
 	 * @see com.migestion.services.IMovimientoCajaService#getEstadisticaCaja(com.migestion.services.criteria.MovimientoCajaCriteria)
 	 */
-	public EstadisticaCaja getEstadisticaCaja(MovimientoCajaCriteria criteria)
+	public Balance getBalance(MovimientoCajaCriteria criteria)
 			throws ServiceException {
 
-		EstadisticaCaja estadistica = ((IMovimientoCajaDAO) getDAO()).getEstadisticaCaja(criteria);
+		Balance balance = ((IMovimientoCuentaDAO) getDAO()).getBalance(criteria);
 		
 		//tengo que setearle el saldo inicial.
 		
 		if( criteria.getCaja() != null ){
 			
-			estadistica.setSaldoInicial( criteria.getCaja().getSaldoInicial() );
+			balance.setSaldoInicial( criteria.getCaja().getSaldoInicial() );
 		}
 		
-		return estadistica;
+		return balance;
 	}
 
 }

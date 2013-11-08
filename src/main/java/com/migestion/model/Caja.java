@@ -133,11 +133,11 @@ public class Caja extends GenericEntity{
 
 
 	public String toString(){
-		return  new SimpleDateFormat("dd/MM/yyyy").format( getFecha() )  + " -  Nro: " + getNumero()   + " -  Saldo: " + getSaldo()   ;
+		return  new SimpleDateFormat("dd/MM/yyyy").format( getFecha() )  + " -  Nro: " + getNumero()   + " -  Saldo: " + new java.text.DecimalFormat("#0.00").format( getSaldo() )   ;
 	}
 	
 	public String toString(I18nLocale i18n){
-		return  new SimpleDateFormat("dd/MM/yyyy").format( getFecha() ) + " - " +  i18n.message("caja.numero") + ": " + getNumero()  + " - " +  i18n.message("caja.saldo") + ": " + getSaldo();
+		return  new SimpleDateFormat("dd/MM/yyyy").format( getFecha() ) + " - " +  i18n.message("caja.numero") + ": " + getNumero()  + " - " +  i18n.message("caja.saldo") + ": " + new java.text.DecimalFormat("#0.00").format( getSaldo() );
 	}
 
 

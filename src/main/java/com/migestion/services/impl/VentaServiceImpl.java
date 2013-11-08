@@ -213,8 +213,6 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 		Date fechaVenc = calendar.getTime();
 		notaCredito.setFechaVencimiento(fechaVenc);
 		notaCredito.setMonto( venta.getMontoPagado() );
-		
-		
 		ServiceFactory.getNotaCreditoService().add(notaCredito);
 		
 		venta.setEstadoVenta(EstadoVenta.ANULADA);

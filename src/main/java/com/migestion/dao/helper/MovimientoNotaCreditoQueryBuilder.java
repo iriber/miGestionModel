@@ -12,33 +12,33 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.migestion.model.Caja;
-import com.migestion.model.MovimientoCaja;
+import com.migestion.model.MovimientoNotaCredito;
+import com.migestion.model.NotaCredito;
 import com.migestion.services.criteria.Criteria;
-import com.migestion.services.criteria.MovimientoCajaCriteria;
+import com.migestion.services.criteria.MovimientoNotaCreditoCriteria;
 
 
 /**
  * Helper que colabora en la creación de queries para
- * los movimientos de caja.
+ * los movimientos de notas de crédito.
  * 
  * @author Bernardo Iribarne (ber.iribarne@gmail.com)
- * @since 30/10/2013
+ * @since 08/11/2013
  *
  */
-public class MovimientoCajaQueryBuilder extends QueryBuilder<MovimientoCaja>{
+public class MovimientoNotaCreditoQueryBuilder extends QueryBuilder<MovimientoNotaCredito>{
 
 	
-	public MovimientoCajaQueryBuilder(Criteria criteria){
+	public MovimientoNotaCreditoQueryBuilder(Criteria criteria){
 		super( criteria );
 	}
 	
 	@Override
-	public CriteriaQuery<MovimientoCaja> build( EntityManager em) {
+	public CriteriaQuery<MovimientoNotaCredito> build( EntityManager em) {
 		
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-	    CriteriaQuery<MovimientoCaja> query = builder.createQuery(MovimientoCaja.class);
-	    Root<MovimientoCaja> root = query.from(MovimientoCaja.class);
+	    CriteriaQuery<MovimientoNotaCredito> query = builder.createQuery(MovimientoNotaCredito.class);
+	    Root<MovimientoNotaCredito> root = query.from(MovimientoNotaCredito.class);
 	    query.select(root);
 	 
 	    
@@ -50,18 +50,18 @@ public class MovimientoCajaQueryBuilder extends QueryBuilder<MovimientoCaja>{
 
 	}
 
-	public Predicate[] getPredicates(Root<MovimientoCaja> root,
+	public Predicate[] getPredicates(Root<MovimientoNotaCredito> root,
 			CriteriaBuilder builder, Criteria criteria) {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 		 
 		 
-		Caja caja = ((MovimientoCajaCriteria)criteria).getCaja();
-		if( caja!=null ){
-	    	Predicate cajaPredicate = builder.equal( (root.<Date>get("caja")), caja );
-	        predicateList.add(cajaPredicate);
+		NotaCredito notaCredito = ((MovimientoNotaCreditoCriteria)criteria).getNotaCredito();
+		if( notaCredito!=null ){
+	    	Predicate cuentaPredicate = builder.equal( (root.<Date>get("notaCredito")), notaCredito );
+	        predicateList.add(cuentaPredicate);
 	    }
 
-		Date fecha = ((MovimientoCajaCriteria)criteria).getFecha();
+		Date fecha = ((MovimientoNotaCreditoCriteria)criteria).getFecha();
 		if( fecha!=null ){
 			Calendar c = Calendar.getInstance();
 			c.setTime( fecha );
@@ -89,7 +89,7 @@ public class MovimientoCajaQueryBuilder extends QueryBuilder<MovimientoCaja>{
 	public CriteriaQuery<Long> buildToCount(EntityManager em) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<MovimientoCaja> root = query.from(MovimientoCaja.class);
+		Root<MovimientoNotaCredito> root = query.from(MovimientoNotaCredito.class);
 		
 		query.select( builder.count( root.<Long>get( "oid" ) ) );
 

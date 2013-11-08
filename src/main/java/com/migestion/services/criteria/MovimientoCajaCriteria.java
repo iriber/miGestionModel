@@ -12,15 +12,13 @@ import com.migestion.model.Sucursal;
  * @since 30/10/2013
  *
  */
-public class MovimientoCajaCriteria extends Criteria{
+public class MovimientoCajaCriteria extends MovimientoCuentaCriteria{
 
 	/**
 	 * caja
 	 */
 	private Caja caja;
 
-	
-	private Date fecha;
 	
 	private Sucursal sucursal;
 	
@@ -33,13 +31,6 @@ public class MovimientoCajaCriteria extends Criteria{
 		this.sucursal = sucursal;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
 
 	/**
 	 * @return the caja

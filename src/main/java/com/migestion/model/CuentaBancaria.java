@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.migestion.i18n.I18nLocale;
+
 /**
  * Representa una cuenta bancaria.
  * 
@@ -236,7 +238,9 @@ public class CuentaBancaria extends GenericEntity{
 
 	public String toString(){
 		
-		return getNombre() + " - " + getNroCuenta() + " - " + getTitular()  + " - " + getSaldo(); 
+		return getNombre() + " - " + getNroCuenta() + " - " + new java.text.DecimalFormat("#0.00").format( getSaldo() ); 
 		
 	}
+	
+	
 }

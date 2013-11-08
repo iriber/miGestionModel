@@ -1,10 +1,14 @@
 package com.migestion.services.impl;
 
 
+import java.util.Date;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
 import com.migestion.model.CuentaBancaria;
+import com.migestion.model.MovimientoCuentaBancaria;
 import com.migestion.services.ICuentaBancariaService;
+import com.migestion.services.ServiceFactory;
 import com.migestion.services.criteria.CuentaBancariaCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -69,6 +73,32 @@ public class CuentaBancariaServiceImpl extends GenericService<CuentaBancaria, Cu
 	@Override
 	protected void validateOnDelete(CuentaBancaria entity) throws ServiceException {
 		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.migestion.services.impl.GenericService#add(com.migestion.model.
+	 * GenericEntity)
+	 */
+	public void add(CuentaBancaria entity) throws ServiceException {
+
+		
+		entity.setSaldo(0F);
+		
+		// agregamos la cuenta bancaria.
+		super.add(entity);
+		
+		//agregamos un movimiento por el saldo inicial
+		MovimientoCuentaBancaria movimiento = new MovimientoCuentaBancaria();
+		movimiento.setCuentaBancaria(entity);
+		movimiento.setConcepto( ServiceFactory.getConceptoCajaService().getConceptoSaldoInicial() );
+		movimiento.setHaber( entity.getSaldoInicial() );
+		movimiento.setFechaHora( new Date() );
+
+		ServiceFactory.getMovimientoCuentaBancariaService().add(movimiento);
+		
 		
 	}
 

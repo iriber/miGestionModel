@@ -1,8 +1,14 @@
 package com.migestion.model;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * Movimiento para cheque
@@ -17,6 +23,13 @@ import javax.persistence.Table;
 @Table(name="movimiento_cheque")
 public class MovimientoCheque extends MovimientoCuenta{
 
+	/**
+	 * cheque
+	 */
+	@ManyToOne(cascade=CascadeType.MERGE)
+    @JoinColumn(name="cheque_oid")
+	@NotFound(action=NotFoundAction.IGNORE)	
+	private Cheque cheque;
 	
 	public MovimientoCheque(){
 		
@@ -34,6 +47,16 @@ public class MovimientoCheque extends MovimientoCuenta{
 	public Float getSaldoCuenta() {
 		//TODO
 		return 0F;
+	}
+
+
+	public Cheque getCheque() {
+		return cheque;
+	}
+
+
+	public void setCheque(Cheque cheque) {
+		this.cheque = cheque;
 	}
 
 }

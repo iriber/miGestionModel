@@ -8,6 +8,9 @@ import com.migestion.services.impl.ClienteServiceImpl;
 import com.migestion.services.impl.ConceptoMovimientoServiceImpl;
 import com.migestion.services.impl.CuentaBancariaServiceImpl;
 import com.migestion.services.impl.MovimientoCajaServiceImpl;
+import com.migestion.services.impl.MovimientoChequeServiceImpl;
+import com.migestion.services.impl.MovimientoCuentaBancariaServiceImpl;
+import com.migestion.services.impl.MovimientoNotaCreditoServiceImpl;
 import com.migestion.services.impl.NotaCreditoServiceImpl;
 import com.migestion.services.impl.PagoServiceImpl;
 import com.migestion.services.impl.ProductoServiceImpl;
@@ -106,6 +109,29 @@ public class ServiceFactory {
 		return MovimientoCajaServiceImpl.getInstance();
 	}
 
+	/**
+	 * servicio para movimientos de cuentas bancarias.
+	 * @return
+	 */
+	public static IMovimientoCuentaBancariaService getMovimientoCuentaBancariaService(){
+		return MovimientoCuentaBancariaServiceImpl.getInstance();
+	}
+
+	/**
+	 * servicio para movimientos de cheques.
+	 * @return
+	 */
+	public static IMovimientoChequeService getMovimientoChequeService(){
+		return MovimientoChequeServiceImpl.getInstance();
+	}
+
+	/**
+	 * servicio para movimientos de notas de crédito.
+	 * @return
+	 */
+	public static IMovimientoNotaCreditoService getMovimientoNotaCreditoService(){
+		return MovimientoNotaCreditoServiceImpl.getInstance();
+	}	
 	/**
 	 * servicio para conceptos de cajas.
 	 * @return

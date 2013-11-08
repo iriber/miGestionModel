@@ -6,36 +6,36 @@ import javax.persistence.criteria.Root;
 
 import com.migestion.dao.IMovimientoCuentaDAO;
 import com.migestion.dao.exception.DAOException;
-import com.migestion.dao.helper.MovimientoCajaQueryBuilder;
+import com.migestion.dao.helper.MovimientoCuentaBancariaQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.Balance;
-import com.migestion.model.MovimientoCaja;
+import com.migestion.model.MovimientoCuentaBancaria;
 import com.migestion.services.criteria.Criteria;
-import com.migestion.services.criteria.MovimientoCajaCriteria;
+import com.migestion.services.criteria.MovimientoCuentaBancariaCriteria;
 import com.migestion.services.criteria.MovimientoCuentaCriteria;
 
 /**
- * Implementación del dao jpa para movimiento de caja
+ * Implementación del dao jpa para movimiento de cuentas bancarias
  * 
  * @author Bernardo Iribarne (ber.iribarne@gmail.com)
- * @since 30/10/2013
+ * @since 08/11/2013
  *
  */
-public class MovimientoCajaJPADAO extends GenericJPADAO<MovimientoCaja, MovimientoCajaCriteria> implements IMovimientoCuentaDAO{
+public class MovimientoCuentaBancariaJPADAO extends GenericJPADAO<MovimientoCuentaBancaria, MovimientoCuentaBancariaCriteria> implements IMovimientoCuentaDAO{
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.migestion.dao.IGenericDAO#get(java.lang.Long)
 	 */
-	public MovimientoCaja get(Long oid) throws DAOException {
+	public MovimientoCuentaBancaria get(Long oid) throws DAOException {
 
-		return getEntityManager().find( MovimientoCaja.class, oid );
+		return getEntityManager().find( MovimientoCuentaBancaria.class, oid );
 	}
 
 
 	@Override
-	protected QueryBuilder<MovimientoCaja> getQueryBuilder(Criteria criteria) {
-		return new MovimientoCajaQueryBuilder(criteria);
+	protected QueryBuilder<MovimientoCuentaBancaria> getQueryBuilder(Criteria criteria) {
+		return new MovimientoCuentaBancariaQueryBuilder(criteria);
 	}
 
 
@@ -43,17 +43,17 @@ public class MovimientoCajaJPADAO extends GenericJPADAO<MovimientoCaja, Movimien
 		
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Object[]> criteriaQuery = builder.createQuery( Object[].class );
-		Root<MovimientoCaja> cajaRoot = criteriaQuery.from( MovimientoCaja.class );
+		Root<MovimientoCuentaBancaria> cuentaBancariaRoot = criteriaQuery.from( MovimientoCuentaBancaria.class );
 		
 		criteriaQuery.select(   builder.array( 
-									builder.count( cajaRoot.<Long>get( "oid" ) ),  
-									builder.sum( cajaRoot.<Double>get( "debe" ) ), 
-									builder.sum( cajaRoot.<Double>get( "haber" ) ) 
+									builder.count( cuentaBancariaRoot.<Long>get( "oid" ) ),  
+									builder.sum( cuentaBancariaRoot.<Double>get( "debe" ) ), 
+									builder.sum( cuentaBancariaRoot.<Double>get( "haber" ) ) 
 								) 
 							);
 		 
-		MovimientoCajaQueryBuilder queryBuilder = new MovimientoCajaQueryBuilder(criteria);
-		criteriaQuery.where( queryBuilder.getPredicates(cajaRoot, builder, criteria));
+		MovimientoCuentaBancariaQueryBuilder queryBuilder = new MovimientoCuentaBancariaQueryBuilder(criteria);
+		criteriaQuery.where( queryBuilder.getPredicates(cuentaBancariaRoot, builder, criteria));
 
 		Object[] object = (Object[])getEntityManager().createQuery(criteriaQuery).getSingleResult();;
 

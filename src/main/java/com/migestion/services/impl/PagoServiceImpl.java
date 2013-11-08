@@ -1,6 +1,9 @@
 package com.migestion.services.impl;
 
 
+import java.util.Calendar;
+import java.util.Date;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
 import com.migestion.dao.IPagoDAO;
@@ -8,8 +11,10 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.model.DetalleFormaPago;
 import com.migestion.model.EstadisticaPago;
 import com.migestion.model.EstadoPago;
+import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
 import com.migestion.services.IPagoService;
+import com.migestion.services.ServiceFactory;
 import com.migestion.services.criteria.PagoCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -119,10 +124,23 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 		
 		pago.anulate();
 
-		// TODO chequear contraoperación dada la forma de pago.
+		//TODO deberíamos recibir por parámetro para que se pueda editar el 
+		//número, sucursal, vendedor y fecha de vencimiento.
+		NotaCredito notaCredito = new NotaCredito();
+		//c.setNumero("021545454");
+		notaCredito.setCliente( pago.getCliente() );
+		//notaCredito.setVendedor( pago.getVendedor() );
+		notaCredito.setSucursal( pago.getSucursal() );
+		notaCredito.setFecha(new Date());
 		
-		// TODO generar una nota de crédito al cliente.
-		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime( notaCredito.getFecha() );
+		calendar.add(Calendar.DAY_OF_MONTH, 30);
+		Date fechaVenc = calendar.getTime();
+		notaCredito.setFechaVencimiento(fechaVenc);
+		notaCredito.setMonto( pago.getMonto() );
+		ServiceFactory.getNotaCreditoService().add(notaCredito);
+
 		try {
 
 			getDAO().update(pago);

@@ -58,5 +58,16 @@ public interface IBalanceService {
 	 * @throws ServiceException
 	 */
 	public Balance getBalanceCheques(Date fecha) throws ServiceException;
+
+	/**
+	 * retorna el balance de notas de crédito para una fecha dada
+	 * 
+	 * Es el balance de todas las notas de crédito
+	 * 
+	 * @param fecha
+	 * @return
+	 * @throws ServiceException
+	 */
+	public Balance getBalanceNotasCredito(Date fecha) throws ServiceException;
 	
 }
