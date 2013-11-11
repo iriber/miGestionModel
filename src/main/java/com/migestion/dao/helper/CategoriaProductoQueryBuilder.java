@@ -57,7 +57,18 @@ public class CategoriaProductoQueryBuilder extends QueryBuilder<CategoriaProduct
 	        builder.upper(root.<String>get("nombre")), "%"+nombre.toUpperCase()+"%");
 	        predicateList.add(nombrePredicate);
 	    }
-	 
+
+	    CategoriaProducto padre = ((CategoriaProductoCriteria)criteria).getPadre();
+	    if( padre!=null ){
+	    	Predicate padrePredicate = builder.equal( (root.<CategoriaProducto>get("padre")), padre );
+	        predicateList.add(padrePredicate);
+	    }
+	    
+	    Boolean sinPadre  = ((CategoriaProductoCriteria)criteria).getSinPadre();
+	    if( sinPadre!=null && sinPadre ){
+	    	Predicate sinPadrePredicate = builder.isNull(root.<String>get("padre"));
+	        predicateList.add(sinPadrePredicate);
+	    }
 	 
 	    Predicate[] predicates = new Predicate[predicateList.size()];
 	    predicateList.toArray(predicates);
