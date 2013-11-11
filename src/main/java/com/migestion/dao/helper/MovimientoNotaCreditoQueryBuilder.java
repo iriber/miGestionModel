@@ -56,12 +56,24 @@ public class MovimientoNotaCreditoQueryBuilder extends QueryBuilder<MovimientoNo
 		 
 		 
 		NotaCredito notaCredito = ((MovimientoNotaCreditoCriteria)criteria).getNotaCredito();
+		Date fechaDesde = ((MovimientoNotaCreditoCriteria)criteria).getFechaDesde();
+		Date fechaHasta = ((MovimientoNotaCreditoCriteria)criteria).getFechaHasta();
+		Date fecha = ((MovimientoNotaCreditoCriteria)criteria).getFecha();
+		
 		if( notaCredito!=null ){
 	    	Predicate cuentaPredicate = builder.equal( (root.<Date>get("notaCredito")), notaCredito );
 	        predicateList.add(cuentaPredicate);
 	    }
 
-		Date fecha = ((MovimientoNotaCreditoCriteria)criteria).getFecha();
+	    if( fechaDesde!=null ){
+	    	Predicate desdePredicate = builder.greaterThanOrEqualTo( (root.<Date>get("fechaHora")), fechaDesde );
+	        predicateList.add(desdePredicate);
+	    }
+	    if( fechaHasta!=null ){
+	    	Predicate hastaPredicate = builder.lessThanOrEqualTo( (root.<Date>get("fechaHora")), fechaHasta );
+	        predicateList.add(hastaPredicate);
+	    }
+		
 		if( fecha!=null ){
 			Calendar c = Calendar.getInstance();
 			c.setTime( fecha );

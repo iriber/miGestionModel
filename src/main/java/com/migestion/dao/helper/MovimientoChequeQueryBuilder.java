@@ -56,12 +56,24 @@ public class MovimientoChequeQueryBuilder extends QueryBuilder<MovimientoCheque>
 		 
 		 
 		Cheque cheque = ((MovimientoChequeCriteria)criteria).getCheque();
+		Date fecha = ((MovimientoChequeCriteria)criteria).getFecha();
+		Date fechaDesde = ((MovimientoChequeCriteria)criteria).getFechaDesde();
+		Date fechaHasta = ((MovimientoChequeCriteria)criteria).getFechaHasta();
+		
 		if( cheque!=null ){
 	    	Predicate cuentaPredicate = builder.equal( (root.<Date>get("cheque")), cheque );
 	        predicateList.add(cuentaPredicate);
 	    }
 
-		Date fecha = ((MovimientoChequeCriteria)criteria).getFecha();
+	    if( fechaDesde!=null ){
+	    	Predicate desdePredicate = builder.greaterThanOrEqualTo( (root.<Date>get("fechaHora")), fechaDesde );
+	        predicateList.add(desdePredicate);
+	    }
+	    if( fechaHasta!=null ){
+	    	Predicate hastaPredicate = builder.lessThanOrEqualTo( (root.<Date>get("fechaHora")), fechaHasta );
+	        predicateList.add(hastaPredicate);
+	    }
+		
 		if( fecha!=null ){
 			Calendar c = Calendar.getInstance();
 			c.setTime( fecha );

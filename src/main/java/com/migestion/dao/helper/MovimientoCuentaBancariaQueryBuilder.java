@@ -56,12 +56,25 @@ public class MovimientoCuentaBancariaQueryBuilder extends QueryBuilder<Movimient
 		 
 		 
 		CuentaBancaria cuentaBancaria = ((MovimientoCuentaBancariaCriteria)criteria).getCuentaBancaria();
+		Date fechaDesde = ((MovimientoCuentaBancariaCriteria)criteria).getFechaDesde();
+		Date fechaHasta = ((MovimientoCuentaBancariaCriteria)criteria).getFechaHasta();
+		Date fecha = ((MovimientoCuentaBancariaCriteria)criteria).getFecha();
+
+		
 		if( cuentaBancaria!=null ){
 	    	Predicate cuentaPredicate = builder.equal( (root.<Date>get("cuentaBancaria")), cuentaBancaria );
 	        predicateList.add(cuentaPredicate);
 	    }
 
-		Date fecha = ((MovimientoCuentaBancariaCriteria)criteria).getFecha();
+	    if( fechaDesde!=null ){
+	    	Predicate desdePredicate = builder.greaterThanOrEqualTo( (root.<Date>get("fechaHora")), fechaDesde );
+	        predicateList.add(desdePredicate);
+	    }
+	    if( fechaHasta!=null ){
+	    	Predicate hastaPredicate = builder.lessThanOrEqualTo( (root.<Date>get("fechaHora")), fechaHasta );
+	        predicateList.add(hastaPredicate);
+	    }
+		
 		if( fecha!=null ){
 			Calendar c = Calendar.getInstance();
 			c.setTime( fecha );
