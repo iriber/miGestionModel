@@ -16,6 +16,11 @@ public class MovimientoCuentaCriteria extends Criteria{
 
 	private Date fecha;
 	
+	private Date fechaDesde;
+	
+	private Date fechaHasta;
+	
+	
 	public Date getFecha() {
 		return fecha;
 	}
@@ -26,6 +31,22 @@ public class MovimientoCuentaCriteria extends Criteria{
 	public void orderByFechaHora(String type){
 		
 		this.addOrder("fechaHora", type);
+	}
+
+	public Date getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(Date fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 	
 	
