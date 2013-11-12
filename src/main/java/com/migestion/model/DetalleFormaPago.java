@@ -65,7 +65,7 @@ public abstract class DetalleFormaPago extends GenericEntity{
 	private Float monto;
 
 	/**
-	 * estado del pago
+	 * forma de pago
 	 */
 	@Enumerated( value=EnumType.STRING )
 	@NotNull(message="{detalleFormaPago.formaPago.required}")
