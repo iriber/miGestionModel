@@ -92,7 +92,7 @@ public class NotaCreditoServiceImpl extends GenericService<NotaCredito, NotaCred
 		//generamos un movimiento de nota de crédito (debe)
 		MovimientoNotaCredito movimiento = new MovimientoNotaCredito();
 		movimiento.setNotaCredito(entity);
-		movimiento.setConcepto( ServiceFactory.getConceptoCajaService().getConceptoVentas() );
+		movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoVentas() );
 		movimiento.setDebe( entity.getMonto() );
 		movimiento.setFechaHora( entity.getFecha() );
 

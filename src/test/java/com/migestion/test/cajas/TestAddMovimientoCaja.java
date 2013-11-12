@@ -24,7 +24,7 @@ public class TestAddMovimientoCaja extends TestAddEntity<MovimientoCaja, Movimie
 		c.setCaja( ServiceFactory.getCajaService().get(1L));
 		c.setFechaHora( new Date() );
 		c.setHaber(50F);
-		c.setConcepto( ServiceFactory.getConceptoCajaService().get(1L));
+		c.setConcepto( ServiceFactory.getConceptoMovimientoService().get(1L));
 		return c;
 	}
 

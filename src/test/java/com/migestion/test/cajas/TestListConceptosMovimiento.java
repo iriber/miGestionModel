@@ -20,7 +20,7 @@ public class TestListConceptosMovimiento extends TestListEntities<ConceptoMovimi
 	protected List<ConceptoMovimiento> list() throws ServiceException {
 		
 		ConceptoMovimientoCriteria criteria = new ConceptoMovimientoCriteria();
-		return ServiceFactory.getConceptoCajaService().list(criteria);
+		return ServiceFactory.getConceptoMovimientoService().list(criteria);
 		
 	}
 

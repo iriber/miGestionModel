@@ -202,4 +202,5 @@ public abstract class MovimientoCuenta extends GenericEntity{
 	public abstract void setSaldoCuenta(Float monto);
 	
 	public abstract Float getSaldoCuenta();
+
 }

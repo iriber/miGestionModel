@@ -30,6 +30,10 @@
 	<class>com.migestion.model.MovimientoCheque</class>
 	<class>com.migestion.model.MovimientoNotaCredito</class>
 	<class>com.migestion.model.NotaCredito</class>
+	<class>com.migestion.model.Gasto</class>
+	<class>com.migestion.model.GastoCheque</class>
+	<class>com.migestion.model.GastoCuentaBancaria</class>
+	<class>com.migestion.model.GastoEfectivo</class>
 	<properties>
 		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 		

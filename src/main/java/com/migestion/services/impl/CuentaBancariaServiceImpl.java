@@ -93,7 +93,7 @@ public class CuentaBancariaServiceImpl extends GenericService<CuentaBancaria, Cu
 		//agregamos un movimiento por el saldo inicial
 		MovimientoCuentaBancaria movimiento = new MovimientoCuentaBancaria();
 		movimiento.setCuentaBancaria(entity);
-		movimiento.setConcepto( ServiceFactory.getConceptoCajaService().getConceptoSaldoInicial() );
+		movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoSaldoInicial() );
 		movimiento.setHaber( entity.getSaldoInicial() );
 		movimiento.setFechaHora( new Date() );
 

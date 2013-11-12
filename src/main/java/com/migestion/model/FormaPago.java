@@ -13,8 +13,9 @@ public enum FormaPago{
 	EFECTIVO("forma.pago.efectivo"),
 	TRANSFERENCIA("forma.pago.transferencia"),
 	DEPOSITO("forma.pago.deposito"),
-	NOTA_CREDITO("forma.pago.nota_credito"),
+	NOTA_CREDITO("forma.pago.notaCredito"),
 	TARJETA("forma.pago.tarjeta"),
+	CUENTA_BANCARIA("forma.pago.cuentaBancaria"),
 	CHEQUE("forma.pago.cheque");
 	
 	

@@ -7,6 +7,7 @@ import com.migestion.services.impl.ChequeServiceImpl;
 import com.migestion.services.impl.ClienteServiceImpl;
 import com.migestion.services.impl.ConceptoMovimientoServiceImpl;
 import com.migestion.services.impl.CuentaBancariaServiceImpl;
+import com.migestion.services.impl.GastoServiceImpl;
 import com.migestion.services.impl.MovimientoCajaServiceImpl;
 import com.migestion.services.impl.MovimientoChequeServiceImpl;
 import com.migestion.services.impl.MovimientoCuentaBancariaServiceImpl;
@@ -136,7 +137,7 @@ public class ServiceFactory {
 	 * servicio para conceptos de cajas.
 	 * @return
 	 */
-	public static IConceptoMovimientoService getConceptoCajaService(){
+	public static IConceptoMovimientoService getConceptoMovimientoService(){
 		return ConceptoMovimientoServiceImpl.getInstance();
 	}
 	
@@ -162,5 +163,13 @@ public class ServiceFactory {
 	 */
 	public static IChequeService getChequeService(){
 		return ChequeServiceImpl.getInstance();
+	}
+
+	/**
+	 * servicio para gastos.
+	 * @return
+	 */
+	public static IGastoService getGastoService(){
+		return GastoServiceImpl.getInstance();
 	}
 }

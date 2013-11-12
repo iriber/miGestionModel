@@ -99,7 +99,7 @@ public class CajaServiceImpl extends GenericService<Caja, CajaCriteria>
 		//agregamos un movimiento por el saldo inicial
 		MovimientoCaja movimiento = new MovimientoCaja();
 		movimiento.setCaja(entity);
-		movimiento.setConcepto( ServiceFactory.getConceptoCajaService().getConceptoSaldoInicial() );
+		movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoSaldoInicial() );
 		movimiento.setHaber( entity.getSaldoInicial() );
 		movimiento.setFechaHora( entity.getFecha() );
 

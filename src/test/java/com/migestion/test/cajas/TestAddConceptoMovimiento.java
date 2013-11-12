@@ -19,7 +19,8 @@ public class TestAddConceptoMovimiento extends TestAddEntity<ConceptoMovimiento,
 	@Override
 	protected ConceptoMovimiento getEntity() throws ServiceException {
 		ConceptoMovimiento c = new ConceptoMovimiento();
-		c.setNombre("Saldo Inicial");
+		//c.setNombre("Saldo Inicial");
+		c.setNombre("Alquiler");
 		//c.setNombre("Ventas");
 		return c;
 	}
@@ -31,7 +32,7 @@ public class TestAddConceptoMovimiento extends TestAddEntity<ConceptoMovimiento,
 
 	@Override
 	protected IGenericService<ConceptoMovimiento, ConceptoMovimientoCriteria> getService() {
-		return ServiceFactory.getConceptoCajaService();
+		return ServiceFactory.getConceptoMovimientoService();
 	}
 
 }
