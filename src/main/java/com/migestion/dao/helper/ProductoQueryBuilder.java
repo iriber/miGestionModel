@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.migestion.model.CategoriaProducto;
 import com.migestion.model.Producto;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.ProductoCriteria;
@@ -52,31 +53,38 @@ public class ProductoQueryBuilder extends QueryBuilder<Producto>{
 		 
 		 
 	    String nombre  = ((ProductoCriteria)criteria).getNombre();
+	    String nombreEqual  = ((ProductoCriteria)criteria).getNombreEqual();
+	    Long oid = ((ProductoCriteria)criteria).getOid();
+	    Long oidNotEqual = ((ProductoCriteria)criteria).getOidNotEqual();
+	    CategoriaProducto categoriaProducto  = ((ProductoCriteria)criteria).getCategoriaProducto();
+
 	    if( !StringUtils.isEmpty(nombre) ){
 	    	Predicate nombrePredicate = builder.like(
 	        builder.upper(root.<String>get("nombre")), "%"+nombre.toUpperCase()+"%");
 	        predicateList.add(nombrePredicate);
 	    }
 	 
-	    String nombreEqual  = ((ProductoCriteria)criteria).getNombreEqual();
 	    if( !StringUtils.isEmpty(nombreEqual) ){
 	    	Predicate nombreEqualPredicate = builder.equal(
 	        builder.upper(root.<String>get("nombre")), nombreEqual.toUpperCase());
 	        predicateList.add(nombreEqualPredicate);
 	    }
 
-	    Long oid = ((ProductoCriteria)criteria).getOid();
 	    if( oid!=null ){
 	    	Predicate oidPredicate = builder.equal(
 	        root.<Long>get("oid"), oid);
 	        predicateList.add(oidPredicate);
 	    }
 
-	    Long oidNotEqual = ((ProductoCriteria)criteria).getOidNotEqual();
 	    if( oidNotEqual!=null ){
 	    	Predicate oidNotEqualPredicate = builder.equal(
 	        root.<Long>get("oid"), oidNotEqual).not();
 	        predicateList.add(oidNotEqualPredicate);
+	    }
+	 
+	    if( categoriaProducto!=null ){
+	    	Predicate categoriaProductoPredicate = builder.equal( (root.<CategoriaProducto>get("categoria")), categoriaProducto );
+	        predicateList.add(categoriaProductoPredicate);
 	    }
 	    
 	    Predicate[] predicates = new Predicate[predicateList.size()];

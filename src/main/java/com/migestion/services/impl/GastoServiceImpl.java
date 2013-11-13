@@ -117,7 +117,7 @@ public class GastoServiceImpl extends GenericService<Gasto, GastoCriteria> imple
 			ConceptoMovimiento concepto= ServiceFactory.getConceptoMovimientoService().get( ValoresPredefinidos.CONCEPTO_ANULACION_GASTO );
 			
 			MovimientoCuenta movimiento = gasto.buildContraMovimiento(concepto);
-			
+			movimiento.calcularSaldos();
 			DAOFactory.getMovimientoCuentaDAO().add(movimiento);
 			
 		} catch (DAOException e) {

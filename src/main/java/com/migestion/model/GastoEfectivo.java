@@ -1,6 +1,8 @@
 package com.migestion.model;
 
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -39,7 +41,9 @@ public class GastoEfectivo extends Gasto{
 
 	@Override
 	public MovimientoCuenta createMovimiento() {
-		return new MovimientoCaja();
+		MovimientoCaja movimiento = new MovimientoCaja();
+		movimiento.setCaja( getCaja() );
+		return movimiento;
 	}
 	
 	

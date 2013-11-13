@@ -67,4 +67,10 @@ public class GastoJPADAO extends GenericJPADAO<Gasto, GastoCriteria>  implements
 		
 		return estadistica;
 	}
+
+
+	public Boolean hasDependencies(Gasto entity) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

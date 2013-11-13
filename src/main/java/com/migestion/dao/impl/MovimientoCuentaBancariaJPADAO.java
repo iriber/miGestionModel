@@ -70,4 +70,11 @@ public class MovimientoCuentaBancariaJPADAO extends GenericJPADAO<MovimientoCuen
 		
 		return balance;
 	}
+
+
+	public Boolean hasDependencies(MovimientoCuentaBancaria entity)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -75,7 +75,10 @@ public class GastoCheque extends Gasto{
 
 	@Override
 	public MovimientoCuenta createMovimiento() {
-		
-		return new MovimientoCheque();
+		MovimientoCheque movimiento = new MovimientoCheque();
+		movimiento.setCheque(getCheque());
+		return movimiento;
 	}
+	
+	
 }

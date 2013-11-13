@@ -70,4 +70,10 @@ public class MovimientoChequeJPADAO extends GenericJPADAO<MovimientoCheque, Movi
 		
 		return balance;
 	}
+
+
+	public Boolean hasDependencies(MovimientoCheque entity) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

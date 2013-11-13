@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
+import com.migestion.dao.exception.DAOException;
 import com.migestion.i18n.Messages;
 import com.migestion.model.EstadoProducto;
 import com.migestion.model.Producto;
@@ -120,8 +121,13 @@ public class ProductoServiceImpl extends GenericService<Producto, ProductoCriter
 
 		//que no esté afectado en ninguna operación.
 		
-		//TODO buscarlo en ventas.
-		
+		try {
+			if( getDAO().hasDependencies(entity) ){
+				throw new ServiceException( Messages.PRODUCTO_TIENE_DEPENDENCIAS );
+			}
+		} catch (DAOException e) {
+			throw new ServiceException( e );
+		}
 		
 		
 	}

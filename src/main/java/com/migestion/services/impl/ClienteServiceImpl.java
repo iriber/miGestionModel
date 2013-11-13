@@ -1,12 +1,17 @@
 package com.migestion.services.impl;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
+import com.migestion.dao.exception.DAOException;
+import com.migestion.i18n.Messages;
 import com.migestion.model.Cliente;
 import com.migestion.model.ValoresPredefinidos;
 import com.migestion.services.IClienteService;
 import com.migestion.services.criteria.ClienteCriteria;
+import com.migestion.services.criteria.ProductoCriteria;
 import com.migestion.services.exception.ServiceException;
 
 
@@ -56,20 +61,85 @@ public class ClienteServiceImpl extends GenericService<Cliente, ClienteCriteria>
 
 	@Override
 	protected void validateOnAdd(Cliente entity) throws ServiceException {
-		// TODO Auto-generated method stub
+	
+		//requeridos: nombre
+		if( StringUtils.isEmpty(entity.getNombre()) ){
+			throw new ServiceException( Messages.CLIENTE_NOMBRE_REQUERIDO );
+		}
 		
+		//nombre único
+		ClienteCriteria criteria = new ClienteCriteria();
+		criteria.setNombreEqual( entity.getNombre() );
+		
+		if( getListSize(criteria) > 0 ){
+		
+			//si existe otro cliente con el mismo nombre, exigimos que ingrese
+			//el nro de documento
+			if( entity.getNroDocumento()==null ){
+		
+				throw new ServiceException( Messages.CLIENTE_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO );
+				
+			}else{
+				
+				//vemos si además del nombre se repite el nroDocumento
+				criteria.setNroDocumento( entity.getNroDocumento() );		
+				if( getListSize(criteria) > 0 )
+					throw new ServiceException( Messages.CLIENTE_DUPLICADO );
+			}	
+			
+			throw new ServiceException( Messages.CLIENTE_NOMBRE_REPETIDO );
+			
+		}
+	
 		
 	}
 
 	@Override
 	protected void validateOnUpdate(Cliente entity) throws ServiceException {
-		// TODO Auto-generated method stub
 		
+		//requeridos: nombre
+		if( StringUtils.isEmpty(entity.getNombre()) ){
+			throw new ServiceException( Messages.CLIENTE_NOMBRE_REQUERIDO );
+		}
+		
+		//nombre único
+		ClienteCriteria criteria = new ClienteCriteria();
+		criteria.setNombreEqual( entity.getNombre() );
+		criteria.setOidNotEqual( entity.getOid() );
+		
+		if( getListSize(criteria) > 0 ){
+		
+			//si existe otro cliente con el mismo nombre, exigimos que ingrese
+			//el nro de documento
+			if( entity.getNroDocumento()==null ){
+		
+				throw new ServiceException( Messages.CLIENTE_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO );
+				
+			}else{
+				
+				//vemos si además del nombre se repite el nroDocumento
+				criteria.setNroDocumento( entity.getNroDocumento() );		
+				if( getListSize(criteria) > 0 )
+					throw new ServiceException( Messages.CLIENTE_DUPLICADO );
+			}	
+			
+			throw new ServiceException( Messages.CLIENTE_NOMBRE_REPETIDO );
+			
+		}
 	}
 
 	@Override
 	protected void validateOnDelete(Cliente entity) throws ServiceException {
-		// TODO Auto-generated method stub
+		
+		//que no esté afectado en ninguna operación.
+		
+		try {
+			if( getDAO().hasDependencies(entity) ){
+				throw new ServiceException( Messages.CLIENTE_TIENE_DEPENDENCIAS );
+			}
+		} catch (DAOException e) {
+			throw new ServiceException( e );
+		}
 		
 	}
 

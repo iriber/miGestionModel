@@ -1,5 +1,7 @@
 package com.migestion.services.criteria;
 
+import com.migestion.model.CategoriaProducto;
+
 /**
  * Criterio de búsqueda para productos.
  * 
@@ -19,6 +21,8 @@ public class ProductoCriteria extends Criteria{
 	private Long oid;
 	
 	private Long oidNotEqual;
+
+	private CategoriaProducto categoriaProducto;
 	
 	public Long getOidNotEqual() {
 		return oidNotEqual;
@@ -56,6 +60,14 @@ public class ProductoCriteria extends Criteria{
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public CategoriaProducto getCategoriaProducto() {
+		return categoriaProducto;
+	}
+
+	public void setCategoriaProducto(CategoriaProducto categoriaProducto) {
+		this.categoriaProducto = categoriaProducto;
 	}
 	
 

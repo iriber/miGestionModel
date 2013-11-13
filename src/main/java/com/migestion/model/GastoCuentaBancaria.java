@@ -47,7 +47,9 @@ public class GastoCuentaBancaria extends Gasto{
 
 	@Override
 	public MovimientoCuenta createMovimiento() {
-		return new MovimientoCuentaBancaria();
+		MovimientoCuentaBancaria movimiento = new MovimientoCuentaBancaria();
+		movimiento.setCuentaBancaria(getCuentaBancaria());
+		return movimiento;
 	}
 	
 	/**

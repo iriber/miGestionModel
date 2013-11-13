@@ -30,4 +30,10 @@ public class CuentaBancariaJPADAO extends GenericJPADAO<CuentaBancaria, CuentaBa
 	protected QueryBuilder<CuentaBancaria> getQueryBuilder(Criteria criteria) {
 		return new CuentaBancariaQueryBuilder(criteria);
 	}
+
+
+	public Boolean hasDependencies(CuentaBancaria entity) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

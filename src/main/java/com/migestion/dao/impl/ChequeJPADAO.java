@@ -30,4 +30,10 @@ public class ChequeJPADAO extends GenericJPADAO<Cheque, ChequeCriteria>{
 	protected QueryBuilder<Cheque> getQueryBuilder(Criteria criteria) {
 		return new ChequeQueryBuilder(criteria);
 	}
+
+
+	public Boolean hasDependencies(Cheque entity) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

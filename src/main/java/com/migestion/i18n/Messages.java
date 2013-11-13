@@ -30,5 +30,16 @@ public class Messages {
 	public static String PRODUCTO_IVA_REQUERIDO =locale("producto.iva.requerido");
 	public static String PRODUCTO_CATEGORIA_REQUERIDA =locale("producto.categoria.requerida");
 	public static String PRODUCTO_NOMBRE_REPETIDO =locale("producto.nombre.repetido");
+	public static String PRODUCTO_TIENE_DEPENDENCIAS =locale("producto.tiene.dependencias");
+	
+	public static String CATEGORIA_PRODUCTO_NOMBRE_REQUERIDO =locale("categoriaProducto.nombre.requerido");
+	public static String CATEGORIA_PRODUCTO_NOMBRE_REPETIDO =locale("categoriaProducto.nombre.repetido");
+	public static String CATEGORIA_PRODUCTO_TIENE_DEPENDENCIAS =locale("categoriaProducto.tiene.dependencias");
+	
+	public static String CLIENTE_NOMBRE_REQUERIDO =locale("cliente.nombre.requerido");
+	public static String CLIENTE_NOMBRE_REPETIDO =locale("cliente.nombre.repetido");
+	public static String CLIENTE_DUPLICADO =locale("cliente.duplicado");
+	public static String CLIENTE_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO =locale("cliente.nombre.repetido.nroDocumento.requerido");
+	public static String CLIENTE_TIENE_DEPENDENCIAS =locale("cliente.tiene.dependencias");
 
 }

@@ -4,6 +4,7 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.NotaCreditoQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.NotaCredito;
+import com.migestion.model.Pago;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.NotaCreditoCriteria;
 
@@ -29,5 +30,13 @@ public class NotaCreditoJPADAO extends GenericJPADAO<NotaCredito, NotaCreditoCri
 	@Override
 	protected QueryBuilder<NotaCredito> getQueryBuilder(Criteria criteria) {
 		return new NotaCreditoQueryBuilder(criteria);
+	}
+	
+	public Boolean hasDependencies(NotaCredito notaCredito){
+		
+		Boolean ok = false;
+		
+		
+		return ok;
 	}
 }

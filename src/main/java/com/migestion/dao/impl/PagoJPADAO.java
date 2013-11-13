@@ -10,6 +10,7 @@ import com.migestion.dao.helper.PagoQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.EstadisticaPago;
 import com.migestion.model.Pago;
+import com.migestion.model.Vendedor;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.PagoCriteria;
 
@@ -66,5 +67,13 @@ public class PagoJPADAO extends GenericJPADAO<Pago, PagoCriteria>  implements IP
 		}
 		
 		return estadistica;
+	}
+	
+	public Boolean hasDependencies(Pago pago){
+		
+		Boolean ok = false;
+		
+		
+		return ok;
 	}
 }

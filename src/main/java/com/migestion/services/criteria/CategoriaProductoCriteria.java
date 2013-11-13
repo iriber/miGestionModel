@@ -19,6 +19,12 @@ public class CategoriaProductoCriteria extends Criteria{
 	private Boolean sinPadre=null;
 	
 	private CategoriaProducto padre;
+
+	private String nombreEqual;
+	
+	private Long oid;
+	
+	private Long oidNotEqual;
 	
 	/**
 	 * @return the nombre
@@ -48,6 +54,30 @@ public class CategoriaProductoCriteria extends Criteria{
 
 	public void setPadre(CategoriaProducto padre) {
 		this.padre = padre;
+	}
+
+	public String getNombreEqual() {
+		return nombreEqual;
+	}
+
+	public void setNombreEqual(String nombreEqual) {
+		this.nombreEqual = nombreEqual;
+	}
+
+	public Long getOid() {
+		return oid;
+	}
+
+	public void setOid(Long oid) {
+		this.oid = oid;
+	}
+
+	public Long getOidNotEqual() {
+		return oidNotEqual;
+	}
+
+	public void setOidNotEqual(Long oidNotEqual) {
+		this.oidNotEqual = oidNotEqual;
 	}
 	
 

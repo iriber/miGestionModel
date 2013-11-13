@@ -4,6 +4,7 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.dao.helper.SucursalQueryBuilder;
 import com.migestion.model.Sucursal;
+import com.migestion.model.Vendedor;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.SucursalCriteria;
 
@@ -29,5 +30,16 @@ public class SucursalJPADAO extends GenericJPADAO<Sucursal, SucursalCriteria>{
 	@Override
 	protected QueryBuilder<Sucursal> getQueryBuilder(Criteria criteria) {
 		return new SucursalQueryBuilder(criteria);
+	}
+	
+	public Boolean hasDependencies(Sucursal sucursal){
+		
+		Boolean ok = false;
+		
+		//TODO buscamos en ventas?.
+		
+		//TODO buscamos en gastos?.
+		
+		return ok;
 	}
 }

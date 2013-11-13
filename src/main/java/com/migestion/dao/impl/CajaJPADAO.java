@@ -70,4 +70,10 @@ public class CajaJPADAO extends GenericJPADAO<Caja, CajaCriteria> implements ICa
 		return estadistica;
 
 	}
+
+
+	public Boolean hasDependencies(Caja entity) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

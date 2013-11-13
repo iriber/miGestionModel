@@ -30,4 +30,11 @@ public class ConceptoMovimientoJPADAO extends GenericJPADAO<ConceptoMovimiento, 
 	protected QueryBuilder<ConceptoMovimiento> getQueryBuilder(Criteria criteria) {
 		return new ConceptoMovimientoQueryBuilder(criteria);
 	}
+
+
+	public Boolean hasDependencies(ConceptoMovimiento entity)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

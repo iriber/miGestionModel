@@ -4,6 +4,7 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.VendedorQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.Vendedor;
+import com.migestion.model.Venta;
 import com.migestion.services.criteria.VendedorCriteria;
 import com.migestion.services.criteria.Criteria;
 
@@ -29,5 +30,16 @@ public class VendedorJPADAO extends GenericJPADAO<Vendedor, VendedorCriteria>{
 	@Override
 	protected QueryBuilder<Vendedor> getQueryBuilder(Criteria criteria) {
 		return new VendedorQueryBuilder(criteria);
+	}
+	
+	public Boolean hasDependencies(Vendedor vendedor){
+		
+		Boolean ok = false;
+		
+		//TODO buscamos en ventas?.
+		
+		//TODO buscamos en gastos?.
+		
+		return ok;
 	}
 }

@@ -26,4 +26,5 @@ public interface IGenericDAO<T, TCriteria> {
 	
 	Long getListSize(TCriteria criteria) throws DAOException;
 	
+	Boolean hasDependencies(T entity) throws DAOException;
 }

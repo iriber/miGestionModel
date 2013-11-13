@@ -52,24 +52,46 @@ public class CategoriaProductoQueryBuilder extends QueryBuilder<CategoriaProduct
 		 
 		 
 	    String nombre  = ((CategoriaProductoCriteria)criteria).getNombre();
+	    String nombreEqual  = ((CategoriaProductoCriteria)criteria).getNombreEqual();
+	    Long oid = ((CategoriaProductoCriteria)criteria).getOid();
+	    Long oidNotEqual = ((CategoriaProductoCriteria)criteria).getOidNotEqual();
+	    CategoriaProducto padre = ((CategoriaProductoCriteria)criteria).getPadre();
+	    Boolean sinPadre  = ((CategoriaProductoCriteria)criteria).getSinPadre();
+
 	    if( !StringUtils.isEmpty(nombre) ){
 	    	Predicate nombrePredicate = builder.like(
 	        builder.upper(root.<String>get("nombre")), "%"+nombre.toUpperCase()+"%");
 	        predicateList.add(nombrePredicate);
 	    }
 
-	    CategoriaProducto padre = ((CategoriaProductoCriteria)criteria).getPadre();
 	    if( padre!=null ){
 	    	Predicate padrePredicate = builder.equal( (root.<CategoriaProducto>get("padre")), padre );
 	        predicateList.add(padrePredicate);
 	    }
 	    
-	    Boolean sinPadre  = ((CategoriaProductoCriteria)criteria).getSinPadre();
 	    if( sinPadre!=null && sinPadre ){
 	    	Predicate sinPadrePredicate = builder.isNull(root.<String>get("padre"));
 	        predicateList.add(sinPadrePredicate);
 	    }
-	 
+
+	    if( !StringUtils.isEmpty(nombreEqual) ){
+	    	Predicate nombreEqualPredicate = builder.equal(
+	        builder.upper(root.<String>get("nombre")), nombreEqual.toUpperCase());
+	        predicateList.add(nombreEqualPredicate);
+	    }
+
+	    if( oid!=null ){
+	    	Predicate oidPredicate = builder.equal(
+	        root.<Long>get("oid"), oid);
+	        predicateList.add(oidPredicate);
+	    }
+
+	    if( oidNotEqual!=null ){
+	    	Predicate oidNotEqualPredicate = builder.equal(
+	        root.<Long>get("oid"), oidNotEqual).not();
+	        predicateList.add(oidNotEqualPredicate);
+	    }
+	    
 	    Predicate[] predicates = new Predicate[predicateList.size()];
 	    predicateList.toArray(predicates);
 		return predicates;
