@@ -83,7 +83,7 @@ public class ClienteQueryBuilder extends QueryBuilder<Cliente>{
 	 
 	    if( nroDocumento!=null ){
 	    	Predicate nroDocumentoPredicate = builder.equal(
-	        root.<Long>get("nroDocumento"), oid);
+	        root.<Long>get("nroDocumento"), nroDocumento);
 	        predicateList.add(nroDocumentoPredicate);
 	    }
 	    Predicate[] predicates = new Predicate[predicateList.size()];

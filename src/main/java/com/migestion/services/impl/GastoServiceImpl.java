@@ -1,6 +1,9 @@
 package com.migestion.services.impl;
 
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGastoDAO;
 import com.migestion.dao.IGenericDAO;
@@ -82,8 +85,20 @@ public class GastoServiceImpl extends GenericService<Gasto, GastoCriteria> imple
 	@Override
 	public void add(Gasto entity) throws ServiceException {
 
-		//hay que actualizar el saldo de las cuentaa afectada (forma pago).
+		//hay que actualizar el saldo de las cuenta afectada (forma pago).
 		entity.getMovimiento().calcularSaldos();
+		
+		//le seteamos una descripción al movimiento
+		String descripcion = entity.getMovimiento().getDescripcion();
+		if( StringUtils.isEmpty( descripcion) ){
+			
+			descripcion = entity.getObservaciones();
+			
+		}
+		entity.getMovimiento().setDescripcion(descripcion);
+		
+		
+		//TODO movimiento en cuenta IVA y cuenta IIBB??
 		
 		// agregamos el gasto.
 		super.add(entity);
@@ -118,6 +133,7 @@ public class GastoServiceImpl extends GenericService<Gasto, GastoCriteria> imple
 			
 			MovimientoCuenta movimiento = gasto.buildContraMovimiento(concepto);
 			movimiento.calcularSaldos();
+			movimiento.setDescripcion("Gasto #" + oid);
 			DAOFactory.getMovimientoCuentaDAO().add(movimiento);
 			
 		} catch (DAOException e) {

@@ -12,8 +12,8 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 
 import com.migestion.model.Vendedor;
-import com.migestion.services.criteria.VendedorCriteria;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.services.criteria.VendedorCriteria;
 
 
 /**
@@ -53,10 +53,39 @@ public class VendedorQueryBuilder extends QueryBuilder<Vendedor>{
 		 
 		 
 	    String nombre  = ((VendedorCriteria)criteria).getNombre();
+	    String nombreEqual  = ((VendedorCriteria)criteria).getNombreEqual();
+	    Long oid = ((VendedorCriteria)criteria).getOid();
+	    Long oidNotEqual = ((VendedorCriteria)criteria).getOidNotEqual();
+	    Long nroDocumento = ((VendedorCriteria)criteria).getNroDocumento();
+	    
+	    
 	    if( !StringUtils.isEmpty(nombre) ){
 	    	Predicate nombrePredicate = builder.like(
 	        builder.upper(root.<String>get("nombre")), "%"+nombre.toUpperCase()+"%");
 	        predicateList.add(nombrePredicate);
+	    }
+	    if( !StringUtils.isEmpty(nombreEqual) ){
+	    	Predicate nombreEqualPredicate = builder.equal(
+	        builder.upper(root.<String>get("nombre")), nombreEqual.toUpperCase());
+	        predicateList.add(nombreEqualPredicate);
+	    }
+
+	    if( oid!=null ){
+	    	Predicate oidPredicate = builder.equal(
+	        root.<Long>get("oid"), oid);
+	        predicateList.add(oidPredicate);
+	    }
+
+	    if( oidNotEqual!=null ){
+	    	Predicate oidNotEqualPredicate = builder.equal(
+	        root.<Long>get("oid"), oidNotEqual).not();
+	        predicateList.add(oidNotEqualPredicate);
+	    }	    
+	 
+	    if( nroDocumento!=null ){
+	    	Predicate nroDocumentoPredicate = builder.equal(
+	        root.<Long>get("nroDocumento"), nroDocumento);
+	        predicateList.add(nroDocumentoPredicate);
 	    }
 	 
 	 

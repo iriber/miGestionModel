@@ -56,6 +56,19 @@ public abstract class Gasto extends GenericEntity{
 	 */
 	@Column
 	private Float monto;
+
+	/**
+	 * porcentaje de iva
+	 */
+	@Column
+	private Float iva;
+	
+	/**
+	 * retención IIBB
+	 */
+	@Column
+	private Float rentencionIIBB;
+	
 	
 	/**
 	 * sucursal
@@ -81,10 +94,20 @@ public abstract class Gasto extends GenericEntity{
 	@NotFound(action=NotFoundAction.IGNORE)	
 	private MovimientoCuenta movimiento;
 
+	/**
+	 * tipo de factura
+	 */
+	@Enumerated( value=EnumType.STRING )
+	@NotNull(message="{gasto.tipoFactura.required}")
+	private TipoFactura tipoFactura;
+	
 	public Gasto(){
 		
 		this.movimiento = createMovimiento();
 		this.movimiento.setFechaHora( new Date() );
+		this.iva = 21F;
+		this.rentencionIIBB = 0F;
+		this.tipoFactura = TipoFactura.C;
 	}
 
 	public abstract MovimientoCuenta createMovimiento();
@@ -125,6 +148,7 @@ public abstract class Gasto extends GenericEntity{
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+		
 	}
 
 	public Date getFecha() {
@@ -176,6 +200,30 @@ public abstract class Gasto extends GenericEntity{
 		
 		this.movimiento.setConcepto( concepto );
         
+	}
+
+	public Float getIva() {
+		return iva;
+	}
+
+	public void setIva(Float iva) {
+		this.iva = iva;
+	}
+
+	public Float getRentencionIIBB() {
+		return rentencionIIBB;
+	}
+
+	public void setRentencionIIBB(Float rentencionIIBB) {
+		this.rentencionIIBB = rentencionIIBB;
+	}
+
+	public TipoFactura getTipoFactura() {
+		return tipoFactura;
+	}
+
+	public void setTipoFactura(TipoFactura tipoFactura) {
+		this.tipoFactura = tipoFactura;
 	}
 	
 

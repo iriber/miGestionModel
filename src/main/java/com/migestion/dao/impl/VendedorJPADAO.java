@@ -1,12 +1,15 @@
 package com.migestion.dao.impl;
 
+import com.migestion.dao.DAOFactory;
 import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.VendedorQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
+import com.migestion.model.Cliente;
 import com.migestion.model.Vendedor;
 import com.migestion.model.Venta;
 import com.migestion.services.criteria.VendedorCriteria;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.services.criteria.VentaCriteria;
 
 /**
  * Implementación del dao jpa para vendedores
@@ -32,14 +35,26 @@ public class VendedorJPADAO extends GenericJPADAO<Vendedor, VendedorCriteria>{
 		return new VendedorQueryBuilder(criteria);
 	}
 	
-	public Boolean hasDependencies(Vendedor vendedor){
-		
+	public Boolean hasDependencies(Vendedor entity) throws DAOException {
+
 		Boolean ok = false;
 		
-		//TODO buscamos en ventas?.
+		if( !ok ){
+			//buscamos si tiene ventas.
+			VentaCriteria ventaCriteria = new VentaCriteria();
+			ventaCriteria.setVendedor(entity);
+			ok = DAOFactory.getVentaDAO().getListSize(ventaCriteria) > 0;
+		}
 		
-		//TODO buscamos en gastos?.
+		//cajas?
+		
+		//notas de crédito?
+		
+		//gastos?
+		
+		
 		
 		return ok;
 	}
+	
 }

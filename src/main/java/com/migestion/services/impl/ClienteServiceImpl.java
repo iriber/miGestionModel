@@ -11,7 +11,6 @@ import com.migestion.model.Cliente;
 import com.migestion.model.ValoresPredefinidos;
 import com.migestion.services.IClienteService;
 import com.migestion.services.criteria.ClienteCriteria;
-import com.migestion.services.criteria.ProductoCriteria;
 import com.migestion.services.exception.ServiceException;
 
 
@@ -87,8 +86,6 @@ public class ClienteServiceImpl extends GenericService<Cliente, ClienteCriteria>
 					throw new ServiceException( Messages.CLIENTE_DUPLICADO );
 			}	
 			
-			throw new ServiceException( Messages.CLIENTE_NOMBRE_REPETIDO );
-			
 		}
 	
 		
@@ -123,8 +120,6 @@ public class ClienteServiceImpl extends GenericService<Cliente, ClienteCriteria>
 					throw new ServiceException( Messages.CLIENTE_DUPLICADO );
 			}	
 			
-			throw new ServiceException( Messages.CLIENTE_NOMBRE_REPETIDO );
-			
 		}
 	}
 
@@ -149,7 +144,7 @@ public class ClienteServiceImpl extends GenericService<Cliente, ClienteCriteria>
 	 */
 	public void add(Cliente entity) throws ServiceException {
 
-		//TODO ver si agregamos la cuenta corriente.
+		entity.setSaldo(0F);
 		
 		super.add(entity);
 	}	
@@ -161,7 +156,7 @@ public class ClienteServiceImpl extends GenericService<Cliente, ClienteCriteria>
 	public void update(Cliente entity) throws ServiceException {
 
 		
-		super.add(entity);
+		super.update(entity);
 	}
 
 	public Cliente getClienteMostrador() throws ServiceException {

@@ -12,6 +12,7 @@ import com.migestion.model.DetalleOperacion;
 import com.migestion.model.EstadisticaVenta;
 import com.migestion.model.EstadoPago;
 import com.migestion.model.EstadoVenta;
+import com.migestion.model.MovimientoCuentaCliente;
 import com.migestion.model.NotaCredito;
 import com.migestion.model.Operacion;
 import com.migestion.model.Pago;
@@ -92,21 +93,33 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 	 */
 	public void add(Venta entity) throws ServiceException {
 
-		// TODO ver si agregamos la cuenta corriente.
-
 		// la seteamos como impaga.
 		entity.setEstadoVenta(EstadoVenta.IMPAGA);
 
 		// pongo monto debe como el total de la venta y el pagado en 0
 		entity.setMontoPagado(0F);
 		entity.setMontoDebe(entity.getMonto());
-		
 
 		// descontamos el stock de los productos.
 		this.updatStock( entity.getDetalles() , -1);
-
+		
 		// agregamos la venta.
 		super.add(entity);
+		
+
+		if( entity.getCliente().getTieneCtaCte() ){
+
+			//debe sobre la cuenta corriente del cliente.
+			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
+			movimiento.setCliente( entity.getCliente() );
+			movimiento.setDebe( entity.getMonto() );
+			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoVentas() );
+			movimiento.setFechaHora( new Date() );
+			movimiento.setDescripcion("Venta # " + entity.getOid() );
+			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
+			
+		}
+		
 	}
 
 	/*
@@ -206,7 +219,7 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 		notaCredito.setVendedor( venta.getVendedor() );
 		notaCredito.setSucursal( venta.getSucursal() );
 		notaCredito.setFecha(new Date());
-		
+		notaCredito.setObservaciones("Anulación de venta #" + venta.getOid());
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime( notaCredito.getFecha() );
 		calendar.add(Calendar.DAY_OF_MONTH, 30);

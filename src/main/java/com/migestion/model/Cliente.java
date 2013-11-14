@@ -53,8 +53,24 @@ public class Cliente extends Persona{
 	@Column
 	private String domicilioFacturacion;
 	
+	/**
+	 * saldo de la cuenta corriente del cliente.
+	 */
+	@Column
+	private Float saldo;
 	
+	/**
+	 * saldo al descubierto sobre la cuenta corriente
+	 */
+	@Column
+	private Float descubierto;
 
+	/**
+	 * para determinar si tiene o no cta cte.
+	 */
+	@Column
+	private Boolean tieneCtaCte;
+	
 	public Cliente(){
 	}
 
@@ -136,6 +152,36 @@ public class Cliente extends Persona{
 	 */
 	public void setDomicilioFacturacion(String domicilioFacturacion) {
 		this.domicilioFacturacion = domicilioFacturacion;
+	}
+
+
+	public Float getSaldo() {
+		return saldo;
+	}
+
+
+	public void setSaldo(Float saldo) {
+		this.saldo = saldo;
+	}
+
+
+	public Float getDescubierto() {
+		return descubierto;
+	}
+
+
+	public void setDescubierto(Float descubierto) {
+		this.descubierto = descubierto;
+	}
+
+
+	public Boolean getTieneCtaCte() {
+		return tieneCtaCte;
+	}
+
+
+	public void setTieneCtaCte(Boolean tieneCtaCte) {
+		this.tieneCtaCte = tieneCtaCte;
 	}
 	
 

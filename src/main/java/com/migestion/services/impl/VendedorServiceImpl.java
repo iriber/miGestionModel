@@ -1,8 +1,12 @@
 package com.migestion.services.impl;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
+import com.migestion.dao.exception.DAOException;
+import com.migestion.i18n.Messages;
 import com.migestion.model.ValoresPredefinidos;
 import com.migestion.model.Vendedor;
 import com.migestion.services.IVendedorService;
@@ -56,20 +60,82 @@ public class VendedorServiceImpl extends GenericService<Vendedor, VendedorCriter
 
 	@Override
 	protected void validateOnAdd(Vendedor entity) throws ServiceException {
-		// TODO Auto-generated method stub
 		
+		//requeridos: nombre
+		if( StringUtils.isEmpty(entity.getNombre()) ){
+			throw new ServiceException( Messages.VENDEDOR_NOMBRE_REQUERIDO );
+		}
 		
+		//nombre único
+		VendedorCriteria criteria = new VendedorCriteria();
+		criteria.setNombreEqual( entity.getNombre() );
+		
+		if( getListSize(criteria) > 0 ){
+		
+			//si existe otro vendedor con el mismo nombre, exigimos que ingrese
+			//el nro de documento
+			if( entity.getNroDocumento()==null ){
+		
+				throw new ServiceException( Messages.VENDEDOR_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO );
+				
+			}else{
+				
+				//vemos si además del nombre se repite el nroDocumento
+				criteria.setNroDocumento( entity.getNroDocumento() );		
+				if( getListSize(criteria) > 0 )
+					throw new ServiceException( Messages.VENDEDOR_DUPLICADO );
+			}	
+			
+		}
 	}
 
 	@Override
 	protected void validateOnUpdate(Vendedor entity) throws ServiceException {
-		// TODO Auto-generated method stub
 		
+
+		//requeridos: nombre
+		if( StringUtils.isEmpty(entity.getNombre()) ){
+			throw new ServiceException( Messages.VENDEDOR_NOMBRE_REQUERIDO );
+		}
+		
+		//nombre único
+		VendedorCriteria criteria = new VendedorCriteria();
+		criteria.setNombreEqual( entity.getNombre() );
+		criteria.setOidNotEqual( entity.getOid() );
+		
+		if( getListSize(criteria) > 0 ){
+		
+			//si existe otro cliente con el mismo nombre, exigimos que ingrese
+			//el nro de documento
+			if( entity.getNroDocumento()==null ){
+		
+				throw new ServiceException( Messages.VENDEDOR_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO );
+				
+			}else{
+				
+				//vemos si además del nombre se repite el nroDocumento
+				criteria.setNroDocumento( entity.getNroDocumento() );		
+				if( getListSize(criteria) > 0 )
+					throw new ServiceException( Messages.VENDEDOR_DUPLICADO );
+			}	
+			
+			//throw new ServiceException( Messages.CLIENTE_NOMBRE_REPETIDO );
+			
+		}
 	}
 
 	@Override
 	protected void validateOnDelete(Vendedor entity) throws ServiceException {
-		// TODO Auto-generated method stub
+		
+		//que no esté afectado en ninguna operación.
+		
+		try {
+			if( getDAO().hasDependencies(entity) ){
+				throw new ServiceException( Messages.VENDEDOR_TIENE_DEPENDENCIAS );
+			}
+		} catch (DAOException e) {
+			throw new ServiceException( e );
+		}
 		
 	}
 
@@ -91,7 +157,7 @@ public class VendedorServiceImpl extends GenericService<Vendedor, VendedorCriter
 	public void update(Vendedor entity) throws ServiceException {
 
 		
-		super.add(entity);
+		super.update(entity);
 	}
 
 	public Vendedor getTitularComercio() throws ServiceException {
@@ -99,17 +165,4 @@ public class VendedorServiceImpl extends GenericService<Vendedor, VendedorCriter
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.migestion.services.impl.GenericService#delete(java.lang.Long)
-	 *
-	public void delete(Long oid) throws ServiceException {
-
-		Vendedor p = this.get(oid);
-		
-		p.setEstadoVendedor(EstadoVendedor.ELIMINADO);
-		
-		this.update(p);
-		
-	}*/
 }

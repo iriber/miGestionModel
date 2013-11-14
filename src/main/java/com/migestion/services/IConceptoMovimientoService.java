@@ -15,16 +15,24 @@ public interface IConceptoMovimientoService extends IGenericService<ConceptoMovi
  
 
 	/**
-	 * obtiene el concepto de caja utilizado para ventas.
+	 * obtiene el concepto de movimiento utilizado para ventas.
 	 * @return
 	 * @throws ServiceException
 	 */
 	public ConceptoMovimiento getConceptoVentas() throws ServiceException;
 	
 	/**
-	 * obtiene el concepto de caja utilizado para saldo inicial.
+	 * obtiene el concepto de movimiento utilizado para saldo inicial.
 	 * @return
 	 * @throws ServiceException
 	 */
 	public ConceptoMovimiento getConceptoSaldoInicial() throws ServiceException;
+	
+	/**
+	 * obtiene el concepto de movimiento utilizado para los pagos de ventas.
+	 * @return
+	 * @throws ServiceException
+	 */
+	public ConceptoMovimiento getConceptoPagoVenta() throws ServiceException;
+
 }

@@ -11,6 +11,7 @@ import com.migestion.dao.impl.GastoJPADAO;
 import com.migestion.dao.impl.MovimientoCajaJPADAO;
 import com.migestion.dao.impl.MovimientoChequeJPADAO;
 import com.migestion.dao.impl.MovimientoCuentaBancariaJPADAO;
+import com.migestion.dao.impl.MovimientoCuentaClienteJPADAO;
 import com.migestion.dao.impl.MovimientoCuentaJPADAO;
 import com.migestion.dao.impl.MovimientoNotaCreditoJPADAO;
 import com.migestion.dao.impl.NotaCreditoJPADAO;
@@ -30,6 +31,7 @@ import com.migestion.model.MovimientoCaja;
 import com.migestion.model.MovimientoCheque;
 import com.migestion.model.MovimientoCuenta;
 import com.migestion.model.MovimientoCuentaBancaria;
+import com.migestion.model.MovimientoCuentaCliente;
 import com.migestion.model.MovimientoNotaCredito;
 import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
@@ -47,6 +49,7 @@ import com.migestion.services.criteria.GastoCriteria;
 import com.migestion.services.criteria.MovimientoCajaCriteria;
 import com.migestion.services.criteria.MovimientoChequeCriteria;
 import com.migestion.services.criteria.MovimientoCuentaBancariaCriteria;
+import com.migestion.services.criteria.MovimientoCuentaClienteCriteria;
 import com.migestion.services.criteria.MovimientoCuentaCriteria;
 import com.migestion.services.criteria.MovimientoNotaCreditoCriteria;
 import com.migestion.services.criteria.NotaCreditoCriteria;
@@ -144,6 +147,14 @@ public class DAOFactory {
 	 */
 	public static IGenericDAO<MovimientoCaja, MovimientoCajaCriteria> getMovimientoCajaDAO(){
 		return new MovimientoCajaJPADAO();
+	}
+
+	/**
+	 * dao para movimientos de cuentas corrientes de cliente
+	 * @return
+	 */
+	public static IGenericDAO<MovimientoCuentaCliente, MovimientoCuentaClienteCriteria> getMovimientoCuentaClienteDAO(){
+		return new MovimientoCuentaClienteJPADAO();
 	}
 
 	/**

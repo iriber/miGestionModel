@@ -20,7 +20,7 @@ public class TestAddConceptoMovimiento extends TestAddEntity<ConceptoMovimiento,
 	protected ConceptoMovimiento getEntity() throws ServiceException {
 		ConceptoMovimiento c = new ConceptoMovimiento();
 		//c.setNombre("Saldo Inicial");
-		c.setNombre("Alquiler");
+		c.setNombre("Pago de venta");
 		//c.setNombre("Ventas");
 		return c;
 	}

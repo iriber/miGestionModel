@@ -11,6 +11,7 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.model.DetalleFormaPago;
 import com.migestion.model.EstadisticaPago;
 import com.migestion.model.EstadoPago;
+import com.migestion.model.MovimientoCuentaCliente;
 import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
 import com.migestion.services.IPagoService;
@@ -93,6 +94,19 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 			detalle.getMovimiento().calcularSaldos();
 		}
 		
+		
+		if( entity.getCliente().getTieneCtaCte() ){
+
+			//haber sobre la cuenta corriente del cliente.
+			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
+			movimiento.setCliente( entity.getCliente() );
+			movimiento.setHaber( entity.getMonto() );
+			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoPagoVenta() );
+			movimiento.setFechaHora( new Date() );
+			movimiento.setDescripcion("Pago # " + entity.getOid() );
+			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
+			
+		}
 		// agregamos el pago.
 		super.add(entity);
 	}

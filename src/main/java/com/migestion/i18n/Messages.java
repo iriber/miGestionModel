@@ -42,4 +42,10 @@ public class Messages {
 	public static String CLIENTE_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO =locale("cliente.nombre.repetido.nroDocumento.requerido");
 	public static String CLIENTE_TIENE_DEPENDENCIAS =locale("cliente.tiene.dependencias");
 
+	public static String VENDEDOR_NOMBRE_REQUERIDO =locale("vendedor.nombre.requerido");
+	public static String VENDEDOR_NOMBRE_REPETIDO =locale("vendedor.nombre.repetido");
+	public static String VENDEDOR_DUPLICADO =locale("vendedor.duplicado");
+	public static String VENDEDOR_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO =locale("vendedor.nombre.repetido.nroDocumento.requerido");
+	public static String VENDEDOR_TIENE_DEPENDENCIAS =locale("vendedor.tiene.dependencias");
+
 }

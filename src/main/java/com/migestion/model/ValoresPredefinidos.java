@@ -14,6 +14,8 @@ public class ValoresPredefinidos {
 	
 	public static final Long CONCEPTO_MOVIMIENTO_SALDO_INICIAL = Long.valueOf( prop.getProperty("concepto.movimiento.saldoInicial") );
 	
+	public static final Long CONCEPTO_MOVIMIENTO_PAGO_VENTA = Long.valueOf( prop.getProperty("concepto.movimiento.pagoVenta") );
+	
 	public static final Long CLIENTE_MOSTRADOR = Long.valueOf( prop.getProperty("cliente.mostrador") );
 	
 	public static final Long VENDEDOR_TITULAR_COMERCIO = Long.valueOf( prop.getProperty("vendedor.titular.comercio") );

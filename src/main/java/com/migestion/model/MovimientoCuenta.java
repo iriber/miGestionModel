@@ -77,7 +77,12 @@ public abstract class MovimientoCuenta extends GenericEntity{
 	@NotNull(message="{movimientoCaja.concepto.required}")
 	private ConceptoMovimiento concepto;
 	
-	
+	/**
+	 * descripción del movimiento
+	 * para indicar algún detalle adicional.	
+	 */
+	@Column
+	private String descripcion;
 
 	
 	public MovimientoCuenta(){
@@ -202,5 +207,15 @@ public abstract class MovimientoCuenta extends GenericEntity{
 	public abstract void setSaldoCuenta(Float monto);
 	
 	public abstract Float getSaldoCuenta();
+
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 }
