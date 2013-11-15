@@ -47,5 +47,15 @@ public class Messages {
 	public static String VENDEDOR_DUPLICADO =locale("vendedor.duplicado");
 	public static String VENDEDOR_NOMBRE_REPETIDO_NRO_DOCUMENTO_REQUERIDO =locale("vendedor.nombre.repetido.nroDocumento.requerido");
 	public static String VENDEDOR_TIENE_DEPENDENCIAS =locale("vendedor.tiene.dependencias");
+	
+	public static String PROVEEDOR_NOMBRE_REQUERIDO =locale("proveedor.nombre.requerido");
+	public static String PROVEEDOR_NOMBRE_REPETIDO =locale("proveedor.nombre.repetido");
+	public static String PROVEEDOR_DUPLICADO =locale("proveedor.duplicado");
+	public static String PROVEEDOR_NOMBRE_REPETIDO_CUIT_REQUERIDO =locale("proveedor.nombre.repetido.cuit.requerido");
+	public static String PROVEEDOR_TIENE_DEPENDENCIAS =locale("proveedor.tiene.dependencias");
+
+	public static String CUENTA_BANCARIA_NOMBRE_REQUERIDO =locale("cuentaBancaria.nombre.requerido");
+	public static String CUENTA_BANCARIA_NOMBRE_REPETIDO =locale("cuentaBancaria.nombre.repetido");
+	public static String CUENTA_BANCARIA_TIENE_DEPENDENCIAS =locale("cuentaBancaria.tiene.dependencias");
 
 }

@@ -9,16 +9,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * Cliente
+ * Proveedor
  * 
  * @author Bernardo Iribarne (ber.iribarne@gmail.com)
- * @since 15/10/2013
+ * @since 15/11/2013
  *
  */
 
 @Entity
-@Table(name="cliente")
-public class Cliente extends Persona{
+@Table(name="proveedor")
+public class Proveedor extends Persona{
 
 	/**
 	 * cuit
@@ -36,14 +36,9 @@ public class Cliente extends Persona{
 	 * condición iva
 	 */
 	@Enumerated( value=EnumType.STRING )
-	@NotNull(message="{cliente.condicionIVA.required}")
+	@NotNull(message="{proveedor.condicionIVA.required}")
 	private CondicionIVA condicionIVA;
 	
-	/**
-	 * tipo de cliente
-	 */
-	@Enumerated( value=EnumType.STRING )
-	private TipoCliente tipoCliente;
 
 	/**
 	 * domicilio de facturación
@@ -52,7 +47,7 @@ public class Cliente extends Persona{
 	private String domicilioFacturacion;
 	
 	/**
-	 * saldo de la cuenta corriente del cliente.
+	 * saldo de la cuenta corriente del proveedor.
 	 */
 	@Column
 	private Float saldo;
@@ -69,8 +64,8 @@ public class Cliente extends Persona{
 	@Column
 	private Boolean tieneCtaCte;
 	
-	public Cliente(){
-		this.tieneCtaCte = false;
+	public Proveedor(){
+		this.tieneCtaCte = true;
 	}
 
 
@@ -123,22 +118,6 @@ public class Cliente extends Persona{
 
 
 	/**
-	 * @return the tipoCliente
-	 */
-	public TipoCliente getTipoCliente() {
-		return tipoCliente;
-	}
-
-
-	/**
-	 * @param tipoCliente the tipoCliente to set
-	 */
-	public void setTipoCliente(TipoCliente tipoCliente) {
-		this.tipoCliente = tipoCliente;
-	}
-
-
-	/**
 	 * @return the domicilioFacturacion
 	 */
 	public String getDomicilioFacturacion() {
@@ -182,7 +161,5 @@ public class Cliente extends Persona{
 	public void setTieneCtaCte(Boolean tieneCtaCte) {
 		this.tieneCtaCte = tieneCtaCte;
 	}
-	
-
 
 }

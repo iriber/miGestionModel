@@ -34,6 +34,7 @@
 	<class>com.migestion.model.GastoCheque</class>
 	<class>com.migestion.model.GastoCuentaBancaria</class>
 	<class>com.migestion.model.GastoEfectivo</class>
+	<class>com.migestion.model.Proveedor</class>
 	<properties>
 		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 		

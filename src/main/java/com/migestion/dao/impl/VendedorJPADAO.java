@@ -2,13 +2,11 @@ package com.migestion.dao.impl;
 
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.exception.DAOException;
-import com.migestion.dao.helper.VendedorQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
-import com.migestion.model.Cliente;
+import com.migestion.dao.helper.VendedorQueryBuilder;
 import com.migestion.model.Vendedor;
-import com.migestion.model.Venta;
-import com.migestion.services.criteria.VendedorCriteria;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.services.criteria.VendedorCriteria;
 import com.migestion.services.criteria.VentaCriteria;
 
 /**

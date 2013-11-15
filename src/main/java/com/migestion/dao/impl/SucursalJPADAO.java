@@ -4,7 +4,6 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.dao.helper.SucursalQueryBuilder;
 import com.migestion.model.Sucursal;
-import com.migestion.model.Vendedor;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.SucursalCriteria;
 

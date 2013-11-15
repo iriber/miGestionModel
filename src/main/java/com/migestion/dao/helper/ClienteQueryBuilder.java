@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import com.migestion.model.Cliente;
 import com.migestion.services.criteria.ClienteCriteria;
 import com.migestion.services.criteria.Criteria;
-import com.migestion.services.criteria.ProductoCriteria;
 
 
 /**

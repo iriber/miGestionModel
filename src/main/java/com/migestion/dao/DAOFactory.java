@@ -17,6 +17,7 @@ import com.migestion.dao.impl.MovimientoNotaCreditoJPADAO;
 import com.migestion.dao.impl.NotaCreditoJPADAO;
 import com.migestion.dao.impl.PagoJPADAO;
 import com.migestion.dao.impl.ProductoJPADAO;
+import com.migestion.dao.impl.ProveedorJPADAO;
 import com.migestion.dao.impl.SucursalJPADAO;
 import com.migestion.dao.impl.VendedorJPADAO;
 import com.migestion.dao.impl.VentaJPADAO;
@@ -36,6 +37,7 @@ import com.migestion.model.MovimientoNotaCredito;
 import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
 import com.migestion.model.Producto;
+import com.migestion.model.Proveedor;
 import com.migestion.model.Sucursal;
 import com.migestion.model.Vendedor;
 import com.migestion.model.Venta;
@@ -55,6 +57,7 @@ import com.migestion.services.criteria.MovimientoNotaCreditoCriteria;
 import com.migestion.services.criteria.NotaCreditoCriteria;
 import com.migestion.services.criteria.PagoCriteria;
 import com.migestion.services.criteria.ProductoCriteria;
+import com.migestion.services.criteria.ProveedorCriteria;
 import com.migestion.services.criteria.SucursalCriteria;
 import com.migestion.services.criteria.VendedorCriteria;
 import com.migestion.services.criteria.VentaCriteria;
@@ -227,6 +230,14 @@ public class DAOFactory {
 	 */
 	public static IGenericDAO<Gasto, GastoCriteria> getGastoDAO(){
 		return new GastoJPADAO();
+	}
+
+	/**
+	 * dao para proveedores
+	 * @return
+	 */
+	public static IGenericDAO<Proveedor, ProveedorCriteria> getProveedorDAO(){
+		return new ProveedorJPADAO();
 	}
 
 }

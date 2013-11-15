@@ -14,7 +14,10 @@ public class CuentaBancariaCriteria extends Criteria{
 	 */
 	private String nombre;
 
-	
+	private String nombreEqual;
+
+	private Long oidNotEqual;
+
 	/**
 	 * @return the nombre
 	 */
@@ -32,5 +35,21 @@ public class CuentaBancariaCriteria extends Criteria{
 	public void orderByNombre(String type){
 		
 		this.addOrder("nombre", type);
+	}
+
+	public String getNombreEqual() {
+		return nombreEqual;
+	}
+
+	public void setNombreEqual(String nombreEqual) {
+		this.nombreEqual = nombreEqual;
+	}
+
+	public Long getOidNotEqual() {
+		return oidNotEqual;
+	}
+
+	public void setOidNotEqual(Long oidNotEqual) {
+		this.oidNotEqual = oidNotEqual;
 	}
 }

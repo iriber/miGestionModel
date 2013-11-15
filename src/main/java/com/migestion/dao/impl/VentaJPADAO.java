@@ -1,21 +1,17 @@
 package com.migestion.dao.impl;
 
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.migestion.dao.IVentaDAO;
 import com.migestion.dao.exception.DAOException;
-import com.migestion.dao.helper.VentaQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
-import com.migestion.model.DetalleVenta;
+import com.migestion.dao.helper.VentaQueryBuilder;
 import com.migestion.model.EstadisticaVenta;
-import com.migestion.model.Producto;
 import com.migestion.model.Venta;
-import com.migestion.services.criteria.VentaCriteria;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.services.criteria.VentaCriteria;
 
 /**
  * Implementación del dao jpa para ventas

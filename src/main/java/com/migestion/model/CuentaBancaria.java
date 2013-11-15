@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.migestion.i18n.I18nLocale;
-
 /**
  * Representa una cuenta bancaria.
  * 

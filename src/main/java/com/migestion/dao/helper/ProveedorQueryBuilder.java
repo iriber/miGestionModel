@@ -11,67 +11,87 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.migestion.model.CuentaBancaria;
+import com.migestion.model.Proveedor;
 import com.migestion.services.criteria.Criteria;
-import com.migestion.services.criteria.CuentaBancariaCriteria;
+import com.migestion.services.criteria.ProveedorCriteria;
 
 
 /**
  * Helper que colabora en la creación de queries para
- * los bancos.
+ * los proveedores.
  * 
  * @author Bernardo Iribarne (ber.iribarne@gmail.com)
- * @since 25/10/2013
+ * @since 15/11/2013
  *
  */
-public class CuentaBancariaQueryBuilder extends QueryBuilder<CuentaBancaria>{
+public class ProveedorQueryBuilder extends QueryBuilder<Proveedor>{
 
 	
-	public CuentaBancariaQueryBuilder(Criteria criteria){
+	public ProveedorQueryBuilder(Criteria criteria){
 		super( criteria );
 	}
 	
 	@Override
-	public CriteriaQuery<CuentaBancaria> build( EntityManager em) {
+	public CriteriaQuery<Proveedor> build( EntityManager em) {
 		
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-	    CriteriaQuery<CuentaBancaria> query = builder.createQuery(CuentaBancaria.class);
-	    Root<CuentaBancaria> root = query.from(CuentaBancaria.class);
+	    CriteriaQuery<Proveedor> query = builder.createQuery(Proveedor.class);
+	    Root<Proveedor> root = query.from(Proveedor.class);
 	    query.select(root);
 	 
-	    
 	    query.where(getPredicates(root, builder, criteria));		
-	    query.orderBy( criteria.buildOrderBy( root, builder ));
+	    query.orderBy( criteria.buildOrderBy( root, builder ));		
 		return query;
 
 	}
 
-	public Predicate[] getPredicates(Root<CuentaBancaria> root,
+	public Predicate[] getPredicates(Root<Proveedor> root,
 			CriteriaBuilder builder, Criteria criteria) {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 		 
 		 
-	    String nombre  = ((CuentaBancariaCriteria)criteria).getNombre();
-	    String nombreEqual  = ((CuentaBancariaCriteria)criteria).getNombreEqual();
-	    Long oidNotEqual = ((CuentaBancariaCriteria)criteria).getOidNotEqual();
-
+	    String nombre  = ((ProveedorCriteria)criteria).getNombre();
+	    String nombreEqual  = ((ProveedorCriteria)criteria).getNombreEqual();
+	    Long oid = ((ProveedorCriteria)criteria).getOid();
+	    Long oidNotEqual = ((ProveedorCriteria)criteria).getOidNotEqual();
+	    Long nroDocumento = ((ProveedorCriteria)criteria).getNroDocumento();
+	    String cuit  = ((ProveedorCriteria)criteria).getCuit();
+	    
+	    
 	    if( !StringUtils.isEmpty(nombre) ){
 	    	Predicate nombrePredicate = builder.like(
 	        builder.upper(root.<String>get("nombre")), "%"+nombre.toUpperCase()+"%");
 	        predicateList.add(nombrePredicate);
 	    }
-	 
-		 
+	    
 	    if( !StringUtils.isEmpty(nombreEqual) ){
 	    	Predicate nombreEqualPredicate = builder.equal(
 	        builder.upper(root.<String>get("nombre")), nombreEqual.toUpperCase());
 	        predicateList.add(nombreEqualPredicate);
+	    }
+	    
+	    if( oid!=null ){
+	    	Predicate oidPredicate = builder.equal(
+	        root.<Long>get("oid"), oid);
+	        predicateList.add(oidPredicate);
 	    }
 
 	    if( oidNotEqual!=null ){
 	    	Predicate oidNotEqualPredicate = builder.equal(
 	        root.<Long>get("oid"), oidNotEqual).not();
 	        predicateList.add(oidNotEqualPredicate);
+	    }	    
+	 
+	    if( nroDocumento!=null ){
+	    	Predicate nroDocumentoPredicate = builder.equal(
+	        root.<Long>get("nroDocumento"), nroDocumento);
+	        predicateList.add(nroDocumentoPredicate);
+	    }
+	    
+	    if( !StringUtils.isEmpty(cuit) ){
+	    	Predicate cuitPredicate = builder.equal(
+	        builder.upper(root.<String>get("cuit")), cuit.toUpperCase());
+	        predicateList.add(cuitPredicate);
 	    }
 	    
 	    Predicate[] predicates = new Predicate[predicateList.size()];
@@ -83,7 +103,7 @@ public class CuentaBancariaQueryBuilder extends QueryBuilder<CuentaBancaria>{
 	public CriteriaQuery<Long> buildToCount(EntityManager em) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<CuentaBancaria> root = query.from(CuentaBancaria.class);
+		Root<Proveedor> root = query.from(Proveedor.class);
 		
 		query.select( builder.count( root.<Long>get( "oid" ) ) );
 

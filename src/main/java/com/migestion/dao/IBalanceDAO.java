@@ -3,9 +3,7 @@ package com.migestion.dao;
 import java.util.Date;
 
 import com.migestion.model.Balance;
-import com.migestion.model.EstadisticaCaja;
 import com.migestion.model.Sucursal;
-import com.migestion.services.criteria.CajaCriteria;
 import com.migestion.services.exception.ServiceException;
 
 

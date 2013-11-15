@@ -4,7 +4,6 @@ import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.NotaCreditoQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.NotaCredito;
-import com.migestion.model.Pago;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.NotaCreditoCriteria;
 

@@ -13,11 +13,9 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.migestion.model.Cliente;
 import com.migestion.model.Cheque;
-import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.ChequeCriteria;
-import com.migestion.services.criteria.CuentaBancariaCriteria;
+import com.migestion.services.criteria.Criteria;
 
 
 /**

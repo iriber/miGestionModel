@@ -10,7 +10,6 @@ import com.migestion.dao.helper.PagoQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.EstadisticaPago;
 import com.migestion.model.Pago;
-import com.migestion.model.Vendedor;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.PagoCriteria;
 

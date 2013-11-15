@@ -9,10 +9,8 @@ import javax.persistence.criteria.Root;
 import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.ProductoQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
-import com.migestion.model.Cliente;
 import com.migestion.model.DetalleVenta;
 import com.migestion.model.Producto;
-import com.migestion.model.Venta;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.ProductoCriteria;
 

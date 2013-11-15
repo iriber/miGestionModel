@@ -3,8 +3,12 @@ package com.migestion.services.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
+import com.migestion.dao.exception.DAOException;
+import com.migestion.i18n.Messages;
 import com.migestion.model.CuentaBancaria;
 import com.migestion.model.MovimientoCuentaBancaria;
 import com.migestion.services.ICuentaBancariaService;
@@ -59,21 +63,39 @@ public class CuentaBancariaServiceImpl extends GenericService<CuentaBancaria, Cu
 
 	@Override
 	protected void validateOnAdd(CuentaBancaria entity) throws ServiceException {
-		// TODO Auto-generated method stub
 		
+		//requeridos: nombre, precio, iva
+		if( StringUtils.isEmpty(entity.getNombre()) ){
+			throw new ServiceException( Messages.CUENTA_BANCARIA_NOMBRE_REQUERIDO );
+		}
 		
+		//nombre único
+		CuentaBancariaCriteria criteria = new CuentaBancariaCriteria();
+		criteria.setNombreEqual( entity.getNombre() );
+		criteria.setOidNotEqual( entity.getOid() );
+		if( getListSize(criteria) > 0 ){
+			throw new ServiceException( Messages.CUENTA_BANCARIA_NOMBRE_REPETIDO );
+		}
 	}
 
 	@Override
 	protected void validateOnUpdate(CuentaBancaria entity) throws ServiceException {
-		// TODO Auto-generated method stub
-		
+
+		validateOnAdd(entity);
 	}
 
 	@Override
 	protected void validateOnDelete(CuentaBancaria entity) throws ServiceException {
-		// TODO Auto-generated method stub
 		
+		//que no tenga dependencias.
+
+		try {
+			if( getDAO().hasDependencies(entity) ){
+				throw new ServiceException( Messages.CUENTA_BANCARIA_TIENE_DEPENDENCIAS );
+			}
+		} catch (DAOException e) {
+			throw new ServiceException( e );
+		}
 	}
 
 	/*

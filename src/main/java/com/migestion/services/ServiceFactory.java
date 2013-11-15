@@ -16,6 +16,7 @@ import com.migestion.services.impl.MovimientoNotaCreditoServiceImpl;
 import com.migestion.services.impl.NotaCreditoServiceImpl;
 import com.migestion.services.impl.PagoServiceImpl;
 import com.migestion.services.impl.ProductoServiceImpl;
+import com.migestion.services.impl.ProveedorServiceImpl;
 import com.migestion.services.impl.SucursalServiceImpl;
 import com.migestion.services.impl.VendedorServiceImpl;
 import com.migestion.services.impl.VentaServiceImpl;
@@ -181,4 +182,12 @@ public class ServiceFactory {
 	public static IGastoService getGastoService(){
 		return GastoServiceImpl.getInstance();
 	}
+
+	/**
+	 * servicio para proveedores.
+	 * @return
+	 */
+	public static IProveedorService getProveedorService(){
+		return ProveedorServiceImpl.getInstance();
+	}	
 }
