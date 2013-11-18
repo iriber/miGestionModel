@@ -22,4 +22,5 @@ public interface IMovimientoCuentaBancariaService extends IGenericService<Movimi
 	public Balance getBalance(MovimientoCuentaBancariaCriteria criteria) throws ServiceException;;
 
 
+	
 }

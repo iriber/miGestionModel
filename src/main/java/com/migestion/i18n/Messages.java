@@ -55,7 +55,10 @@ public class Messages {
 	public static String PROVEEDOR_TIENE_DEPENDENCIAS =locale("proveedor.tiene.dependencias");
 
 	public static String CUENTA_BANCARIA_NOMBRE_REQUERIDO =locale("cuentaBancaria.nombre.requerido");
+	public static String CUENTA_BANCARIA_TITULAR_REQUERIDO =locale("cuentaBancaria.titular.requerido");
+	public static String CUENTA_BANCARIA_NRO_CUENTA_REQUERIDO =locale("cuentaBancaria.nroCuenta.requerido");
 	public static String CUENTA_BANCARIA_NOMBRE_REPETIDO =locale("cuentaBancaria.nombre.repetido");
+	public static String CUENTA_BANCARIA_NOMBRE_REPETIDO_NRO_CUENTA_REQUERIDO =locale("cuentaBancaria.nombre.repetido.nroCuenta.requerido");
 	public static String CUENTA_BANCARIA_TIENE_DEPENDENCIAS =locale("cuentaBancaria.tiene.dependencias");
-
+	public static String CUENTA_BANCARIA_DUPLICADA =locale("cuentaBancaria.duplicada");
 }

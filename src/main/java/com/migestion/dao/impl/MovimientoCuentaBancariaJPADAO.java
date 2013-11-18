@@ -4,11 +4,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.migestion.dao.IMovimientoCuentaDAO;
+import com.migestion.dao.IMovimientoCuentaBancariaDAO;
 import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.MovimientoCuentaBancariaQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.Balance;
+import com.migestion.model.CuentaBancaria;
 import com.migestion.model.MovimientoCuentaBancaria;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.MovimientoCuentaBancariaCriteria;
@@ -21,7 +22,7 @@ import com.migestion.services.criteria.MovimientoCuentaCriteria;
  * @since 08/11/2013
  *
  */
-public class MovimientoCuentaBancariaJPADAO extends GenericJPADAO<MovimientoCuentaBancaria, MovimientoCuentaBancariaCriteria> implements IMovimientoCuentaDAO{
+public class MovimientoCuentaBancariaJPADAO extends GenericJPADAO<MovimientoCuentaBancaria, MovimientoCuentaBancariaCriteria> implements IMovimientoCuentaBancariaDAO{
 
 	/*
 	 * (non-Javadoc)
@@ -76,5 +77,13 @@ public class MovimientoCuentaBancariaJPADAO extends GenericJPADAO<MovimientoCuen
 			throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	
+	public void delete(CuentaBancaria cuentaBancaria){
+		
+		String hql = "delete from MovimientoCuentaBancaria where cuentaBancaria= :cta";
+		getEntityManager().createQuery(hql).setParameter("cta", cuentaBancaria).executeUpdate();
+		
 	}
 }

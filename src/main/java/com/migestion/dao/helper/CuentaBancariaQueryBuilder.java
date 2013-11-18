@@ -54,6 +54,7 @@ public class CuentaBancariaQueryBuilder extends QueryBuilder<CuentaBancaria>{
 	    String nombre  = ((CuentaBancariaCriteria)criteria).getNombre();
 	    String nombreEqual  = ((CuentaBancariaCriteria)criteria).getNombreEqual();
 	    Long oidNotEqual = ((CuentaBancariaCriteria)criteria).getOidNotEqual();
+	    String nroCuenta = ((CuentaBancariaCriteria)criteria).getNroCuenta();
 
 	    if( !StringUtils.isEmpty(nombre) ){
 	    	Predicate nombrePredicate = builder.like(
@@ -72,6 +73,13 @@ public class CuentaBancariaQueryBuilder extends QueryBuilder<CuentaBancaria>{
 	    	Predicate oidNotEqualPredicate = builder.equal(
 	        root.<Long>get("oid"), oidNotEqual).not();
 	        predicateList.add(oidNotEqualPredicate);
+	    }
+
+		 
+	    if( !StringUtils.isEmpty(nroCuenta) ){
+	    	Predicate nroCuentaPredicate = builder.equal(
+	        builder.upper(root.<String>get("nroCuenta")), nroCuenta.toUpperCase());
+	        predicateList.add(nroCuentaPredicate);
 	    }
 	    
 	    Predicate[] predicates = new Predicate[predicateList.size()];

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
+import com.migestion.dao.IMovimientoCuentaBancariaDAO;
 import com.migestion.dao.exception.DAOException;
 import com.migestion.i18n.Messages;
 import com.migestion.model.CuentaBancaria;
@@ -64,17 +65,44 @@ public class CuentaBancariaServiceImpl extends GenericService<CuentaBancaria, Cu
 	@Override
 	protected void validateOnAdd(CuentaBancaria entity) throws ServiceException {
 		
-		//requeridos: nombre, precio, iva
+		//requeridos: nombre, nroCuenta, titular y saldo
 		if( StringUtils.isEmpty(entity.getNombre()) ){
 			throw new ServiceException( Messages.CUENTA_BANCARIA_NOMBRE_REQUERIDO );
 		}
+
+		if( StringUtils.isEmpty(entity.getTitular()) ){
+			throw new ServiceException( Messages.CUENTA_BANCARIA_TITULAR_REQUERIDO );
+		}
+		
+		if( StringUtils.isEmpty(entity.getNroCuenta()) ){
+			throw new ServiceException( Messages.CUENTA_BANCARIA_NRO_CUENTA_REQUERIDO );
+		}
+		
+		
+		if(entity.getSaldoInicial()==null)
+			entity.setSaldoInicial(0F);
 		
 		//nombre único
 		CuentaBancariaCriteria criteria = new CuentaBancariaCriteria();
 		criteria.setNombreEqual( entity.getNombre() );
 		criteria.setOidNotEqual( entity.getOid() );
+		
 		if( getListSize(criteria) > 0 ){
-			throw new ServiceException( Messages.CUENTA_BANCARIA_NOMBRE_REPETIDO );
+		
+			//si existe otra cuenta con el mismo nombre, exigimos que ingrese
+			//el nro de cuenta
+			if( entity.getNroCuenta()==null ){
+		
+				throw new ServiceException( Messages.CUENTA_BANCARIA_NOMBRE_REPETIDO_NRO_CUENTA_REQUERIDO );
+				
+			}else{
+				
+				//vemos si además del nombre se repite el nroCuenta
+				criteria.setNroCuenta( entity.getNroCuenta() );		
+				if( getListSize(criteria) > 0 )
+					throw new ServiceException( Messages.CUENTA_BANCARIA_DUPLICADA );
+			}	
+			
 		}
 	}
 
@@ -113,15 +141,49 @@ public class CuentaBancariaServiceImpl extends GenericService<CuentaBancaria, Cu
 		super.add(entity);
 		
 		//agregamos un movimiento por el saldo inicial
-		MovimientoCuentaBancaria movimiento = new MovimientoCuentaBancaria();
-		movimiento.setCuentaBancaria(entity);
-		movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoSaldoInicial() );
-		movimiento.setHaber( entity.getSaldoInicial() );
-		movimiento.setFechaHora( new Date() );
+		if(entity.getSaldoInicial()>0){
+			MovimientoCuentaBancaria movimiento = new MovimientoCuentaBancaria();
+			movimiento.setCuentaBancaria(entity);
+			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoSaldoInicial() );
+			movimiento.setHaber( entity.getSaldoInicial() );
+			movimiento.setFechaHora( new Date() );
 
-		ServiceFactory.getMovimientoCuentaBancariaService().add(movimiento);
+			ServiceFactory.getMovimientoCuentaBancariaService().add(movimiento);
+		}
 		
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.migestion.services.impl.GenericService#delete(java.lang.Long)
+	 */
+	public void delete(Long oid) throws ServiceException {
+
+		try {
+			
+			CuentaBancaria cuenta = get(oid);
+			
+			//validaciones.
+			validateOnDelete( cuenta );
+			
+			//eliminamos los movimientos de la cuenta bancaria.
+			((IMovimientoCuentaBancariaDAO)DAOFactory.getMovimientoCuentaBancariaDAO()).delete( cuenta  );
+			
+			//se elimina la entity.
+			getDAO().delete( oid );
+			
+		} catch (DAOException e) {
+			
+			throw new ServiceException( e );
+			
+		} catch (Exception e) {
+
+			throw new ServiceException( e );
+		
+		}
+
+		
+		
+	}	
 }

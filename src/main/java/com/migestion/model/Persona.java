@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -29,9 +30,14 @@ public abstract class Persona extends GenericEntity{
 	/**
 	 * identificador de la entity
 	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)//, generator = "SEQ_DETALLEPAGO")
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.TABLE)//, generator = "SEQ_DETALLEPAGO")
 	//@SequenceGenerator(name = "SEQ_DETALLEPAGO", sequenceName = "SEQ_DETALLEPAGO", allocationSize = 1)
+	@TableGenerator(table = "hibernate_sequences", name = "AppUserIdTable", 
+    allocationSize = 1000, initialValue = 0, pkColumnName = "sequence_name", 
+    valueColumnName = "sequence_next_hi_value", pkColumnValue = "Persona")
+	@GeneratedValue(strategy = GenerationType.TABLE,generator="AppUserIdTable")
+	@Id
 	private Long oid;
 		
 

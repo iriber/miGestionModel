@@ -40,7 +40,7 @@ public class TestAddClientes{
 		try {
 	
 			IClienteService service = ServiceFactory.getClienteService();
-			for (int i = 0; i < 2000; i++) {
+			for (int i = 0; i < 20; i++) {
 				
 				Cliente c = generarCliente();
 				

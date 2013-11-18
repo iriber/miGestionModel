@@ -74,7 +74,7 @@ public class CuentaBancariaJPADAO extends GenericJPADAO<CuentaBancaria, CuentaBa
 			criteriaQuery = builder.createQuery(Long.class);
 			Root<DetalleFormaPagoDeposito> rootDeposito = criteriaQuery.from(DetalleFormaPagoDeposito.class);
 			criteriaQuery.select( builder.count( rootDeposito.<Long>get( "oid" ) ) );
-			criteriaQuery.where( builder.equal( (rootDeposito.<CuentaBancaria>get("destino")), entity ) );
+			criteriaQuery.where( builder.equal( (rootDeposito.<CuentaBancaria>get("cuentaBancaria")), entity ) );
 			query = getEntityManager().createQuery(criteriaQuery);
 			ok = (Long)query.getSingleResult() > 0;
 		}

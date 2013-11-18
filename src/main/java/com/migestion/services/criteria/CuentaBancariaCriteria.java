@@ -18,6 +18,8 @@ public class CuentaBancariaCriteria extends Criteria{
 
 	private Long oidNotEqual;
 
+	private String nroCuenta;
+	
 	/**
 	 * @return the nombre
 	 */
@@ -51,5 +53,19 @@ public class CuentaBancariaCriteria extends Criteria{
 
 	public void setOidNotEqual(Long oidNotEqual) {
 		this.oidNotEqual = oidNotEqual;
+	}
+
+	/**
+	 * @return the nroCuenta
+	 */
+	public String getNroCuenta() {
+		return nroCuenta;
+	}
+
+	/**
+	 * @param nroCuenta the nroCuenta to set
+	 */
+	public void setNroCuenta(String nroCuenta) {
+		this.nroCuenta = nroCuenta;
 	}
 }
