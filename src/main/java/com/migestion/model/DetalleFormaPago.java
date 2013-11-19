@@ -15,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NotFound;
@@ -81,9 +82,14 @@ public abstract class DetalleFormaPago extends GenericEntity{
 	/**
 	 * identificador de la entity
 	 */
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.TABLE)//, generator = "SEQ_DETALLEPAGO")
+//	@Column
+	@TableGenerator(table = "hibernate_sequences", name = "MiGestionIdTable", 
+		    allocationSize = 1, initialValue = 0, pkColumnName = "sequence_name", 
+		    valueColumnName = "sequence_next_hi_value", pkColumnValue = "DetalleFormaPago")
+	@GeneratedValue(strategy = GenerationType.TABLE,generator="MiGestionIdTable")
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)//, generator = "SEQ_DETALLEPAGO")
-	@Column
 	private Long oid;
 
 

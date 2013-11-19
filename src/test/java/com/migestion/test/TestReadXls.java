@@ -3,11 +3,13 @@ package com.migestion.test;
 
 import static org.junit.Assert.fail;
 
-import java.io.File;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.migestion.utils.XlsProductoReader;
 import com.migestion.utils.XlsReader;
 
 /**
@@ -34,9 +36,12 @@ public class TestReadXls{
 		
 		try {
 	
-			XlsReader reader = new XlsReader();
+			XlsReader reader = new XlsProductoReader();
 			
-			reader.readXls( "/META-INF/inventario.xls" );
+			Collection<Object> productos = reader.readXls( "/META-INF/inventario.xls" );
+			
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

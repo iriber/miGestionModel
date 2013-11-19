@@ -61,4 +61,13 @@ public class Messages {
 	public static String CUENTA_BANCARIA_NOMBRE_REPETIDO_NRO_CUENTA_REQUERIDO =locale("cuentaBancaria.nombre.repetido.nroCuenta.requerido");
 	public static String CUENTA_BANCARIA_TIENE_DEPENDENCIAS =locale("cuentaBancaria.tiene.dependencias");
 	public static String CUENTA_BANCARIA_DUPLICADA =locale("cuentaBancaria.duplicada");
+	
+	public static String VENTA_FECHA_REQUERIDA =locale("venta.fecha.requerida");
+	public static String VENTA_SUCURSAL_REQUERIDA =locale("venta.sucursal.requerida");
+	public static String VENTA_CLIENTE_REQUERIDO =locale("venta.cliente.requerido");
+	public static String VENTA_VENDEDOR_REQUERIDO =locale("venta.vendedor.requerido");
+	public static String VENTA_PRODUCTOS_REQUERIDOS =locale("venta.productos.requeridos");
+	public static String VENTA_PRODUCTOS_INACTIVOS =locale("venta.productos.inactivos");
+	public static String VENTA_MONTO_INCORRECTO =locale("venta.monto.incorrecto");
+	
 }

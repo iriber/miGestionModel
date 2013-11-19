@@ -8,19 +8,16 @@ import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
 import com.migestion.dao.IVentaDAO;
 import com.migestion.dao.exception.DAOException;
+import com.migestion.i18n.Messages;
 import com.migestion.model.DetalleOperacion;
 import com.migestion.model.EstadisticaVenta;
-import com.migestion.model.EstadoPago;
+import com.migestion.model.EstadoProducto;
 import com.migestion.model.EstadoVenta;
 import com.migestion.model.MovimientoCuentaCliente;
 import com.migestion.model.NotaCredito;
-import com.migestion.model.Operacion;
-import com.migestion.model.Pago;
-import com.migestion.model.ValoresPredefinidos;
 import com.migestion.model.Venta;
 import com.migestion.services.IVentaService;
 import com.migestion.services.ServiceFactory;
-import com.migestion.services.criteria.PagoCriteria;
 import com.migestion.services.criteria.VentaCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -69,8 +66,49 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 
 	@Override
 	protected void validateOnAdd(Venta entity) throws ServiceException {
-		// TODO Auto-generated method stub
-
+		
+		//requeridos: fecha, cliente, vendedor, sucursal, productos 
+		if( entity.getFecha() == null ){
+			throw new ServiceException( Messages.VENTA_FECHA_REQUERIDA );
+		}
+		
+		if( entity.getCliente() == null ){
+			throw new ServiceException( Messages.VENTA_CLIENTE_REQUERIDO );
+		}
+		
+		if( entity.getVendedor() == null ){
+			throw new ServiceException( Messages.VENTA_VENDEDOR_REQUERIDO );
+		}
+		
+		if( entity.getSucursal() == null ){
+			throw new ServiceException( Messages.VENTA_SUCURSAL_REQUERIDA );
+		}
+		
+		if( entity.getDetalles().size() == 0 ){
+			throw new ServiceException( Messages.VENTA_PRODUCTOS_REQUERIDOS );
+		}
+		
+		
+		//validar los detalles.
+		
+		//TODO que no haya productos inactivos?
+		
+		//TODO que la suma de los detalles sea igual al monto de la venta.
+		Float totalDetalles = 0F;
+		for (DetalleOperacion detalle : entity.getDetalles()) {
+			
+			totalDetalles += detalle.getSubtotal();
+			
+			if( detalle.getProducto().getEstadoProducto().equals( EstadoProducto.INACTIVO ))
+				throw new ServiceException( Messages.VENTA_PRODUCTOS_INACTIVOS );	
+			
+		}
+		
+//		if( entity.getMonto().toString() != totalDetalles.toString() ){
+//			throw new ServiceException( Messages.VENTA_MONTO_INCORRECTO + "  " + entity.getMonto() + " " + totalDetalles);
+//		}
+		
+		
 	}
 
 	@Override

@@ -1,33 +1,77 @@
 package com.migestion.utils;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.migestion.dao.PersistenceContext;
 import com.migestion.dao.exception.PersistenceContextException;
+import com.migestion.model.CategoriaProducto;
 import com.migestion.model.Cliente;
+import com.migestion.model.ConceptoMovimiento;
+import com.migestion.model.CondicionIVA;
+import com.migestion.model.Sucursal;
+import com.migestion.model.TipoCliente;
+import com.migestion.model.TipoDocumento;
 import com.migestion.model.ValoresPredefinidos;
+import com.migestion.model.Vendedor;
 import com.migestion.services.ServiceFactory;
 
 public class MiGestionAppConfig {
 
-	public static void main(String[] args) {
+	@Before
+	public void setUp() throws Exception {
 		
-		MiGestionAppConfig config = new MiGestionAppConfig();
-		config.datosIniciales();
+		PersistenceContext.getInstance().beginTransaction();
+	}
+
+	@After
+	public void setDown() throws Exception {
+		
+		PersistenceContext.getInstance().close();
 	}
 	
+	@Test
 	public void datosIniciales(){
 		
 		try {
 		
-			PersistenceContext.getInstance().beginTransaction();
-		
 			Cliente clienteMostrador = new Cliente();
-			clienteMostrador.setOid( 100L);// ValoresPredefinidos.CLIENTE_MOSTRADOR );
-			clienteMostrador.setNombre("CLIENTE MOSTRADORES");
-			
+			clienteMostrador.setNombre("CLIENTE MOSTRADOR");
+			clienteMostrador.setTipoDocumento(TipoDocumento.DNI);
+			clienteMostrador.setTipoCliente(TipoCliente.FRECUENTE);
+			clienteMostrador.setCondicionIVA(CondicionIVA.CONSUMIDOR_FINAL);
 			ServiceFactory.getClienteService().add(clienteMostrador);
 			
+			Vendedor vendedorTitular = new Vendedor();
+			vendedorTitular.setNombre("TITULAR COMERCIO");
+			ServiceFactory.getVendedorService().add(vendedorTitular);
 			
-		
+			Sucursal sucursal = new Sucursal();
+			sucursal.setNombre("CASA MATRIZ");
+			sucursal.setNumero("1");
+			ServiceFactory.getSucursalService().add(sucursal);
+			
+			CategoriaProducto cp = new CategoriaProducto();
+			cp.setNombre("RUBRO GENERAL");
+			ServiceFactory.getCategoriaProductoService().add(cp);
+
+			ConceptoMovimiento concepto = new ConceptoMovimiento();
+			concepto.setNombre("Venta");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+			
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Anulación gasto");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+			
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Saldo Inicial");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+			
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Pago venta");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+
 			PersistenceContext.getInstance().commit();
 		
 		} catch (Exception e) {
@@ -41,15 +85,6 @@ public class MiGestionAppConfig {
 			
 			e.printStackTrace();
 			
-		}finally{
-			
-			try {
-				PersistenceContext.getInstance().close();
-				
-			} catch (PersistenceContextException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		

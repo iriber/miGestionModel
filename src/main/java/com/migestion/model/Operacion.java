@@ -16,6 +16,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.LazyCollection;
@@ -39,9 +40,14 @@ public abstract class Operacion extends GenericEntity{
 	/**
 	 * identificador de la entity
 	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)//, generator = "SEQ_DETALLEPAGO")
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.TABLE)//, generator = "SEQ_DETALLEPAGO")
 	//@SequenceGenerator(name = "SEQ_DETALLEPAGO", sequenceName = "SEQ_DETALLEPAGO", allocationSize = 1)
+	@TableGenerator(table = "hibernate_sequences", name = "MiGestionIdTable", 
+		    allocationSize = 1, initialValue = 0, pkColumnName = "sequence_name", 
+		    valueColumnName = "sequence_next_hi_value", pkColumnValue = "Operacion")
+	@GeneratedValue(strategy = GenerationType.TABLE,generator="MiGestionIdTable")
+	@Id
 	private Long oid;
 		
 
