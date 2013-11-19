@@ -88,4 +88,13 @@ public class ConceptoMovimientoServiceImpl extends GenericService<ConceptoMovimi
 		return this.get(ValoresPredefinidos.CONCEPTO_MOVIMIENTO_PAGO_VENTA);
 	}
 
+	public ConceptoMovimiento getConceptoAnulacionVenta() throws ServiceException {
+		
+		return this.get(ValoresPredefinidos.CONCEPTO_MOVIMIENTO_ANULACION_VENTA);
+	}
+
+	public ConceptoMovimiento getConceptoAnulacionGasto() throws ServiceException {
+		
+		return this.get(ValoresPredefinidos.CONCEPTO_MOVIMIENTO_ANULACION_GASTO);
+	}
 }

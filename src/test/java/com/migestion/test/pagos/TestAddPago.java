@@ -11,6 +11,7 @@ import com.migestion.model.DetallePago;
 import com.migestion.model.EstadoPago;
 import com.migestion.model.FormaPago;
 import com.migestion.model.Pago;
+import com.migestion.model.ValoresPredefinidos;
 import com.migestion.model.Venta;
 import com.migestion.services.IGenericService;
 import com.migestion.services.ServiceFactory;
@@ -32,11 +33,11 @@ public class TestAddPago extends TestAddEntity<Pago, PagoCriteria>{
 		Pago p = new Pago();
 		
 		p.setFecha( new Date() );
-		p.setCliente( ServiceFactory.getClienteService().get(1L) );
-		p.setSucursal( ServiceFactory.getSucursalService().get(1L) );
+		p.setCliente( ServiceFactory.getClienteService().getClienteMostrador() );
+		p.setSucursal( ServiceFactory.getSucursalService().get(ValoresPredefinidos.SUCURSAL_CASA_MATRIZ) );
 		p.setMonto(30F);
 		
-		Venta venta = ServiceFactory.getVentaService().get(32768L);
+		Venta venta = ServiceFactory.getVentaService().get(1L);
 		
 //		DetalleFormaPagoTarjeta detalleFormaPago = new DetalleFormaPagoTarjeta();
 //		detalleFormaPago.setBanco("MACRO");
@@ -63,6 +64,7 @@ public class TestAddPago extends TestAddEntity<Pago, PagoCriteria>{
 
 		DetalleFormaPagoEfectivo detalleEfectivo = new DetalleFormaPagoEfectivo();
 		detalleEfectivo.setMonto(10F);
+		detalleEfectivo.setCaja( ServiceFactory.getCajaService().get(1L));
 		p.addDetalle(detalleEfectivo);
 	
 		return p;

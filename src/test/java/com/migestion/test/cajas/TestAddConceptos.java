@@ -41,6 +41,10 @@ public class TestAddConceptos{
 	
 			IConceptoMovimientoService service = ServiceFactory.getConceptoMovimientoService();
 				
+			service.add( generarConceptoMovimiento("Ventas") );
+			service.add( generarConceptoMovimiento("Saldo inicial") );
+			service.add( generarConceptoMovimiento("Anulación gasto") );
+			service.add( generarConceptoMovimiento("Pago venta") );
 			service.add( generarConceptoMovimiento("Luz") );
 			service.add( generarConceptoMovimiento("Agua") );
 			service.add( generarConceptoMovimiento("ABL") );

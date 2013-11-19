@@ -3,6 +3,7 @@ package com.migestion.test.ventas;
 import java.util.Date;
 
 import com.migestion.model.DetalleVenta;
+import com.migestion.model.ValoresPredefinidos;
 import com.migestion.model.Venta;
 import com.migestion.services.IGenericService;
 import com.migestion.services.ServiceFactory;
@@ -24,9 +25,9 @@ public class TestAddVenta extends TestAddEntity<Venta, VentaCriteria>{
 		Venta v = new Venta();
 		
 		v.setFecha( new Date() );
-		v.setCliente( ServiceFactory.getClienteService().get(1L) );
-		v.setVendedor( ServiceFactory.getVendedorService().get(2L) );
-		v.setSucursal( ServiceFactory.getSucursalService().get(1L) );
+		v.setCliente( ServiceFactory.getClienteService().getClienteMostrador() );
+		v.setVendedor( ServiceFactory.getVendedorService().getTitularComercio() );
+		v.setSucursal( ServiceFactory.getSucursalService().get(ValoresPredefinidos.SUCURSAL_CASA_MATRIZ) );
 		v.setMonto(30F);
 		
 		DetalleVenta d = new DetalleVenta();

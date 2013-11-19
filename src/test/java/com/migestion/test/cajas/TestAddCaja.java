@@ -3,6 +3,7 @@ package com.migestion.test.cajas;
 import java.util.Date;
 
 import com.migestion.model.Caja;
+import com.migestion.model.ValoresPredefinidos;
 import com.migestion.services.IGenericService;
 import com.migestion.services.ServiceFactory;
 import com.migestion.services.criteria.CajaCriteria;
@@ -22,10 +23,10 @@ public class TestAddCaja extends TestAddEntity<Caja, CajaCriteria>{
 	protected Caja getEntity() throws ServiceException {
 		Caja c = new Caja();
 		c.setNumero("0000000001");
-		c.setCajero( ServiceFactory.getVendedorService().get(2L));
+		c.setCajero( ServiceFactory.getVendedorService().getTitularComercio());
 		c.setFecha( new Date() );
 		c.setSaldoInicial(500F);
-		c.setSucursal( ServiceFactory.getSucursalService().get(1L));
+		c.setSucursal( ServiceFactory.getSucursalService().get(ValoresPredefinidos.SUCURSAL_CASA_MATRIZ));
 		return c;
 	}
 

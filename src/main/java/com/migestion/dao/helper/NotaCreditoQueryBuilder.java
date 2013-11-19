@@ -66,7 +66,10 @@ public class NotaCreditoQueryBuilder extends QueryBuilder<NotaCredito>{
 
 			Date fecha1 = c.getTime();
 			
-			c.add(Calendar.DAY_OF_MONTH, 1);
+			c.set(Calendar.MINUTE, 59);
+			c.set(Calendar.HOUR, 23);
+			c.set(Calendar.SECOND, 59);
+			c.set(Calendar.AM_PM, Calendar.PM);
 			Date fecha2 = c.getTime();
 			
 	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fecha")), fecha1, fecha2 );

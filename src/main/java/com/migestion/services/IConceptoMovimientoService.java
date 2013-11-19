@@ -22,6 +22,13 @@ public interface IConceptoMovimientoService extends IGenericService<ConceptoMovi
 	public ConceptoMovimiento getConceptoVentas() throws ServiceException;
 	
 	/**
+	 * obtiene el concepto de movimiento utilizado para anulación de ventas.
+	 * @return
+	 * @throws ServiceException
+	 */
+	public ConceptoMovimiento getConceptoAnulacionVenta() throws ServiceException;
+	
+	/**
 	 * obtiene el concepto de movimiento utilizado para saldo inicial.
 	 * @return
 	 * @throws ServiceException
@@ -35,4 +42,11 @@ public interface IConceptoMovimientoService extends IGenericService<ConceptoMovi
 	 */
 	public ConceptoMovimiento getConceptoPagoVenta() throws ServiceException;
 
+	/**
+	 * obtiene el concepto de movimiento utilizado para anulación de gastos.
+	 * @return
+	 * @throws ServiceException
+	 */
+	public ConceptoMovimiento getConceptoAnulacionGasto() throws ServiceException;
+	
 }

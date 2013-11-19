@@ -265,7 +265,21 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 		notaCredito.setFechaVencimiento(fechaVenc);
 		notaCredito.setMonto( venta.getMontoPagado() );
 		ServiceFactory.getNotaCreditoService().add(notaCredito);
-		
+
+		//FIXME actualizamos el saldo del cliente ??? revisar si debemos actualizarlo o no, porque ya queda la nota de crédito
+		if( venta.getCliente().getTieneCtaCte() ){
+
+			//haber sobre la cuenta corriente del cliente.
+			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
+			movimiento.setCliente( venta.getCliente() );
+			movimiento.setHaber( venta.getMonto() );
+			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoAnulacionVenta() );
+			movimiento.setFechaHora( new Date() );
+			movimiento.setDescripcion("Venta # " + venta.getOid() );
+			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
+			
+		}
+
 		venta.setEstadoVenta(EstadoVenta.ANULADA);
 
 		try {
@@ -293,9 +307,23 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 
 		Venta venta = this.get(oid);
 
-		// restablecemos el stock de los productos.
+		//reestablecemos el stock de los productos.
 		this.updatStock( venta.getDetalles() , 1);
 
+		//actualizamos el saldo del cliente
+		if( venta.getCliente().getTieneCtaCte() ){
+
+			//haber sobre la cuenta corriente del cliente.
+			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
+			movimiento.setCliente( venta.getCliente() );
+			movimiento.setHaber( venta.getMonto() );
+			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoAnulacionVenta() );
+			movimiento.setFechaHora( new Date() );
+			movimiento.setDescripcion("Venta # " + venta.getOid() );
+			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
+			
+		}
+		
 		super.delete(oid);
 
 	}

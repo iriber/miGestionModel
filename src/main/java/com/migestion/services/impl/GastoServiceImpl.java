@@ -129,7 +129,7 @@ public class GastoServiceImpl extends GenericService<Gasto, GastoCriteria> imple
 		try {
 			
 			//hay que generar el contra movimiento para corregir el saldo de la cuenta asociada
-			ConceptoMovimiento concepto= ServiceFactory.getConceptoMovimientoService().get( ValoresPredefinidos.CONCEPTO_ANULACION_GASTO );
+			ConceptoMovimiento concepto= ServiceFactory.getConceptoMovimientoService().get( ValoresPredefinidos.CONCEPTO_MOVIMIENTO_ANULACION_GASTO );
 			
 			MovimientoCuenta movimiento = gasto.buildContraMovimiento(concepto);
 			movimiento.calcularSaldos();

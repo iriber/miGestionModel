@@ -10,7 +10,9 @@ public class ValoresPredefinidos {
 	
 	public static final Long CONCEPTO_MOVIMIENTO_VENTAS = Long.valueOf( prop.getProperty("concepto.movimiento.ventas") );
 	
-	public static final Long CONCEPTO_ANULACION_GASTO = Long.valueOf( prop.getProperty("concepto.movimiento.anulacionGasto") );
+	public static final Long CONCEPTO_MOVIMIENTO_ANULACION_GASTO = Long.valueOf( prop.getProperty("concepto.movimiento.anulacionGasto") );
+	
+	public static final Long CONCEPTO_MOVIMIENTO_ANULACION_VENTA = Long.valueOf( prop.getProperty("concepto.movimiento.anulacionVenta") );
 	
 	public static final Long CONCEPTO_MOVIMIENTO_SALDO_INICIAL = Long.valueOf( prop.getProperty("concepto.movimiento.saldoInicial") );
 	
