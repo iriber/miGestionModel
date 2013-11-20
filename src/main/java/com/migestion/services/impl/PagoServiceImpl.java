@@ -8,9 +8,13 @@ import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
 import com.migestion.dao.IPagoDAO;
 import com.migestion.dao.exception.DAOException;
+import com.migestion.i18n.Messages;
 import com.migestion.model.DetalleFormaPago;
+import com.migestion.model.DetalleOperacion;
+import com.migestion.model.DetallePago;
 import com.migestion.model.EstadisticaPago;
 import com.migestion.model.EstadoPago;
+import com.migestion.model.EstadoProducto;
 import com.migestion.model.MovimientoCuentaCliente;
 import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
@@ -67,8 +71,38 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 	@Override
 	protected void validateOnAdd(Pago entity) throws ServiceException {
 		
-		//TODO chequear los montos totals: monto pago == monto pagado en ventas == monto de los detalles de forma de pago
+		//requeridos: fecha, cliente, sucursal, ventas a pagar 
+		if( entity.getFecha() == null ){
+			throw new ServiceException( Messages.PAGO_FECHA_REQUERIDA );
+		}
 		
+		if( entity.getCliente() == null ){
+			throw new ServiceException( Messages.PAGO_CLIENTE_REQUERIDO );
+		}
+		
+		if( entity.getDetallesPago().size() == 0 ){
+			throw new ServiceException( Messages.PAGO_VENTAS_REQUERIDAS );
+		}
+
+		if( entity.getDetallesFormaPago().size() == 0 ){
+			throw new ServiceException( Messages.PAGO_FORMAS_PAGO_REQUERIDAS );
+		}
+
+		//validar los detalles.
+		
+		//que no haya ventas anuladas ni pagadas
+		
+		//TODO que la suma de los detalles sea igual al monto de la venta.
+		Float totalDetalles = 0F;
+		for (DetallePago detalle : entity.getDetallesPago()) {
+			
+			totalDetalles += detalle.getMonto();
+			
+//			if( !detalle.getOperacion().podesPagarte() )
+//				throw new ServiceException( Messages.PAGO_VENTAS_INCORRECTAS );	
+			
+		}
+
 	}
 
 	@Override

@@ -246,4 +246,6 @@ public abstract class Operacion extends GenericEntity{
 	}
 
 	public abstract String getDescripcion();
+
+	public abstract Boolean podesPagarte();
 }

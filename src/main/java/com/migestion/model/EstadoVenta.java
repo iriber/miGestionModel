@@ -71,4 +71,11 @@ public enum EstadoVenta{
 		return this.equals( IMPAGA );
 	}
 	
+	public boolean podesPagarte() {
+		
+		return this.equals( IMPAGA ) || this.equals( PAGADA_PARCIALMENTE );
+		
+	}
+
+	
 }

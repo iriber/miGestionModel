@@ -91,7 +91,7 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 		
 		//validar los detalles.
 		
-		//TODO que no haya productos inactivos?
+		//que no haya productos inactivos?
 		
 		//TODO que la suma de los detalles sea igual al monto de la venta.
 		Float totalDetalles = 0F;

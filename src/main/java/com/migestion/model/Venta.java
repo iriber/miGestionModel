@@ -184,4 +184,11 @@ public class Venta extends Operacion{
 		return this.getOid() + " - " + new SimpleDateFormat("dd/MM/yyyy").format( getFecha() ) ;
 	}
 
+
+	@Override
+	public Boolean podesPagarte() {
+		
+		return getEstadoVenta().podesPagarte();
+	}
+
 }

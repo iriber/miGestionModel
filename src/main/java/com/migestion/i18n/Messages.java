@@ -69,5 +69,13 @@ public class Messages {
 	public static String VENTA_PRODUCTOS_REQUERIDOS =locale("venta.productos.requeridos");
 	public static String VENTA_PRODUCTOS_INACTIVOS =locale("venta.productos.inactivos");
 	public static String VENTA_MONTO_INCORRECTO =locale("venta.monto.incorrecto");
+
+	public static String PAGO_FECHA_REQUERIDA =locale("pago.fecha.requerida");
+	public static String PAGO_SUCURSAL_REQUERIDA =locale("pago.sucursal.requerida");
+	public static String PAGO_CLIENTE_REQUERIDO =locale("pago.cliente.requerido");
+	public static String PAGO_VENTAS_REQUERIDAS =locale("pago.ventas.requeridas");
+	public static String PAGO_VENTAS_INCORRECTAS =locale("pago.ventas.incorrectas");
+	public static String PAGO_MONTO_INCORRECTO =locale("pago.monto.incorrecto");
+	public static String PAGO_FORMAS_PAGO_REQUERIDAS =locale("pago.formasPago.requeridas");
 	
 }

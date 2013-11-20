@@ -40,7 +40,8 @@ public abstract class GenericEntity implements Serializable{
 			return false;
 
 		GenericEntity other = (GenericEntity) obj;
-		Boolean ok = new EqualsBuilder().append(getOid().longValue(), other.getOid().longValue()).isEquals();
+		Boolean ok = other.getOid()!=null && this.getOid()!=null;
+		ok = ok &&  new EqualsBuilder().append(getOid().longValue(), other.getOid().longValue()).isEquals();
 		return ok;
 		
 	}
