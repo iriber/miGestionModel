@@ -2,11 +2,9 @@ package com.migestion.services.criteria;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 import com.migestion.model.Cliente;
 import com.migestion.model.EstadoVenta;
-import com.migestion.model.Vendedor;
 
 /**
  * Criterio de búsqueda para ventas.
@@ -26,6 +24,12 @@ public class VentaCriteria extends OperacionCriteria{
 	 * estados de venta a excluir
 	 */
 	private Collection<EstadoVenta> estadosExcluir;
+
+	/**
+	 * cliente
+	 */
+	private Cliente cliente;
+	
 
 	
 	public VentaCriteria(){
@@ -69,5 +73,21 @@ public class VentaCriteria extends OperacionCriteria{
 	public void setEstados(Collection<EstadoVenta> estados) {
 		this.estados = estados;
 	}
+	
+	/**
+	 * @return the cliente
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * @param cliente the cliente to set
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
 
 }

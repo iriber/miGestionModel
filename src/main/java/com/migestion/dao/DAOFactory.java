@@ -13,9 +13,12 @@ import com.migestion.dao.impl.MovimientoChequeJPADAO;
 import com.migestion.dao.impl.MovimientoCuentaBancariaJPADAO;
 import com.migestion.dao.impl.MovimientoCuentaClienteJPADAO;
 import com.migestion.dao.impl.MovimientoCuentaJPADAO;
+import com.migestion.dao.impl.MovimientoCuentaProveedorJPADAO;
 import com.migestion.dao.impl.MovimientoNotaCreditoJPADAO;
 import com.migestion.dao.impl.NotaCreditoJPADAO;
-import com.migestion.dao.impl.PagoJPADAO;
+import com.migestion.dao.impl.OrdenCompraJPADAO;
+import com.migestion.dao.impl.PagoClienteJPADAO;
+import com.migestion.dao.impl.PagoProveedorJPADAO;
 import com.migestion.dao.impl.ProductoJPADAO;
 import com.migestion.dao.impl.ProveedorJPADAO;
 import com.migestion.dao.impl.SucursalJPADAO;
@@ -33,9 +36,12 @@ import com.migestion.model.MovimientoCheque;
 import com.migestion.model.MovimientoCuenta;
 import com.migestion.model.MovimientoCuentaBancaria;
 import com.migestion.model.MovimientoCuentaCliente;
+import com.migestion.model.MovimientoCuentaProveedor;
 import com.migestion.model.MovimientoNotaCredito;
 import com.migestion.model.NotaCredito;
-import com.migestion.model.Pago;
+import com.migestion.model.OrdenCompra;
+import com.migestion.model.PagoCliente;
+import com.migestion.model.PagoProveedor;
 import com.migestion.model.Producto;
 import com.migestion.model.Proveedor;
 import com.migestion.model.Sucursal;
@@ -53,9 +59,12 @@ import com.migestion.services.criteria.MovimientoChequeCriteria;
 import com.migestion.services.criteria.MovimientoCuentaBancariaCriteria;
 import com.migestion.services.criteria.MovimientoCuentaClienteCriteria;
 import com.migestion.services.criteria.MovimientoCuentaCriteria;
+import com.migestion.services.criteria.MovimientoCuentaProveedorCriteria;
 import com.migestion.services.criteria.MovimientoNotaCreditoCriteria;
 import com.migestion.services.criteria.NotaCreditoCriteria;
-import com.migestion.services.criteria.PagoCriteria;
+import com.migestion.services.criteria.OrdenCompraCriteria;
+import com.migestion.services.criteria.PagoClienteCriteria;
+import com.migestion.services.criteria.PagoProveedorCriteria;
 import com.migestion.services.criteria.ProductoCriteria;
 import com.migestion.services.criteria.ProveedorCriteria;
 import com.migestion.services.criteria.SucursalCriteria;
@@ -129,13 +138,22 @@ public class DAOFactory {
 	}
 
 	/**
-	 * dao para pagos
+	 * dao para pagos de clientes
 	 * @return
 	 */
-	public static IGenericDAO<Pago, PagoCriteria> getPagoDAO(){
-		return new PagoJPADAO();
+	public static IGenericDAO<PagoCliente, PagoClienteCriteria> getPagoClienteDAO(){
+		return new PagoClienteJPADAO();
 	}
 
+	/**
+	 * dao para pagos a proveedores
+	 * @return
+	 */
+	public static IGenericDAO<PagoProveedor, PagoProveedorCriteria> getPagoProveedorDAO(){
+		return new PagoProveedorJPADAO();
+	}
+	
+	
 	/**
 	 * dao para cajas
 	 * @return
@@ -158,6 +176,14 @@ public class DAOFactory {
 	 */
 	public static IGenericDAO<MovimientoCuentaCliente, MovimientoCuentaClienteCriteria> getMovimientoCuentaClienteDAO(){
 		return new MovimientoCuentaClienteJPADAO();
+	}
+
+	/**
+	 * dao para movimientos de cuentas corrientes de proveedor
+	 * @return
+	 */
+	public static IGenericDAO<MovimientoCuentaProveedor, MovimientoCuentaProveedorCriteria> getMovimientoCuentaProveedorDAO(){
+		return new MovimientoCuentaProveedorJPADAO();
 	}
 
 	/**
@@ -240,4 +266,11 @@ public class DAOFactory {
 		return new ProveedorJPADAO();
 	}
 
+	/**
+	 * dao para órdenes de comra
+	 * @return
+	 */
+	public static IGenericDAO<OrdenCompra, OrdenCompraCriteria> getOrdenCompraDAO(){
+		return new OrdenCompraJPADAO();
+	}
 }

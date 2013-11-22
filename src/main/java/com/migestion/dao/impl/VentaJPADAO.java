@@ -4,13 +4,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.migestion.dao.IVentaDAO;
+import com.migestion.dao.IOperacionDAO;
 import com.migestion.dao.exception.DAOException;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.dao.helper.VentaQueryBuilder;
-import com.migestion.model.EstadisticaVenta;
+import com.migestion.model.EstadisticaOperacion;
 import com.migestion.model.Venta;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.services.criteria.OperacionCriteria;
 import com.migestion.services.criteria.VentaCriteria;
 
 /**
@@ -20,7 +21,7 @@ import com.migestion.services.criteria.VentaCriteria;
  * @since 17/10/2013
  *
  */
-public class VentaJPADAO extends GenericJPADAO<Venta, VentaCriteria> implements IVentaDAO{
+public class VentaJPADAO extends GenericJPADAO<Venta, VentaCriteria> implements IOperacionDAO{
 
 	/*
 	 * (non-Javadoc)
@@ -40,9 +41,9 @@ public class VentaJPADAO extends GenericJPADAO<Venta, VentaCriteria> implements 
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.migestion.dao.IVentaDAO#getEstadisticaVenta(com.migestion.services.criteria.VentaCriteria)
+	 * @see com.migestion.dao.IOperacionDAO#getEstadisticaOperacion(com.migestion.services.criteria.OperacionCriteria)
 	 */
-	public EstadisticaVenta getEstadisticaVenta(VentaCriteria criteria) {
+	public EstadisticaOperacion getEstadisticaOperacion(OperacionCriteria criteria) {
 		
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Object[]> criteriaQuery = builder.createQuery( Object[].class );
@@ -59,7 +60,7 @@ public class VentaJPADAO extends GenericJPADAO<Venta, VentaCriteria> implements 
 
 		Object[] object = (Object[])getEntityManager().createQuery(criteriaQuery).getSingleResult();;
 
-		EstadisticaVenta estadistica = new EstadisticaVenta();		
+		EstadisticaOperacion estadistica = new EstadisticaOperacion();		
 		estadistica.setCantidad( ((Long)object[0]).intValue() );
 		
 		if( estadistica.getCantidad() > 0 ){

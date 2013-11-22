@@ -59,17 +59,29 @@ public class MiGestionAppConfig {
 			ConceptoMovimiento concepto = new ConceptoMovimiento();
 			concepto.setNombre("Venta");
 			ServiceFactory.getConceptoMovimientoService().add(concepto);
-			
+
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Saldo Inicial");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+
 			concepto = new ConceptoMovimiento();
 			concepto.setNombre("Anulación gasto");
 			ServiceFactory.getConceptoMovimientoService().add(concepto);
 			
 			concepto = new ConceptoMovimiento();
-			concepto.setNombre("Saldo Inicial");
-			ServiceFactory.getConceptoMovimientoService().add(concepto);
-			
-			concepto = new ConceptoMovimiento();
 			concepto.setNombre("Pago venta");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Orden compra");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Pago orden compra");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Anulación orden compra");
 			ServiceFactory.getConceptoMovimientoService().add(concepto);
 
 			PersistenceContext.getInstance().commit();

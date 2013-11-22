@@ -15,6 +15,7 @@ import com.migestion.model.Cliente;
 import com.migestion.model.NotaCredito;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.NotaCreditoCriteria;
+import com.migestion.utils.DateHelper;
 
 
 /**
@@ -57,20 +58,10 @@ public class NotaCreditoQueryBuilder extends QueryBuilder<NotaCredito>{
 		Cliente cliente = ((NotaCreditoCriteria)criteria).getCliente();
 	 
 		if( fecha!=null ){
-			Calendar c = Calendar.getInstance();
-			c.setTime( fecha );
-			c.set(Calendar.MINUTE, 0);
-			c.set(Calendar.HOUR, 0);
-			c.set(Calendar.SECOND, 0);
-			c.set(Calendar.AM_PM, Calendar.AM);
-
-			Date fecha1 = c.getTime();
 			
-			c.set(Calendar.MINUTE, 59);
-			c.set(Calendar.HOUR, 23);
-			c.set(Calendar.SECOND, 59);
-			c.set(Calendar.AM_PM, Calendar.PM);
-			Date fecha2 = c.getTime();
+			Date[] fechas = DateHelper.getFechaHoraMinMax(fecha);
+			Date fecha1 = fechas[0];
+			Date fecha2 = fechas[1];
 			
 	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fecha")), fecha1, fecha2 );
 	        predicateList.add(fechaPredicate);

@@ -14,11 +14,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NotFound;
@@ -32,17 +35,9 @@ import org.hibernate.annotations.NotFoundAction;
  *
  */
 @Entity
-@Table(name="pago")
-public class Pago extends GenericEntity{
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+abstract public class Pago extends GenericEntity{
 
-	/**
-	 * cliente
-	 */
-	@ManyToOne(cascade=CascadeType.REFRESH)
-    @JoinColumn(name="cliente_oid")
-	@NotFound(action=NotFoundAction.IGNORE)	
-	@NotNull(message="{operacion.cliente.required}")
-	private Cliente cliente;
 	
 	/**
 	 * observaciones
@@ -96,8 +91,11 @@ public class Pago extends GenericEntity{
 	/**
 	 * identificador de la entity
 	 */
-	@Id @GeneratedValue
-	@Column
+	@TableGenerator(table = "hibernate_sequences", name = "MiGestionIdTable", 
+		    allocationSize = 1, initialValue = 0, pkColumnName = "sequence_name", 
+		    valueColumnName = "sequence_next_hi_value", pkColumnValue = "Pago")
+	@GeneratedValue(strategy = GenerationType.TABLE,generator="MiGestionIdTable")
+	@Id
 	private Long oid;
 
 
@@ -119,22 +117,6 @@ public class Pago extends GenericEntity{
 	 */
 	public void setOid(Long oid) {
 		this.oid = oid;
-	}
-
-	
-	/**
-	 * @return the cliente
-	 */
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-
-	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 
 

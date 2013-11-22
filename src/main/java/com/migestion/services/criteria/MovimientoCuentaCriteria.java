@@ -2,9 +2,6 @@ package com.migestion.services.criteria;
 
 import java.util.Date;
 
-import com.migestion.model.Caja;
-import com.migestion.model.Sucursal;
-
 /**
  * Criterio de búsqueda para movimientos de cuenta.
  * 

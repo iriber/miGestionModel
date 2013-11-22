@@ -12,14 +12,14 @@ import com.migestion.services.exception.ServiceException;
  * @since 25/10/2013
  *
  */
-public interface IPagoService extends IGenericService<Pago, PagoCriteria>{
+public interface IPagoService<T extends Pago, TCriteria extends PagoCriteria> extends IGenericService<T, TCriteria>{
  
 	/**
 	 * retorna los totales de pagos
 	 * @param criteria
 	 * @return
 	 */
-	public EstadisticaPago getEstadisticaPago(PagoCriteria criteria) throws ServiceException;;
+	public EstadisticaPago getEstadisticaPago(TCriteria criteria) throws ServiceException;;
 	
 
 	/**

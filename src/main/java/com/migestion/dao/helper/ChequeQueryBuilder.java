@@ -1,7 +1,6 @@
 package com.migestion.dao.helper;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.migestion.model.Cheque;
 import com.migestion.services.criteria.ChequeCriteria;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.utils.DateHelper;
 
 
 /**
@@ -59,21 +59,10 @@ public class ChequeQueryBuilder extends QueryBuilder<Cheque>{
 		String banco = ((ChequeCriteria)criteria).getBanco();
 	 
 		if( fechaVencimiento!=null ){
-			Calendar c = Calendar.getInstance();
-			c.setTime( fechaVencimiento );
-			c.set(Calendar.MINUTE, 0);
-			c.set(Calendar.HOUR, 0);
-			c.set(Calendar.SECOND, 0);
-			c.set(Calendar.AM_PM, Calendar.AM);
-
-			Date fecha1 = c.getTime();
 			
-			c.set(Calendar.MINUTE, 59);
-			c.set(Calendar.HOUR, 59);
-			c.set(Calendar.SECOND, 59);
-			c.set(Calendar.AM_PM, Calendar.PM);
-			Date fecha2 = c.getTime();
-			
+			Date[] fechas = DateHelper.getFechaHoraMinMax(fechaVencimiento);
+			Date fecha1 = fechas[0];
+			Date fecha2 = fechas[1];
 			
 	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fecha")), fecha1, fecha2 );
 	        predicateList.add(fechaPredicate);

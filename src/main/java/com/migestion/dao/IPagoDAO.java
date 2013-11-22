@@ -11,13 +11,13 @@ import com.migestion.services.criteria.PagoCriteria;
  * @since 28/10/2013
  *
  */
-public interface IPagoDAO {
+public interface IPagoDAO<TCriteria extends PagoCriteria> {
 
 	/**
 	 * estadísticas de pago dado un criterio de búsqueda.
 	 * @param criteria
 	 * @return
 	 */
-	public EstadisticaPago getEstadisticaPago(PagoCriteria criteria);
+	public EstadisticaPago getEstadisticaPago(TCriteria criteria);
 
 }

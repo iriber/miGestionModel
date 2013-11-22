@@ -3,19 +3,15 @@ package com.migestion.test.pagos;
 import java.util.Date;
 
 import com.migestion.model.Cheque;
-import com.migestion.model.DetalleFormaPago;
 import com.migestion.model.DetalleFormaPagoCheque;
 import com.migestion.model.DetalleFormaPagoEfectivo;
-import com.migestion.model.DetalleFormaPagoTarjeta;
 import com.migestion.model.DetallePago;
-import com.migestion.model.EstadoPago;
-import com.migestion.model.FormaPago;
-import com.migestion.model.Pago;
+import com.migestion.model.PagoCliente;
 import com.migestion.model.ValoresPredefinidos;
 import com.migestion.model.Venta;
 import com.migestion.services.IGenericService;
 import com.migestion.services.ServiceFactory;
-import com.migestion.services.criteria.PagoCriteria;
+import com.migestion.services.criteria.PagoClienteCriteria;
 import com.migestion.services.exception.ServiceException;
 import com.migestion.test.TestAddEntity;
 
@@ -25,12 +21,12 @@ import com.migestion.test.TestAddEntity;
  * @since 25/10/2013
  *
  */
-public class TestAddPago extends TestAddEntity<Pago, PagoCriteria>{
+public class TestAddPagoCliente extends TestAddEntity<PagoCliente, PagoClienteCriteria>{
 
 
 	@Override
-	protected Pago getEntity() throws ServiceException {
-		Pago p = new Pago();
+	protected PagoCliente getEntity() throws ServiceException {
+		PagoCliente p = new PagoCliente();
 		
 		p.setFecha( new Date() );
 		p.setCliente( ServiceFactory.getClienteService().getClienteMostrador() );
@@ -71,13 +67,13 @@ public class TestAddPago extends TestAddEntity<Pago, PagoCriteria>{
 	}
 
 	@Override
-	protected PagoCriteria getCriteria() {
-		return new PagoCriteria();
+	protected PagoClienteCriteria getCriteria() {
+		return new PagoClienteCriteria();
 	}
 
 	@Override
-	protected IGenericService<Pago, PagoCriteria> getService() {
-		return ServiceFactory.getPagoService();
+	protected IGenericService<PagoCliente, PagoClienteCriteria> getService() {
+		return ServiceFactory.getPagoClienteService();
 	}
 
 }

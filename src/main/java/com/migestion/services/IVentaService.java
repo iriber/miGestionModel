@@ -1,7 +1,8 @@
 package com.migestion.services;
 
-import com.migestion.model.EstadisticaVenta;
+import com.migestion.model.EstadisticaOperacion;
 import com.migestion.model.Venta;
+import com.migestion.services.criteria.OperacionCriteria;
 import com.migestion.services.criteria.VentaCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -19,7 +20,7 @@ public interface IVentaService extends IGenericService<Venta, VentaCriteria>{
 	 * @param criteria
 	 * @return
 	 */
-	public EstadisticaVenta getEstadisticaVenta(VentaCriteria criteria) throws ServiceException;;
+	public EstadisticaOperacion getEstadistica(OperacionCriteria criteria) throws ServiceException;
 	
 
 	/**

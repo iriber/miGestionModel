@@ -48,5 +48,26 @@ public interface IConceptoMovimientoService extends IGenericService<ConceptoMovi
 	 * @throws ServiceException
 	 */
 	public ConceptoMovimiento getConceptoAnulacionGasto() throws ServiceException;
+
 	
+	/**
+	 * obtiene el concepto de movimiento utilizado para orden de compra.
+	 * @return
+	 * @throws ServiceException
+	 */
+	public ConceptoMovimiento getConceptoOrdenCompra() throws ServiceException;
+	
+	/**
+	 * obtiene el concepto de movimiento utilizado para el pago de orden de compra.
+	 * @return
+	 * @throws ServiceException
+	 */
+	public ConceptoMovimiento getConceptoPagoOrdenCompra() throws ServiceException;
+	
+	/**
+	 * obtiene el concepto de movimiento utilizado para anulación de orden de compra.
+	 * @return
+	 * @throws ServiceException
+	 */
+	public ConceptoMovimiento getConceptoAnulacionOrdenCompra() throws ServiceException;
 }

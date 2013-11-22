@@ -70,6 +70,14 @@ public class Messages {
 	public static String VENTA_PRODUCTOS_INACTIVOS =locale("venta.productos.inactivos");
 	public static String VENTA_MONTO_INCORRECTO =locale("venta.monto.incorrecto");
 
+	public static String ORDEN_COMPRA_FECHA_REQUERIDA =locale("ordenCompra.fecha.requerida");
+	public static String ORDEN_COMPRA_SUCURSAL_REQUERIDA =locale("ordenCompra.sucursal.requerida");
+	public static String ORDEN_COMPRA_PROVEEDOR_REQUERIDO =locale("ordenCompra.proveedor.requerido");
+	public static String ORDEN_COMPRA_VENDEDOR_REQUERIDO =locale("ordenCompra.vendedor.requerido");
+	public static String ORDEN_COMPRA_PRODUCTOS_REQUERIDOS =locale("ordenCompra.productos.requeridos");
+	public static String ORDEN_COMPRA_PRODUCTOS_INACTIVOS =locale("ordenCompra.productos.inactivos");
+	public static String ORDEN_COMPRA_MONTO_INCORRECTO =locale("ordenCompra.monto.incorrecto");
+
 	public static String PAGO_FECHA_REQUERIDA =locale("pago.fecha.requerida");
 	public static String PAGO_SUCURSAL_REQUERIDA =locale("pago.sucursal.requerida");
 	public static String PAGO_CLIENTE_REQUERIDO =locale("pago.cliente.requerido");
@@ -77,5 +85,14 @@ public class Messages {
 	public static String PAGO_VENTAS_INCORRECTAS =locale("pago.ventas.incorrectas");
 	public static String PAGO_MONTO_INCORRECTO =locale("pago.monto.incorrecto");
 	public static String PAGO_FORMAS_PAGO_REQUERIDAS =locale("pago.formasPago.requeridas");
+	public static String PAGO_PROVEEDOR_REQUERIDO =locale("pago.proveedor.requerido");
 	
+	public static String GASTO_FECHA_REQUERIDA =locale("gasto.fecha.requerida");
+	public static String GASTO_SUCURSAL_REQUERIDA =locale("gasto.sucursal.requerida");
+	public static String GASTO_MONTO_REQUERIDO =locale("gasto.monto.requerido");
+	public static String GASTO_IVA_REQUERIDO =locale("gasto.iva.requerido");
+	public static String GASTO_TIPO_FACTURA_REQUERIDO =locale("gasto.tipoFactura.requerido");
+	public static String GASTO_RETENCION_IIBB_REQUERIDA =locale("gasto.retencionIIBB.requerida");
+	public static String GASTO_FORMA_PAGO_REQUERIDA =locale("gasto.formaPago.requerida");
+	public static String GASTO_CONCEPTO_REQUERIDO =locale("gasto.concepto.requerido");
 }

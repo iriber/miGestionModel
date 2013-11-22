@@ -14,8 +14,9 @@ import javax.persistence.criteria.Root;
 import com.migestion.model.Cliente;
 import com.migestion.model.EstadoPago;
 import com.migestion.model.Operacion;
-import com.migestion.model.Pago;
+import com.migestion.model.PagoCliente;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.services.criteria.PagoClienteCriteria;
 import com.migestion.services.criteria.PagoCriteria;
 
 
@@ -27,19 +28,19 @@ import com.migestion.services.criteria.PagoCriteria;
  * @since 25/10/2013
  *
  */
-public class PagoQueryBuilder extends QueryBuilder<Pago>{
+public class PagoClienteQueryBuilder extends QueryBuilder<PagoCliente>{
 
 	
-	public PagoQueryBuilder(Criteria criteria){
+	public PagoClienteQueryBuilder(Criteria criteria){
 		super( criteria );
 	}
 	
 	@Override
-	public CriteriaQuery<Pago> build( EntityManager em) {
+	public CriteriaQuery<PagoCliente> build( EntityManager em) {
 		
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-	    CriteriaQuery<Pago> query = builder.createQuery(Pago.class);
-	    Root<Pago> root = query.from(Pago.class);
+	    CriteriaQuery<PagoCliente> query = builder.createQuery(PagoCliente.class);
+	    Root<PagoCliente> root = query.from(PagoCliente.class);
 	    query.select(root);
 	 	    
 	    query.where(getPredicates(root, builder, criteria));		
@@ -50,13 +51,13 @@ public class PagoQueryBuilder extends QueryBuilder<Pago>{
 
 	}
 
-	public Predicate[] getPredicates(Root<Pago> root,
+	public Predicate[] getPredicates(Root<PagoCliente> root,
 			CriteriaBuilder builder, Criteria criteria) {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 		 
 		Date fechaDesde = ((PagoCriteria)criteria).getFechaDesde();
 		Date fechaHasta = ((PagoCriteria)criteria).getFechaHasta();
-		Cliente cliente = ((PagoCriteria)criteria).getCliente();
+		Cliente cliente = ((PagoClienteCriteria)criteria).getCliente();
 		Operacion operacion = ((PagoCriteria)criteria).getOperacion();
 		Collection<EstadoPago> estados = ((PagoCriteria)criteria).getEstados();
 		Collection<EstadoPago> estadosExcluir = ((PagoCriteria)criteria).getEstadosExcluir();
@@ -103,7 +104,7 @@ public class PagoQueryBuilder extends QueryBuilder<Pago>{
 	public CriteriaQuery<Long> buildToCount(EntityManager em) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<Pago> root = query.from(Pago.class);
+		Root<PagoCliente> root = query.from(PagoCliente.class);
 		
 		query.select( builder.count( root.<Long>get( "oid" ) ) );
 

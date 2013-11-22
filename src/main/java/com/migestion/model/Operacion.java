@@ -40,9 +40,6 @@ public abstract class Operacion extends GenericEntity{
 	/**
 	 * identificador de la entity
 	 */
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.TABLE)//, generator = "SEQ_DETALLEPAGO")
-	//@SequenceGenerator(name = "SEQ_DETALLEPAGO", sequenceName = "SEQ_DETALLEPAGO", allocationSize = 1)
 	@TableGenerator(table = "hibernate_sequences", name = "MiGestionIdTable", 
 		    allocationSize = 1, initialValue = 0, pkColumnName = "sequence_name", 
 		    valueColumnName = "sequence_next_hi_value", pkColumnValue = "Operacion")
@@ -51,15 +48,6 @@ public abstract class Operacion extends GenericEntity{
 	private Long oid;
 		
 
-	/**
-	 * cliente
-	 */
-	@ManyToOne(cascade=CascadeType.REFRESH)
-    @JoinColumn(name="cliente_oid")
-	@NotFound(action=NotFoundAction.IGNORE)	
-	@NotNull(message="{operacion.cliente.required}")
-	private Cliente cliente;
-	
 	/**
 	 * vendedor
 	 */
@@ -106,20 +94,7 @@ public abstract class Operacion extends GenericEntity{
 		detalles = new ArrayList<DetalleOperacion>();
 	}
 	
-	/**
-	 * @return the cliente
-	 */
-	public Cliente getCliente() {
-		
-		return cliente;
-	}
 
-	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 	/**
 	 * @return the vendedor

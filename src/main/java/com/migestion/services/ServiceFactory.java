@@ -1,5 +1,9 @@
 package com.migestion.services;
 
+import com.migestion.model.PagoCliente;
+import com.migestion.model.PagoProveedor;
+import com.migestion.services.criteria.PagoClienteCriteria;
+import com.migestion.services.criteria.PagoProveedorCriteria;
 import com.migestion.services.impl.BalanceServiceImpl;
 import com.migestion.services.impl.CajaServiceImpl;
 import com.migestion.services.impl.CategoriaProductoServiceImpl;
@@ -12,9 +16,12 @@ import com.migestion.services.impl.MovimientoCajaServiceImpl;
 import com.migestion.services.impl.MovimientoChequeServiceImpl;
 import com.migestion.services.impl.MovimientoCuentaBancariaServiceImpl;
 import com.migestion.services.impl.MovimientoCuentaClienteServiceImpl;
+import com.migestion.services.impl.MovimientoCuentaProveedorServiceImpl;
 import com.migestion.services.impl.MovimientoNotaCreditoServiceImpl;
 import com.migestion.services.impl.NotaCreditoServiceImpl;
-import com.migestion.services.impl.PagoServiceImpl;
+import com.migestion.services.impl.OrdenCompraServiceImpl;
+import com.migestion.services.impl.PagoClienteServiceImpl;
+import com.migestion.services.impl.PagoProveedorServiceImpl;
 import com.migestion.services.impl.ProductoServiceImpl;
 import com.migestion.services.impl.ProveedorServiceImpl;
 import com.migestion.services.impl.SucursalServiceImpl;
@@ -89,13 +96,21 @@ public class ServiceFactory {
 	}
 	
 	/**
-	 * servicio para pagos.
+	 * servicio para pagos de clientes.
 	 * @return
 	 */
-	public static IPagoService getPagoService(){
-		return PagoServiceImpl.getInstance();
+	public static IPagoService<PagoCliente, PagoClienteCriteria> getPagoClienteService(){
+		return PagoClienteServiceImpl.getInstance();
 	}
 
+	/**
+	 * servicio para pagos de proveedores.
+	 * @return
+	 */
+	public static IPagoService<PagoProveedor, PagoProveedorCriteria> getPagoProveedorService(){
+		return PagoProveedorServiceImpl.getInstance();
+	}
+	
 	/**
 	 * servicio para cajas.
 	 * @return
@@ -118,6 +133,14 @@ public class ServiceFactory {
 	 */
 	public static IMovimientoCuentaClienteService getMovimientoCuentaClienteService(){
 		return MovimientoCuentaClienteServiceImpl.getInstance();
+	}
+
+	/**
+	 * servicio para movimientos de cuentas corrientes de proveedores.
+	 * @return
+	 */
+	public static IMovimientoCuentaProveedorService getMovimientoCuentaProveedorService(){
+		return MovimientoCuentaProveedorServiceImpl.getInstance();
 	}
 
 	/**
@@ -190,4 +213,12 @@ public class ServiceFactory {
 	public static IProveedorService getProveedorService(){
 		return ProveedorServiceImpl.getInstance();
 	}	
+	
+	/**
+	 * servicio para órdenes de compra.
+	 * @return
+	 */
+	public static IOrdenCompraService getOrdenCompraService(){
+		return OrdenCompraServiceImpl.getInstance();
+	}
 }

@@ -2,12 +2,12 @@ package com.migestion.services.impl;
 
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.util.StringUtil;
 
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGastoDAO;
 import com.migestion.dao.IGenericDAO;
 import com.migestion.dao.exception.DAOException;
+import com.migestion.i18n.Messages;
 import com.migestion.model.ConceptoMovimiento;
 import com.migestion.model.EstadisticaGasto;
 import com.migestion.model.Gasto;
@@ -66,7 +66,36 @@ public class GastoServiceImpl extends GenericService<Gasto, GastoCriteria> imple
 	@Override
 	protected void validateOnAdd(Gasto entity) throws ServiceException {
 		
-		//TODO chequear los montos totals: monto gasto == monto pagado en ventas == monto de los detalles de forma de gasto
+		//requeridos: fecha, monto, iva, retencionIIBB, tipoFactura, concepto
+		//sucursal
+		if( entity.getFecha() == null){
+			throw new ServiceException( Messages.GASTO_FECHA_REQUERIDA );
+		}
+		
+		if( entity.getMonto() == null || entity.getMonto() <= 0){
+			throw new ServiceException( Messages.GASTO_MONTO_REQUERIDO );
+		}
+		
+		if( entity.getIva() == null || entity.getIva() <= 0){
+			throw new ServiceException( Messages.GASTO_IVA_REQUERIDO );
+		}
+		
+		if( entity.getRentencionIIBB() == null ){
+			throw new ServiceException( Messages.GASTO_RETENCION_IIBB_REQUERIDA );
+		}
+		
+		if( entity.getTipoFactura() == null){
+			throw new ServiceException( Messages.GASTO_TIPO_FACTURA_REQUERIDO );
+		}
+		
+		if( entity.getSucursal() == null){
+			throw new ServiceException( Messages.GASTO_SUCURSAL_REQUERIDA );
+		}
+		
+		if( entity.getMovimiento().getConcepto() == null){
+			throw new ServiceException( Messages.GASTO_CONCEPTO_REQUERIDO );
+		}
+		
 		
 	}
 

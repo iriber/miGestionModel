@@ -16,6 +16,7 @@ import com.migestion.model.Cheque;
 import com.migestion.model.MovimientoCheque;
 import com.migestion.services.criteria.Criteria;
 import com.migestion.services.criteria.MovimientoChequeCriteria;
+import com.migestion.utils.DateHelper;
 
 
 /**
@@ -75,17 +76,10 @@ public class MovimientoChequeQueryBuilder extends QueryBuilder<MovimientoCheque>
 	    }
 		
 		if( fecha!=null ){
-			Calendar c = Calendar.getInstance();
-			c.setTime( fecha );
-			c.set(Calendar.MINUTE, 0);
-			c.set(Calendar.HOUR, 0);
-			c.set(Calendar.SECOND, 0);
-			c.set(Calendar.AM_PM, Calendar.AM);
-
-			Date fecha1 = c.getTime();
 			
-			c.add(Calendar.DAY_OF_MONTH, 1);
-			Date fecha2 = c.getTime();
+			Date[] fechas = DateHelper.getFechaHoraMinMax(fecha);
+			Date fecha1 = fechas[0];
+			Date fecha2 = fechas[1];
 			
 	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fechaHora")), fecha1, fecha2 );
 	        predicateList.add(fechaPredicate);

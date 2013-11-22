@@ -2,7 +2,6 @@ package com.migestion.services.criteria;
 
 import java.util.Date;
 
-import com.migestion.model.Cliente;
 import com.migestion.model.Vendedor;
 
 /**
@@ -24,11 +23,6 @@ public class OperacionCriteria extends Criteria{
 	 */
 	private Date fechaHasta;
 
-	/**
-	 * cliente
-	 */
-	private Cliente cliente;
-	
 	/**
 	 * vendedor
 	 */
@@ -61,20 +55,6 @@ public class OperacionCriteria extends Criteria{
 	 */
 	public void setFechaHasta(Date fechaHasta) {
 		this.fechaHasta = fechaHasta;
-	}
-
-	/**
-	 * @return the cliente
-	 */
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 
 	/**

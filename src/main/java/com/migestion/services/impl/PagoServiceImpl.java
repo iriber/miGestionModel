@@ -1,25 +1,16 @@
 package com.migestion.services.impl;
 
 
-import java.util.Calendar;
-import java.util.Date;
-
-import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
 import com.migestion.dao.IPagoDAO;
 import com.migestion.dao.exception.DAOException;
 import com.migestion.i18n.Messages;
 import com.migestion.model.DetalleFormaPago;
-import com.migestion.model.DetalleOperacion;
 import com.migestion.model.DetallePago;
 import com.migestion.model.EstadisticaPago;
 import com.migestion.model.EstadoPago;
-import com.migestion.model.EstadoProducto;
-import com.migestion.model.MovimientoCuentaCliente;
-import com.migestion.model.NotaCredito;
 import com.migestion.model.Pago;
 import com.migestion.services.IPagoService;
-import com.migestion.services.ServiceFactory;
 import com.migestion.services.criteria.PagoCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -31,53 +22,38 @@ import com.migestion.services.exception.ServiceException;
  * @since 25/10/2013
  */
 
-public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implements IPagoService{
+abstract public class PagoServiceImpl<T extends Pago, TCriteria extends PagoCriteria> extends GenericService<T, TCriteria> implements IPagoService<T, TCriteria>{
 
 	/**
 	 * dao para maejar la persistencia de los pagos.
 	 */
-	private IGenericDAO<Pago, PagoCriteria> pagoDAO;
+	private IGenericDAO<T, TCriteria> pagoDAO;
 
-	/**
-	 * instancia para singleton.
-	 */
-	private static PagoServiceImpl instance;
-	
-	
-	public static PagoServiceImpl getInstance(){
-		
-		if( instance == null )
-			instance = new PagoServiceImpl();
-		
-		return instance;
-	}
 	
 	/**
 	 * @param pagoDAO the pagoDAO to set
 	 */
-	private PagoServiceImpl() {
+	protected PagoServiceImpl() {
 		
-		pagoDAO = DAOFactory.getPagoDAO();
+		pagoDAO = buildDAO();
 		
 	}
 
+	protected abstract IGenericDAO<T, TCriteria> buildDAO();
+	
 
 	@Override
-	protected IGenericDAO<Pago, PagoCriteria> getDAO() {
+	protected IGenericDAO<T, TCriteria> getDAO() {
 		return pagoDAO;
 	}
 
 
 	@Override
-	protected void validateOnAdd(Pago entity) throws ServiceException {
+	protected void validateOnAdd(T entity) throws ServiceException {
 		
 		//requeridos: fecha, cliente, sucursal, ventas a pagar 
 		if( entity.getFecha() == null ){
 			throw new ServiceException( Messages.PAGO_FECHA_REQUERIDA );
-		}
-		
-		if( entity.getCliente() == null ){
-			throw new ServiceException( Messages.PAGO_CLIENTE_REQUERIDO );
 		}
 		
 		if( entity.getDetallesPago().size() == 0 ){
@@ -92,7 +68,7 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 		
 		//que no haya ventas anuladas ni pagadas
 		
-		//TODO que la suma de los detalles sea igual al monto de la venta.
+		//TODO que la suma de los detalles sea igual al monto del pago.
 		Float totalDetalles = 0F;
 		for (DetallePago detalle : entity.getDetallesPago()) {
 			
@@ -102,23 +78,26 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 //				throw new ServiceException( Messages.PAGO_VENTAS_INCORRECTAS );	
 			
 		}
+		
+		//TODO que no pague más de lo que debe
+		
 
 	}
 
 	@Override
-	protected void validateOnUpdate(Pago entity) throws ServiceException {
+	protected void validateOnUpdate(T entity) throws ServiceException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void validateOnDelete(Pago entity) throws ServiceException {
+	protected void validateOnDelete(T entity) throws ServiceException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void add(Pago entity) throws ServiceException {
+	public void add(T entity) throws ServiceException {
 
 		// lo seteamos como realizado.
 		entity.setEstadoPago(EstadoPago.REALIZADO);
@@ -127,30 +106,35 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 		for (DetalleFormaPago detalle : entity.getDetallesFormaPago()) {
 			detalle.getMovimiento().calcularSaldos();
 		}
+	
+		updateCuentaCorrienteOnAdd( entity );
 		
 		
-		if( entity.getCliente().getTieneCtaCte() ){
-
-			//haber sobre la cuenta corriente del cliente.
-			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
-			movimiento.setCliente( entity.getCliente() );
-			movimiento.setHaber( entity.getMonto() );
-			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoPagoVenta() );
-			movimiento.setFechaHora( new Date() );
-			movimiento.setDescripcion("Pago # " + entity.getOid() );
-			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
-			
-		}
+//		if( entity.getCliente().getTieneCtaCte() ){
+//
+//			//haber sobre la cuenta corriente del cliente.
+//			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
+//			movimiento.setCliente( entity.getCliente() );
+//			movimiento.setHaber( entity.getMonto() );
+//			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoPagoVenta() );
+//			movimiento.setFechaHora( new Date() );
+//			movimiento.setDescripcion("Pago # " + entity.getOid() );
+//			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
+//			
+//		}
 		// agregamos el pago.
 		super.add(entity);
 	}
 
 	
+	protected abstract void updateCuentaCorrienteOnAdd(T pago) throws ServiceException;
+
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.migestion.services.IPagoService#getEstadisticaPago(com.migestion.services.criteria.PagoCriteria)
 	 */
-	public EstadisticaPago getEstadisticaPago(PagoCriteria criteria)
+	public EstadisticaPago getEstadisticaPago(TCriteria criteria)
 			throws ServiceException {
 
 		//excluimos las ventas anuladas
@@ -163,32 +147,17 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 	 * (non-Javadoc)
 	 * @see com.migestion.services.IPagoService#anularPago(java.lang.Long)
 	 */
-	public Pago anularPago(Long oid) throws ServiceException {
+	public T anularPago(Long oid) throws ServiceException {
 
-		Pago pago = this.get(oid);
+		T pago = this.get(oid);
 
 		if( !pago.getEstadoPago().podesAnularte() )
 			throw new ServiceException("pago.anular.estado.invalido");
 		
 		pago.anulate();
 
-		//TODO deberíamos recibir por parámetro para que se pueda editar el 
-		//número, sucursal, vendedor y fecha de vencimiento.
-		NotaCredito notaCredito = new NotaCredito();
-		//c.setNumero("021545454");
-		notaCredito.setCliente( pago.getCliente() );
-		//notaCredito.setVendedor( pago.getVendedor() );
-		notaCredito.setSucursal( pago.getSucursal() );
-		notaCredito.setFecha(new Date());
+		updateCuentaCorrienteOnAnular( pago );
 		
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime( notaCredito.getFecha() );
-		calendar.add(Calendar.DAY_OF_MONTH, 30);
-		Date fechaVenc = calendar.getTime();
-		notaCredito.setFechaVencimiento(fechaVenc);
-		notaCredito.setMonto( pago.getMonto() );
-		ServiceFactory.getNotaCreditoService().add(notaCredito);
-
 		try {
 
 			getDAO().update(pago);
@@ -206,4 +175,5 @@ public class PagoServiceImpl extends GenericService<Pago, PagoCriteria> implemen
 		return pago;
 	}
 
+	protected abstract void updateCuentaCorrienteOnAnular(T pago) throws ServiceException;
 }

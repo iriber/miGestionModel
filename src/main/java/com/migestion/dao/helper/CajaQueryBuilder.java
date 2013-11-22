@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.migestion.model.Caja;
 import com.migestion.services.criteria.CajaCriteria;
 import com.migestion.services.criteria.Criteria;
+import com.migestion.utils.DateHelper;
 
 
 /**
@@ -66,21 +67,10 @@ public class CajaQueryBuilder extends QueryBuilder<Caja>{
 		Date fecha = ((CajaCriteria)criteria).getFecha();
 		
 		if( fecha!=null ){
-			Calendar c = Calendar.getInstance();
-			c.setTime( fecha );
-			c.set(Calendar.MINUTE, 0);
-			c.set(Calendar.HOUR, 0);
-			c.set(Calendar.SECOND, 0);
-			c.set(Calendar.AM_PM, Calendar.AM);
-			
-			Date fecha1 = c.getTime();
-			
-			c.set(Calendar.MINUTE, 59);
-			c.set(Calendar.HOUR, 23);
-			c.set(Calendar.SECOND, 59);
-			c.set(Calendar.AM_PM, Calendar.PM);
-			Date fecha2 = c.getTime();
-			
+
+			Date[] fechas = DateHelper.getFechaHoraMinMax(fecha);
+			Date fecha1 = fechas[0];
+			Date fecha2 = fechas[1];
 			
 	    	Predicate fechaPredicate = builder.between( (root.<Date>get("fecha")), fecha1, fecha2 );
 	        predicateList.add(fechaPredicate);

@@ -3,12 +3,18 @@ package com.migestion.model;
 
 import java.text.SimpleDateFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * Venta
@@ -40,6 +46,15 @@ public class Venta extends Operacion{
 	 */
 	@Column
 	private Float montoDebe;
+	
+	/**
+	 * cliente
+	 */
+	@ManyToOne(cascade=CascadeType.REFRESH)
+    @JoinColumn(name="cliente_oid")
+	@NotFound(action=NotFoundAction.IGNORE)	
+	@NotNull(message="{operacion.cliente.required}")
+	private Cliente cliente;
 	
 
 	public Venta(){
@@ -191,4 +206,18 @@ public class Venta extends Operacion{
 		return getEstadoVenta().podesPagarte();
 	}
 
+	/**
+	 * @return the cliente
+	 */
+	public Cliente getCliente() {
+		
+		return cliente;
+	}
+
+	/**
+	 * @param cliente the cliente to set
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 }

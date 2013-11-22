@@ -6,35 +6,35 @@ import javax.persistence.criteria.Root;
 
 import com.migestion.dao.IPagoDAO;
 import com.migestion.dao.exception.DAOException;
-import com.migestion.dao.helper.PagoQueryBuilder;
+import com.migestion.dao.helper.PagoProveedorQueryBuilder;
 import com.migestion.dao.helper.QueryBuilder;
 import com.migestion.model.EstadisticaPago;
-import com.migestion.model.Pago;
+import com.migestion.model.PagoProveedor;
 import com.migestion.services.criteria.Criteria;
-import com.migestion.services.criteria.PagoCriteria;
+import com.migestion.services.criteria.PagoProveedorCriteria;
 
 /**
- * Implementación del dao jpa para pagos
+ * Implementación del dao jpa para pagos a proveedores
  * 
  * @author Bernardo Iribarne (ber.iribarne@gmail.com)
- * @since 25/10/2013
+ * @since 22/11/2013
  *
  */
-public class PagoJPADAO extends GenericJPADAO<Pago, PagoCriteria>  implements IPagoDAO{
+public class PagoProveedorJPADAO extends GenericJPADAO<PagoProveedor, PagoProveedorCriteria>  implements IPagoDAO<PagoProveedorCriteria>{
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.migestion.dao.IGenericDAO#get(java.lang.Long)
 	 */
-	public Pago get(Long oid) throws DAOException {
+	public PagoProveedor get(Long oid) throws DAOException {
 
-		return getEntityManager().find( Pago.class, oid );
+		return getEntityManager().find( PagoProveedor.class, oid );
 	}
 
 
 	@Override
-	protected QueryBuilder<Pago> getQueryBuilder(Criteria criteria) {
-		return new PagoQueryBuilder(criteria);
+	protected QueryBuilder<PagoProveedor> getQueryBuilder(Criteria criteria) {
+		return new PagoProveedorQueryBuilder(criteria);
 	}
 
 
@@ -42,16 +42,17 @@ public class PagoJPADAO extends GenericJPADAO<Pago, PagoCriteria>  implements IP
 	 * (non-Javadoc)
 	 * @see com.migestion.dao.IPagoDAO#getEstadisticaPago(com.migestion.services.criteria.PagoCriteria)
 	 */
-	public EstadisticaPago getEstadisticaPago(PagoCriteria criteria) {
+	public EstadisticaPago getEstadisticaPago(PagoProveedorCriteria criteria) {
+		
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Object[]> criteriaQuery = builder.createQuery( Object[].class );
-		Root<Pago> pagoRoot = criteriaQuery.from( Pago.class );
+		Root<PagoProveedor> pagoRoot = criteriaQuery.from( PagoProveedor.class );
 		
 		criteriaQuery.select(   builder.array( builder.count( pagoRoot.<Long>get( "oid" ) ),  
 								builder.sum( pagoRoot.<Double>get( "monto" ) ) ) 
 							);
 		 
-		PagoQueryBuilder queryBuilder = new PagoQueryBuilder(criteria);
+		PagoProveedorQueryBuilder queryBuilder = new PagoProveedorQueryBuilder(criteria);
 		criteriaQuery.where( queryBuilder.getPredicates(pagoRoot, builder, criteria));
 
 		Object[] object = (Object[])getEntityManager().createQuery(criteriaQuery).getSingleResult();;
@@ -68,7 +69,7 @@ public class PagoJPADAO extends GenericJPADAO<Pago, PagoCriteria>  implements IP
 		return estadistica;
 	}
 	
-	public Boolean hasDependencies(Pago pago){
+	public Boolean hasDependencies(PagoProveedor pago){
 		
 		Boolean ok = false;
 		

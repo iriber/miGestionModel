@@ -27,10 +27,6 @@ public class PagoCriteria extends Criteria{
 	 */
 	private Date fechaHasta;
 
-	/**
-	 * cliente
-	 */
-	private Cliente cliente;
 	
 	/**
 	 * estados posibles para el pago.
@@ -80,20 +76,6 @@ public class PagoCriteria extends Criteria{
 	 */
 	public void setFechaHasta(Date fechaHasta) {
 		this.fechaHasta = fechaHasta;
-	}
-
-	/**
-	 * @return the cliente
-	 */
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 
 	public void orderByFecha(String type){

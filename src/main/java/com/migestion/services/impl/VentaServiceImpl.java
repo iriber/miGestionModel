@@ -6,11 +6,11 @@ import java.util.List;
 
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.IGenericDAO;
-import com.migestion.dao.IVentaDAO;
+import com.migestion.dao.IOperacionDAO;
 import com.migestion.dao.exception.DAOException;
 import com.migestion.i18n.Messages;
 import com.migestion.model.DetalleOperacion;
-import com.migestion.model.EstadisticaVenta;
+import com.migestion.model.EstadisticaOperacion;
 import com.migestion.model.EstadoProducto;
 import com.migestion.model.EstadoVenta;
 import com.migestion.model.MovimientoCuentaCliente;
@@ -18,6 +18,7 @@ import com.migestion.model.NotaCredito;
 import com.migestion.model.Venta;
 import com.migestion.services.IVentaService;
 import com.migestion.services.ServiceFactory;
+import com.migestion.services.criteria.OperacionCriteria;
 import com.migestion.services.criteria.VentaCriteria;
 import com.migestion.services.exception.ServiceException;
 
@@ -179,13 +180,13 @@ public class VentaServiceImpl extends GenericService<Venta, VentaCriteria>
 	 * com.migestion.services.IVentaService#getEstadisticaVenta(com.migestion
 	 * .services.criteria.VentaCriteria)
 	 */
-	public EstadisticaVenta getEstadisticaVenta(VentaCriteria criteria)
+	public EstadisticaOperacion getEstadistica(OperacionCriteria criteria)
 			throws ServiceException {
 
 		//excluimos las ventas anuladas
-		criteria.addEstadoExcluir( EstadoVenta.ANULADA );
+		((VentaCriteria)criteria).addEstadoExcluir( EstadoVenta.ANULADA );
 		
-		return ((IVentaDAO) getDAO()).getEstadisticaVenta(criteria);
+		return ((IOperacionDAO) getDAO()).getEstadisticaOperacion(criteria);
 	}
 
 	/*

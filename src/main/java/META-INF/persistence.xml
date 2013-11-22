@@ -9,11 +9,16 @@
 	<class>com.migestion.model.Vendedor</class>
 	<class>com.migestion.model.DetalleVenta</class>
 	<class>com.migestion.model.Venta</class>
+	<class>com.migestion.model.OrdenCompra</class>
+	<class>com.migestion.model.DetalleOrdenCompra</class>
 	<class>com.migestion.model.CuentaBancaria</class>
 	<class>com.migestion.model.Sucursal</class>
 	<class>com.migestion.model.Pago</class>
+	<class>com.migestion.model.PagoCliente</class>
+	<class>com.migestion.model.PagoProveedor</class>
 	<class>com.migestion.model.DetallePago</class>
 	<class>com.migestion.model.DetallePagoVenta</class>
+	<class>com.migestion.model.DetallePagoOrdenCompra</class>
 	<class>com.migestion.model.Cheque</class>
 	<class>com.migestion.model.DetalleFormaPago</class>
 	<class>com.migestion.model.DetalleFormaPagoCheque</class>
@@ -23,16 +28,19 @@
 	<class>com.migestion.model.DetalleFormaPagoDeposito</class>
 	<class>com.migestion.model.Caja</class>
 	<class>com.migestion.model.EstadoCaja</class>
-	<class>com.migestion.model.MovimientoCaja</class>
 	<class>com.migestion.model.ConceptoMovimiento</class>		
+	<class>com.migestion.model.MovimientoCuenta</class>
+	<class>com.migestion.model.MovimientoCaja</class>
 	<class>com.migestion.model.MovimientoCuentaBancaria</class>
 	<class>com.migestion.model.MovimientoCheque</class>
 	<class>com.migestion.model.MovimientoNotaCredito</class>
+	<class>com.migestion.model.MovimientoCuentaProveedor</class>
 	<class>com.migestion.model.NotaCredito</class>
 	<class>com.migestion.model.Gasto</class>
 	<class>com.migestion.model.GastoCheque</class>
 	<class>com.migestion.model.GastoCuentaBancaria</class>
 	<class>com.migestion.model.GastoEfectivo</class>
+	<class>com.migestion.model.Proveedor</class>
 		
 	<properties>
 		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

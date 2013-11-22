@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Bernardo Iribarne
  * @since 23/10/2013
  */
-public class EstadisticaVenta implements Serializable{
+public class EstadisticaOperacion implements Serializable{
 
 	private Float importeTotal;
 	
