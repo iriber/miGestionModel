@@ -107,29 +107,11 @@ abstract public class PagoServiceImpl<T extends Pago, TCriteria extends PagoCrit
 			detalle.getMovimiento().calcularSaldos();
 		}
 	
-		updateCuentaCorrienteOnAdd( entity );
-		
-		
-//		if( entity.getCliente().getTieneCtaCte() ){
-//
-//			//haber sobre la cuenta corriente del cliente.
-//			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
-//			movimiento.setCliente( entity.getCliente() );
-//			movimiento.setHaber( entity.getMonto() );
-//			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoPagoVenta() );
-//			movimiento.setFechaHora( new Date() );
-//			movimiento.setDescripcion("Pago # " + entity.getOid() );
-//			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
-//			
-//		}
 		// agregamos el pago.
 		super.add(entity);
 	}
 
 	
-	protected abstract void updateCuentaCorrienteOnAdd(T pago) throws ServiceException;
-
-
 	/*
 	 * (non-Javadoc)
 	 * @see com.migestion.services.IPagoService#getEstadisticaPago(com.migestion.services.criteria.PagoCriteria)
@@ -156,8 +138,6 @@ abstract public class PagoServiceImpl<T extends Pago, TCriteria extends PagoCrit
 		
 		pago.anulate();
 
-		updateCuentaCorrienteOnAnular( pago );
-		
 		try {
 
 			getDAO().update(pago);
@@ -175,5 +155,4 @@ abstract public class PagoServiceImpl<T extends Pago, TCriteria extends PagoCrit
 		return pago;
 	}
 
-	protected abstract void updateCuentaCorrienteOnAnular(T pago) throws ServiceException;
 }

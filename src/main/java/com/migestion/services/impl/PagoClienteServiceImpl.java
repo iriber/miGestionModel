@@ -61,23 +61,25 @@ public class PagoClienteServiceImpl extends PagoServiceImpl<PagoCliente, PagoCli
 	}
 
 	
-	protected void updateCuentaCorrienteOnAdd(PagoCliente pago) throws ServiceException{
+	public void add(PagoCliente entity) throws ServiceException {
 		
-		if( pago.getCliente().getTieneCtaCte() ){
+		if( entity.getCliente().getTieneCtaCte() ){
 
 			//haber sobre la cuenta corriente del cliente.
 			MovimientoCuentaCliente movimiento = new MovimientoCuentaCliente();
-			movimiento.setCliente( pago.getCliente() );
-			movimiento.setHaber( pago.getMonto() );
+			movimiento.setCliente( entity.getCliente() );
+			movimiento.setHaber( entity.getMonto() );
 			movimiento.setConcepto( ServiceFactory.getConceptoMovimientoService().getConceptoPagoVenta() );
 			movimiento.setFechaHora( new Date() );
-			movimiento.setDescripcion("Pago # " + pago.getOid() );
+			movimiento.setDescripcion("Pago # " + entity.getOid() );
 			ServiceFactory.getMovimientoCuentaClienteService().add(movimiento);
 			
 		}
 	}
 
-	protected void updateCuentaCorrienteOnAnular(PagoCliente pago) throws ServiceException{
+	public PagoCliente anularPago(Long oid) throws ServiceException {
+		
+		PagoCliente pago = super.anularPago(oid);
 		
 		//TODO deberíamos recibir por parámetro para que se pueda editar el 
 		//número, sucursal, vendedor y fecha de vencimiento.
@@ -96,6 +98,7 @@ public class PagoClienteServiceImpl extends PagoServiceImpl<PagoCliente, PagoCli
 		notaCredito.setMonto( pago.getMonto() );
 		ServiceFactory.getNotaCreditoService().add(notaCredito);
 
+		return pago;
 	}
 
 	@Override

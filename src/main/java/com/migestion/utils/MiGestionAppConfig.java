@@ -84,6 +84,10 @@ public class MiGestionAppConfig {
 			concepto.setNombre("Anulación orden compra");
 			ServiceFactory.getConceptoMovimientoService().add(concepto);
 
+			concepto = new ConceptoMovimiento();
+			concepto.setNombre("Anulación venta");
+			ServiceFactory.getConceptoMovimientoService().add(concepto);
+
 			PersistenceContext.getInstance().commit();
 		
 		} catch (Exception e) {

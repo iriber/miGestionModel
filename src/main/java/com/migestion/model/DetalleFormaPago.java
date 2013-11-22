@@ -201,11 +201,13 @@ public abstract class DetalleFormaPago extends GenericEntity{
 	
 	public void buildMovimiento( ConceptoMovimiento concepto, Float monto ){
 		
-		if(monto>0)
+		if(monto>0){
 			this.movimiento.setHaber( monto );			
-		else
+			this.movimiento.setDebe( 0F );
+		}else{
 			this.movimiento.setDebe( monto*(-1) );
-		
+			this.movimiento.setHaber( 0F );
+		}
 		this.movimiento.setConcepto( concepto );
 		this.movimiento.setFechaHora( new Date() );
         

@@ -30,6 +30,7 @@ public class OrdenCompra extends Operacion{
 
 	/**
 	 * estado de la orden de compra
+	 * (respecto al pago).
 	 */
 	@Enumerated( value=EnumType.STRING )
 	@NotNull(message="{ordenCompra.estado.required}")

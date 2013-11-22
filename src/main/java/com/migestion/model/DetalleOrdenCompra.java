@@ -26,6 +26,7 @@ public class DetalleOrdenCompra extends DetalleOperacion{
 	public DetalleOrdenCompra(){
 
 		super();
+		this.cantidadEntregada = 0;
 	}
 
 

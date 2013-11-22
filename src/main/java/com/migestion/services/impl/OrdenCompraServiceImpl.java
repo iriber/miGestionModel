@@ -278,7 +278,8 @@ public class OrdenCompraServiceImpl extends GenericService<OrdenCompra, OrdenCom
 	private void updatStock(List<DetalleOperacion> detalles, Integer factor) throws ServiceException {
 
 		for (DetalleOperacion detalle : detalles ) {
-
+			Integer entregada = ((DetalleOrdenCompra)detalle).getCantidadEntregada();
+			if(entregada!=null && entregada>0)
 			ServiceFactory.getProductoService().addStock(detalle.getProducto(),
 					(((DetalleOrdenCompra)detalle).getCantidadEntregada() * factor));
 
