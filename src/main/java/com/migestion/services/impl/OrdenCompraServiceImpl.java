@@ -139,7 +139,8 @@ public class OrdenCompraServiceImpl extends GenericService<OrdenCompra, OrdenCom
 		entity.setMontoDebe(entity.getMonto());
 
 		// agregamos stock a los productos (dada la cantidad entregada de cada uno).
-		this.updatStock( entity.getDetalles() , 1);
+		if(entity.getEntregada())
+			this.updatStock( entity.getDetalles() , 1);
 		
 		// agregamos la ordenCompra.
 		super.add(entity);
@@ -200,8 +201,9 @@ public class OrdenCompraServiceImpl extends GenericService<OrdenCompra, OrdenCom
 		if( !ordenCompra.getEstadoOrdenCompra().podesAnularte() )
 			throw new ServiceException("ordenCompra.anular.estado.invalido");
 		
-		//restablecemos el stock de los productos dada la cantidad entregada de los mismos.
-		this.updatStock( ordenCompra.getDetalles() , -1);
+		//si fue entregada, restablecemos el stock de los productos dada la cantidad entregada de los mismos.
+		if(ordenCompra.getEntregada())
+			this.updatStock( ordenCompra.getDetalles() , -1);
 
 		//no anulo los pagos. genero una nota de crédito porque el dinero no se devuelve.
 		//en caso de devolver el dinero podemos hacer que se cobre la nota de crédito.
@@ -248,8 +250,9 @@ public class OrdenCompraServiceImpl extends GenericService<OrdenCompra, OrdenCom
 
 		OrdenCompra ordenCompra = this.get(oid);
 
-		//reestablecemos el stock de los productos.
-		this.updatStock( ordenCompra.getDetalles() , 1);
+		//si había sido entregada, reestablecemos el stock de los productos.
+		if(ordenCompra.getEntregada())
+			this.updatStock( ordenCompra.getDetalles() , -1);
 
 		//actualizamos el saldo del proveedor
 		if( ordenCompra.getProveedor().getTieneCtaCte() ){
@@ -284,5 +287,46 @@ public class OrdenCompraServiceImpl extends GenericService<OrdenCompra, OrdenCom
 					(((DetalleOrdenCompra)detalle).getCantidadEntregada() * factor));
 
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.migestion.services.IOrdenCompraService#recibirOrdenCompra(com.migestion.model.OrdenCompra)
+	 */
+	public void recibirOrdenCompra(OrdenCompra ordenCompra)
+			throws ServiceException {
+		
+		//al recibirse la orden de compra, se suman al stock los productos entregados en la misma.
+		//TODO si existe una diferencia entre los productos entregados y los no entregados?
+		
+		//chequeamos que no esté marcada como "entregada"
+		if( ordenCompra.getEstadoOrdenCompra().podesEntregarte() )
+			throw new ServiceException("ordenCompra.recibir.estado.invalido");
+		
+		//chequeamos que no esté anulada
+		if( ordenCompra.getEntregada() )
+			throw new ServiceException("ordenCompra.recibir.yaEntregada");
+				
+		
+		//actualizamos el stock de los productos
+		this.updatStock( ordenCompra.getDetalles() , -1);
+		
+		//actualizamos la orden de compra como "recibida"
+		ordenCompra.setEntregada( true );
+
+		try {
+
+			getDAO().update(ordenCompra);
+
+		} catch (DAOException e) {
+
+			throw new ServiceException(e);
+
+		} catch (Exception e) {
+
+			throw new ServiceException(e);
+
+		}
+		
 	}
 }

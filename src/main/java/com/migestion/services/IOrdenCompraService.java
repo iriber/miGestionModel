@@ -28,4 +28,13 @@ public interface IOrdenCompraService extends IGenericService<OrdenCompra, OrdenC
 	 * @param oid
 	 */
 	public void anularOrdenCompra(Long oid) throws ServiceException;
+
+	/**
+	 * se recibe la orden de compra actualizando el stock de los productos
+	 * recibidos.
+	 * @param ordenCompra
+	 * @throws ServiceException
+	 */
+	public void recibirOrdenCompra(OrdenCompra ordenCompra) throws ServiceException;
+	
 }

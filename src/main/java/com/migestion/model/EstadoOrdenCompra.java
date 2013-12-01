@@ -77,5 +77,9 @@ public enum EstadoOrdenCompra{
 		
 	}
 
+	public boolean podesEntregarte() {
+		return !this.equals( ANULADA );
+	}
+
 	
 }

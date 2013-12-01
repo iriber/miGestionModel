@@ -58,13 +58,19 @@ public class OrdenCompra extends Operacion{
 	@NotNull(message="{ordenCompra.proveedor.required}")
 	private Proveedor proveedor;
 
+	/**
+	 * para indicar si la orden ya
+	 * fue entregad
+	 */
+	@Column
+	private Boolean entregada;
 	
 	public OrdenCompra(){
 		super();
 		this.montoPagado = 0F;
 		this.montoDebe = 0F;
+		this.entregada = Boolean.FALSE;
 	}
-
 
 	/**
 	 * @return the montoPagado
@@ -72,7 +78,6 @@ public class OrdenCompra extends Operacion{
 	public Float getMontoPagado() {
 		return montoPagado;
 	}
-
 
 	/**
 	 * @param montoPagado the montoPagado to set
@@ -216,6 +221,20 @@ public class OrdenCompra extends Operacion{
 
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
+	}
+
+	/**
+	 * @return the entregada
+	 */
+	public Boolean getEntregada() {
+		return entregada;
+	}
+
+	/**
+	 * @param entregada the entregada to set
+	 */
+	public void setEntregada(Boolean entregada) {
+		this.entregada = entregada;
 	}
 
 }
