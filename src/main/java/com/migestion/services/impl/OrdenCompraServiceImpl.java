@@ -300,7 +300,7 @@ public class OrdenCompraServiceImpl extends GenericService<OrdenCompra, OrdenCom
 		//TODO si existe una diferencia entre los productos entregados y los no entregados?
 		
 		//chequeamos que no esté marcada como "entregada"
-		if( ordenCompra.getEstadoOrdenCompra().podesEntregarte() )
+		if( !ordenCompra.getEstadoOrdenCompra().podesEntregarte() )
 			throw new ServiceException("ordenCompra.recibir.estado.invalido");
 		
 		//chequeamos que no esté anulada
@@ -309,7 +309,7 @@ public class OrdenCompraServiceImpl extends GenericService<OrdenCompra, OrdenCom
 				
 		
 		//actualizamos el stock de los productos
-		this.updatStock( ordenCompra.getDetalles() , -1);
+		this.updatStock( ordenCompra.getDetalles() , 1);
 		
 		//actualizamos la orden de compra como "recibida"
 		ordenCompra.setEntregada( true );

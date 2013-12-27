@@ -75,7 +75,7 @@ abstract public class PagoServiceImpl<T extends Pago, TCriteria extends PagoCrit
 			totalDetalles += detalle.getMonto();
 			
 //			if( !detalle.getOperacion().podesPagarte() )
-//				throw new ServiceException( Messages.PAGO_VENTAS_INCORRECTAS );	
+//				throw new ServiceException( Messages.PAGO_OPERACIONES_INCORRECTAS );	
 			
 		}
 		

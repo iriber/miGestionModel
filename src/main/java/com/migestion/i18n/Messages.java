@@ -82,6 +82,7 @@ public class Messages {
 	public static String PAGO_SUCURSAL_REQUERIDA =locale("pago.sucursal.requerida");
 	public static String PAGO_CLIENTE_REQUERIDO =locale("pago.cliente.requerido");
 	public static String PAGO_VENTAS_REQUERIDAS =locale("pago.ventas.requeridas");
+	public static String PAGO_OPERACIONES_INCORRECTAS =locale("pago.operaciones.incorrectas");
 	public static String PAGO_VENTAS_INCORRECTAS =locale("pago.ventas.incorrectas");
 	public static String PAGO_MONTO_INCORRECTO =locale("pago.monto.incorrecto");
 	public static String PAGO_FORMAS_PAGO_REQUERIDAS =locale("pago.formasPago.requeridas");
@@ -95,4 +96,9 @@ public class Messages {
 	public static String GASTO_RETENCION_IIBB_REQUERIDA =locale("gasto.retencionIIBB.requerida");
 	public static String GASTO_FORMA_PAGO_REQUERIDA =locale("gasto.formaPago.requerida");
 	public static String GASTO_CONCEPTO_REQUERIDO =locale("gasto.concepto.requerido");
+
+	public static String CAJA_FECHA_REQUERIDA =locale("caja.fecha.requerida");
+	public static String CAJA_NUMERO_REQUERIDO =locale("caja.numero.requerido");
+	public static String CAJA_DUPLICADA =locale("caja.duplicada");	
+	
 }

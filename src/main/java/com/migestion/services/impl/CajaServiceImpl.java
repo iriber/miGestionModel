@@ -2,10 +2,13 @@ package com.migestion.services.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.migestion.dao.DAOFactory;
 import com.migestion.dao.ICajaDAO;
 import com.migestion.dao.IGenericDAO;
 import com.migestion.dao.exception.DAOException;
+import com.migestion.i18n.Messages;
 import com.migestion.model.Caja;
 import com.migestion.model.EstadisticaCaja;
 import com.migestion.model.EstadoCaja;
@@ -13,6 +16,7 @@ import com.migestion.model.MovimientoCaja;
 import com.migestion.services.ICajaService;
 import com.migestion.services.ServiceFactory;
 import com.migestion.services.criteria.CajaCriteria;
+import com.migestion.services.criteria.VendedorCriteria;
 import com.migestion.services.exception.ServiceException;
 
 /**
@@ -62,6 +66,25 @@ public class CajaServiceImpl extends GenericService<Caja, CajaCriteria>
 	protected void validateOnAdd(Caja entity) throws ServiceException {
 		// TODO Auto-generated method stub
 
+		//requeridos: número, fecha
+		if( StringUtils.isEmpty(entity.getNumero()) ){
+			throw new ServiceException( Messages.CAJA_NUMERO_REQUERIDO );
+		}
+		if( entity.getFecha()==null ){
+			throw new ServiceException( Messages.CAJA_FECHA_REQUERIDA );
+		}
+		
+		//unicidad por fecha + numero ( TODO sucursal?)
+		CajaCriteria criteria = new CajaCriteria();
+		criteria.setFecha( entity.getFecha() );
+		criteria.setNumero( entity.getNumero() );
+		
+		if( getListSize(criteria) > 0 ){
+		
+			throw new ServiceException( Messages.CAJA_DUPLICADA );
+			
+		}
+		
 	}
 
 	@Override
